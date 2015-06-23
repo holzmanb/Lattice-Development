@@ -35,7 +35,7 @@ def inputPlayerLetter():
         return ['O', 'X']
 
 def whoGoesFirst():
-# Randomly choose the player who goes first.
+# Player can choose if they go first
     print('Do you want to go first?')
     if input() == 'y':
         return 'player'
@@ -52,7 +52,7 @@ def makeMove(board, letter, move):
 
 def isWinner(bo, le):
     # Given a board and a player’s letter, this function returns True if that player has won.
-    # We use bo instead of board and le instead of letter so we don’t have to type as much.
+    # Bo and le are abbreviations for board and letter.
     return ((bo[1] == le and bo[2] == le and bo[7] == le and bo[8] == le) or # across the top 1x1
     (bo[2] == le and bo[3] == le and bo[8] == le and bo[9] == le) or
     (bo[3] == le and bo[4] == le and bo[9] == le and bo[10] == le) or 
@@ -109,22 +109,11 @@ def isWinner(bo, le):
     (bo[8] == le and bo[12] == le and bo[32] == le and bo[36] == le) or        
     (bo[1] == le and bo[6] == le and bo[31] == le and bo[36] == le)) # 5x5
 
-def getWinMoves(board, letter):
-    winMoves = []
-    for i in range(1, 37):
-        copy = getBoardCopy(board)
-        if isSpaceFree(copy, i):
-            makeMove(copy, letter, i)
-            if isWinner(copy, letter):
-                winMoves.append(i)
-    return winMoves
-                
 def getCheckMoves(board, letter):
     #Returns a list of moves that give check
     checkMoves = []
-    winMoves = getWinMoves(board, letter)
-    options = [x for x in range(1, 37) if x not in winMoves]
-    for i in options:
+
+    for i in range(1, 37):
         for y in range(1, 37):
             copy = getBoardCopy(board)
             if isSpaceFree(copy, i) and isSpaceFree(copy, y):
@@ -135,7 +124,7 @@ def getCheckMoves(board, letter):
     return checkMoves
     
 def getBoardCopy(board):
-    # Make a duplicate of the board list and return it the duplicate.
+    # Make a duplicate of the board list and returns the duplicate.
     dupeBoard = []
 
     for i in board:
@@ -161,31 +150,31 @@ def getComputerMove(board, computerLetter):
     else:
         playerLetter = 'X'
 
-    # Here is our algorithm for the Lattice AI:
-    # First, check if we can win in the next move
-    for i in range(1, 37):  # It was not catching 36 as a winning move..
+    # This is the Lattice AI:
+    # First check if computer can win in the next move
+    for i in range(1, 37): 
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, computerLetter, i)
             if isWinner(copy, computerLetter):
                 return i
 
-    # Check if the player could win on their next move, and block them
-    for i in range(1, 37): # It was not catching 36 as a winning move..
+    # Check if the player can win on their next move, and block them
+    for i in range(1, 37): 
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, playerLetter, i)
             if isWinner(copy, playerLetter):
                 return i
 
-    #Try to give check
+    #Selects a double check move if available
     checkMoves = getCheckMoves(board, computerLetter)
     for x in checkMoves:
         if checkMoves.count(x) > 1:
             move = x
-            print('Check moves:', checkMoves)
             return move
-    
+
+    #gives a check move that leads to a double check
     for x in checkMoves:
         copy = getBoardCopy(board)
         makeMove(copy, computerLetter, x) 
@@ -195,16 +184,29 @@ def getComputerMove(board, computerLetter):
                 move = x
                 print('check moves:', checkMoves)
                 print('Setup moves:', setupMoves)               
-                return move
-    
-    if checkMoves != ([]):
-        move = random.choice(checkMoves)
-        print('check moves:', checkMoves)
-        return move
+                return move        
+
+    #Gives check move with most follow up checks
+    checkMoves = getCheckMoves(theBoard, computerLetter)
+    threat = []
+    for x in checkMoves:
+        copy = getBoardCopy(board)
+        makeMove(copy, computerLetter, x)
+        blockMoves = getCheckMoves(copy, computerLetter)
+        risk = len(blockMoves)
+        threat.append(risk)
+        maxThreat = max(threat)
+        print('Threat:', threat)
+    for x in checkMoves:
+        copy = getBoardCopy(board)
+        makeMove(copy, computerLetter, x)
+        blockMoves = getCheckMoves(copy, computerLetter)
+        risk = len(blockMoves)        
+        if risk == maxThreat:
+            return x
                     
-    #Try to block check
+    #Blocks the check move with the most follow up checks by the player
     checkMoves = getCheckMoves(theBoard, playerLetter)
-    print('Block moves:', checkMoves)
     threat = []
     for x in checkMoves:
         copy = getBoardCopy(board)
@@ -221,45 +223,37 @@ def getComputerMove(board, computerLetter):
         risk = len(blockMoves)        
         if risk == maxThreat:
             return x
-
-    if checkMoves != ([]):
-        move = random.choice(checkMoves)
-        return move
-          
-    # Try to take one of the center spots if they are free and it is not turn 1. Program will retest given moves, therefore given double iterations of possible moves.
+        
+    # Try to take one of the center spots if they are free and it is not turn 1.
     copy = getBoardCopy(board)
+    centerMove = []
     if copy != [' '] * 37:
-        t = 0
-        while t < 8:
-            move = random.choice ([15, 16, 21, 22])
-            if isSpaceFree(copy, move):
-                return move
-            else:
-                t = t + 1
+        for i in [15, 16, 21, 22]:
+            if isSpaceFree(copy, i):
+                centerMove.append(i)  
+        move = random.choice(centerMove)
+        return move
     
-    # Try to take the 2nd tier, if it is free. Program will retest given moves, therefore given double iterations of possible moves.
+    # Try to take the 2nd tier, if it is free and it is not turn 1. 
+    copy = getBoardCopy(board)
+    secondTierMove = []
     if copy != [' '] * 37:
-        i = 0
-        while i < 24:
-            copy = getBoardCopy(board)
-            move = random.choice ([8, 9, 10, 11, 17, 23, 29, 28, 27, 26, 20, 14])
-            if isSpaceFree(copy, move):
-                return move
-            else:
-                i = i + 1
-            
+        for i in [8, 9, 10, 11, 17, 23, 29, 28, 27, 26, 20, 14]:
+            if isSpaceFree(copy, i):
+                secondTierMove.append(i)  
+        move = random.choice(secondTierMove)
+        return move
+    
     # Move on the side. Program will retest given moves, therefore given double iterations of possible moves.
-    i = 0
-    while i < 40:
-        copy = getBoardCopy(board)
-        move = random.choice ([1, 2, 3, 4, 5, 6, 12, 18, 24, 30, 36, 35, 34, 33, 32, 31, 25, 19, 13, 7])
-        if isSpaceFree(copy, move):
-            return move
-        else:
-            i = i + 1
-            
-print('Welcome to Lattice!')
+    sideMove = []
+    for i in [1, 2, 3, 4, 5, 6, 12, 18, 24, 30, 36, 35, 34, 33, 32, 31, 25, 19, 13, 7]:
+        if isSpaceFree(copy, i):
+            sideMove.append(i)  
+    move = random.choice(sideMove)
+    return move
 
+#game play code          
+print('Welcome to Lattice!')
 while True:
     # Reset the board
     theBoard = [' '] * 37
@@ -274,7 +268,8 @@ while True:
             # Player’s turn.
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
-            if i == 0 and (move == 15 or move == 16 or move == 21 or move == 22):
+            if i == 0 and (move == 15 or move == 16 or move == 21 or move == 22 or move == 8 or move == 9 or move == 10 or move == 11
+                           or move == 17 or move == 23 or move == 29 or move == 28 or move == 27 or move == 26 or move == 20 or move == 14):
                 turn = 'player'
             else:
                 makeMove(theBoard, playerLetter, move)
@@ -293,7 +288,9 @@ while True:
             drawBoard(theBoard)
             move = getComputerMove(theBoard, computerLetter)
             print('The computer move is', move)
+            options = getCheckMoves(theBoard, computerLetter)
             makeMove(theBoard, computerLetter, move)
+            print(options)
             i = i+1
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
