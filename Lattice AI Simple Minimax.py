@@ -139,13 +139,32 @@ def isSpaceFree(board, move):
     # Return true if the passed move is free on the passed board.
     return board[move] == ' '
 
+def getMove():
+    move = input()
+    try:
+        move = int(move)
+    except ValueError:
+        pass
+    return move
+
 def getPlayerMove(board):
     # Let the player type in their move.
-    move = ' '
-    while move not in '1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36'.split() or not isSpaceFree(board, int(move)):
+    print('What is your next move? (1-36)')
+    move = getMove()
+    while not isValidMove(board, move):
         print('What is your next move? (1-36)')
-        move = input()
-    return int(move)
+        move = getMove()
+
+    return move
+
+def isValidMove(board, move):
+    if move in range(1, 37):
+        return isSpaceFree(board, int(move))
+
+    if move == 'undo':
+        return True
+
+    return False
 
 def listBoxes():
     #generate a list of all the squares on the game board
@@ -303,6 +322,7 @@ def minimaxRecursion(board, currentLetter, maxLetter, moves, depth, alpha, beta)
 print('Welcome to Lattice!')
 while True:
     # Reset the board
+    oldBoards = []
     theBoard = [' '] * 37
     playerLetter, computerLetter = inputPlayerLetter()
     turn = whoGoesFirst()
@@ -310,25 +330,30 @@ while True:
     gameIsPlaying = True
 
     i = 0
-    while i<36:
+    while True:
         if turn == 'player':
             # Player's turn.
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
-            if i == 0 and (move == 15 or move == 16 or move == 21 or move == 22 or move == 8 or move == 9 or move == 10 or move == 11
-                           or move == 17 or move == 23 or move == 29 or move == 28 or move == 27 or move == 26 or move == 20 or move == 14):
-                turn = 'player'
+
+            if move == 'undo':
+                theBoard = oldBoards.pop()
             else:
-                makeMove(theBoard, playerLetter, move)
-                i = i+1
-                if isWinner(theBoard, playerLetter):
-                    drawBoard(theBoard)
-                    print('Hooray! You have won the game!')
-                    break
-                elif i == 36:
-                    print('The game is a tie')
+                if i == 0 and (move == 15 or move == 16 or move == 21 or move == 22 or move == 8 or move == 9 or move == 10 or move == 11
+                               or move == 17 or move == 23 or move == 29 or move == 28 or move == 27 or move == 26 or move == 20 or move == 14):
+                    turn = 'player'
                 else:
-                    turn = 'computer'
+                    oldBoards.append(list(theBoard))
+                    makeMove(theBoard, playerLetter, move)
+                    i = i+1
+                    if isWinner(theBoard, playerLetter):
+                        drawBoard(theBoard)
+                        print('Hooray! You have won the game!')
+                        break
+                    elif i == 36:
+                        print('The game is a tie')
+                    else:
+                        turn = 'computer'
 
         else:
             # Computer's turn.
@@ -351,5 +376,8 @@ while True:
 
     drawBoard(theBoard)
 
-    playAgain()
+    if playAgain():
+        continue;
+    else:
+        break;
 
