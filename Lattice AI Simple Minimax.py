@@ -23,16 +23,16 @@ def drawBoard(board):
     print('   -------------------------')
     print('31 | ' + board[31] + ' | ' + board[32] + ' | ' + board[33] + ' | ' + board[34] + ' | ' + board[35] + ' | ' + board[36] + ' |  36' )
     print('   -------------------------')
-    
+
 def inputPlayerLetter():
     # Lets the player type which letter they want to be.
-    # Returns a list with the player’s letter as the first item, and the computer's letter as the second.
+    # Returns a list with the player's letter as the first item, and the computer's letter as the second.
     letter = ''
     while not (letter == 'X' or letter == 'O'):
         print('Do you want to be X or O?')
         letter = input().upper()
 
-    # the first element in the list is the player’s letter, the second is the computer's letter.
+    # the first element in the list is the player's letter, the second is the computer's letter.
     if letter == 'X':
         return ['X', 'O']
     else:
@@ -45,7 +45,7 @@ def whoGoesFirst():
         return 'player'
     else:
         return 'computer'
-        
+
 def playAgain():
     # This function returns True if the player wants to play again, otherwise it returns False.
     print('Do you want to play again? (yes or no)')
@@ -55,62 +55,62 @@ def makeMove(board, letter, move):
     board[move] = letter
 
 def isWinner(bo, le):
-    # Given a board and a player’s letter, this function returns True if that player has won.
+    # Given a board and a player's letter, this function returns True if that player has won.
     # Bo and le are abbreviations for board and letter.
     return ((bo[1] == le and bo[2] == le and bo[7] == le and bo[8] == le) or # across the top 1x1
     (bo[2] == le and bo[3] == le and bo[8] == le and bo[9] == le) or
-    (bo[3] == le and bo[4] == le and bo[9] == le and bo[10] == le) or 
-    (bo[4] == le and bo[5] == le and bo[10] == le and bo[11] == le) or 
+    (bo[3] == le and bo[4] == le and bo[9] == le and bo[10] == le) or
+    (bo[4] == le and bo[5] == le and bo[10] == le and bo[11] == le) or
     (bo[5] == le and bo[6] == le and bo[11] == le and bo[12] == le) or
     (bo[7] == le and bo[8] == le and bo[13] == le and bo[14] == le) or # across 2nd row 1x1
-    (bo[8] == le and bo[9] == le and bo[14] == le and bo[15] == le) or 
-    (bo[9] == le and bo[10] == le and bo[15] == le and bo[16] == le) or 
+    (bo[8] == le and bo[9] == le and bo[14] == le and bo[15] == le) or
+    (bo[9] == le and bo[10] == le and bo[15] == le and bo[16] == le) or
     (bo[10] == le and bo[11] == le and bo[16] == le and bo[17] == le) or
-    (bo[11] == le and bo[12] == le and bo[17] == le and bo[18] == le) or 
+    (bo[11] == le and bo[12] == le and bo[17] == le and bo[18] == le) or
     (bo[13] == le and bo[14] == le and bo[19] == le and bo[20] == le) or # across 3rd row 1x1
-    (bo[14] == le and bo[15] == le and bo[20] == le and bo[21] == le) or 
+    (bo[14] == le and bo[15] == le and bo[20] == le and bo[21] == le) or
     (bo[15] == le and bo[16] == le and bo[21] == le and bo[22] == le) or
-    (bo[16] == le and bo[17] == le and bo[22] == le and bo[23] == le) or 
+    (bo[16] == le and bo[17] == le and bo[22] == le and bo[23] == le) or
     (bo[17] == le and bo[18] == le and bo[23] == le and bo[24] == le) or
     (bo[19] == le and bo[20] == le and bo[25] == le and bo[26] == le) or # across 4th row 1x1
-    (bo[20] == le and bo[21] == le and bo[26] == le and bo[27] == le) or 
-    (bo[21] == le and bo[22] == le and bo[27] == le and bo[28] == le) or 
+    (bo[20] == le and bo[21] == le and bo[26] == le and bo[27] == le) or
+    (bo[21] == le and bo[22] == le and bo[27] == le and bo[28] == le) or
     (bo[22] == le and bo[23] == le and bo[28] == le and bo[29] == le) or
-    (bo[23] == le and bo[24] == le and bo[29] == le and bo[30] == le) or 
+    (bo[23] == le and bo[24] == le and bo[29] == le and bo[30] == le) or
     (bo[25] == le and bo[26] == le and bo[31] == le and bo[32] == le) or # across 5th row 1x1
-    (bo[26] == le and bo[27] == le and bo[32] == le and bo[33] == le) or 
+    (bo[26] == le and bo[27] == le and bo[32] == le and bo[33] == le) or
     (bo[27] == le and bo[28] == le and bo[33] == le and bo[34] == le) or
-    (bo[28] == le and bo[29] == le and bo[34] == le and bo[35] == le) or 
+    (bo[28] == le and bo[29] == le and bo[34] == le and bo[35] == le) or
     (bo[29] == le and bo[30] == le and bo[35] == le and bo[36] == le) or
     (bo[1] == le and bo[3] == le and bo[13] == le and bo[15] == le) or # across 1st row 2x2
-    (bo[2] == le and bo[4] == le and bo[14] == le and bo[16] == le) or 
-    (bo[3] == le and bo[5] == le and bo[15] == le and bo[17] == le) or 
+    (bo[2] == le and bo[4] == le and bo[14] == le and bo[16] == le) or
+    (bo[3] == le and bo[5] == le and bo[15] == le and bo[17] == le) or
     (bo[4] == le and bo[6] == le and bo[16] == le and bo[18] == le) or
     (bo[7] == le and bo[9] == le and bo[19] == le and bo[21] == le) or # across 2nd row 2x2
-    (bo[8] == le and bo[10] == le and bo[20] == le and bo[22] == le) or 
-    (bo[9] == le and bo[11] == le and bo[21] == le and bo[23] == le) or 
+    (bo[8] == le and bo[10] == le and bo[20] == le and bo[22] == le) or
+    (bo[9] == le and bo[11] == le and bo[21] == le and bo[23] == le) or
     (bo[10] == le and bo[12] == le and bo[22] == le and bo[24] == le) or
     (bo[13] == le and bo[15] == le and bo[25] == le and bo[27] == le) or # across 3rd row 2x2
-    (bo[14] == le and bo[16] == le and bo[26] == le and bo[28] == le) or 
-    (bo[15] == le and bo[17] == le and bo[27] == le and bo[29] == le) or 
+    (bo[14] == le and bo[16] == le and bo[26] == le and bo[28] == le) or
+    (bo[15] == le and bo[17] == le and bo[27] == le and bo[29] == le) or
     (bo[16] == le and bo[18] == le and bo[28] == le and bo[30] == le) or
     (bo[19] == le and bo[21] == le and bo[31] == le and bo[33] == le) or # across 4th row 2x2
-    (bo[20] == le and bo[22] == le and bo[32] == le and bo[34] == le) or 
-    (bo[21] == le and bo[23] == le and bo[33] == le and bo[35] == le) or 
+    (bo[20] == le and bo[22] == le and bo[32] == le and bo[34] == le) or
+    (bo[21] == le and bo[23] == le and bo[33] == le and bo[35] == le) or
     (bo[22] == le and bo[24] == le and bo[34] == le and bo[36] == le) or
     (bo[1] == le and bo[4] == le and bo[19] == le and bo[22] == le) or # across 1st row 3x3
-    (bo[2] == le and bo[5] == le and bo[20] == le and bo[23] == le) or 
-    (bo[3] == le and bo[6] == le and bo[21] == le and bo[24] == le) or 
+    (bo[2] == le and bo[5] == le and bo[20] == le and bo[23] == le) or
+    (bo[3] == le and bo[6] == le and bo[21] == le and bo[24] == le) or
     (bo[7] == le and bo[10] == le and bo[25] == le and bo[28] == le) or # across 2nd row 3x3
-    (bo[8] == le and bo[11] == le and bo[26] == le and bo[29] == le) or 
-    (bo[9] == le and bo[12] == le and bo[27] == le and bo[30] == le) or   
+    (bo[8] == le and bo[11] == le and bo[26] == le and bo[29] == le) or
+    (bo[9] == le and bo[12] == le and bo[27] == le and bo[30] == le) or
     (bo[13] == le and bo[16] == le and bo[31] == le and bo[34] == le) or # across 3rd row 3x3
-    (bo[14] == le and bo[17] == le and bo[32] == le and bo[35] == le) or 
+    (bo[14] == le and bo[17] == le and bo[32] == le and bo[35] == le) or
     (bo[15] == le and bo[18] == le and bo[33] == le and bo[36] == le) or
     (bo[1] == le and bo[5] == le and bo[25] == le and bo[29] == le) or # across 1st row 4x4
     (bo[2] == le and bo[6] == le and bo[26] == le and bo[30] == le) or
     (bo[7] == le and bo[11] == le and bo[31] == le and bo[35] == le) or # across 2nd row 4x4
-    (bo[8] == le and bo[12] == le and bo[32] == le and bo[36] == le) or        
+    (bo[8] == le and bo[12] == le and bo[32] == le and bo[36] == le) or
     (bo[1] == le and bo[6] == le and bo[31] == le and bo[36] == le)) # 5x5
 
 def getCheckMoves(board, letter):
@@ -126,7 +126,7 @@ def getCheckMoves(board, letter):
                 if isWinner(copy, letter):
                     checkMoves.append(i)
     return checkMoves
-    
+
 def getBoardCopy(board):
     # Make a duplicate of the board list and returns the duplicate.
     dupeBoard = []
@@ -163,7 +163,7 @@ def boardHeuristic(board, maxLetter, currentLetter):
     # infinity is a winning board for maxLetter, and negative infinity is a
     # winning board for the otherletter.
 
-    # How many squares with 1,2,3 or 4 pieces of only one colour does each 
+    # How many squares with 1,2,3 or 4 pieces of only one colour does each
     # player control?
     potentialSquares = [[0,0,0,0],[0,0,0,0]]
 
@@ -233,7 +233,7 @@ def getMinimaxedMove(board,computerLetter):
         tempBoard[move] = computerLetter
         if isWinner(tempBoard,computerLetter):
             return move
-        # You can change the recursion depth here, makes it significantly slower though if you go 
+        # You can change the recursion depth here, makes it significantly slower though if you go
         # up... I think there's a bunch of optimization to be done here.
         score = minimaxRecursion(tempBoard, playerLetter, computerLetter, tempMoves, 3, alpha, beta)
         if score > bestScore:
@@ -280,13 +280,13 @@ def minimaxRecursion(board, currentLetter, maxLetter, moves, depth, alpha, beta)
                     # minimising player will go down the worse branch for maxer
                     return beta
                 if score > alpha:
-                    # update the new 
+                    # update the new
                     alpha = score
             else:
                 score+=1
                 if score <= alpha:
                     # maximising player will go down better branch
-                    return alpha 
+                    return alpha
                 if score < beta:
                     beta = score
 
@@ -299,7 +299,7 @@ def minimaxRecursion(board, currentLetter, maxLetter, moves, depth, alpha, beta)
 
 
 
-#game play code          
+#game play code
 print('Welcome to Lattice!')
 while True:
     # Reset the board
@@ -312,7 +312,7 @@ while True:
     i = 0
     while i<36:
         if turn == 'player':
-            # Player’s turn.
+            # Player's turn.
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
             if i == 0 and (move == 15 or move == 16 or move == 21 or move == 22 or move == 8 or move == 9 or move == 10 or move == 11
@@ -331,7 +331,7 @@ while True:
                     turn = 'computer'
 
         else:
-            # Computer’s turn.
+            # Computer's turn.
             drawBoard(theBoard)
             #move = getComputerMove(theBoard, computerLetter)
             move = getMinimaxedMove(theBoard, computerLetter)
@@ -352,4 +352,4 @@ while True:
     drawBoard(theBoard)
 
     playAgain()
- 
+
