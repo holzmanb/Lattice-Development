@@ -210,6 +210,8 @@ def getScoreForMove(board, computerLetter, move):
     return minimaxRecursion(tempBoard, playerLetter, computerLetter, 4, -maxsize, maxsize)
 
 
+computed = 0;
+
 def getMinimaxedMove(board,computerLetter):
     # Uses the minimax function to determine computer's best move
 
@@ -230,6 +232,8 @@ def getMinimaxedMove(board,computerLetter):
     # Beta is the upper bound for minimising player
     beta = maxsize
 
+    global computed
+    computed = 0
     for move in allMoves:
         tempMoves = set(allMoves)
         tempMoves.remove(move)
@@ -239,7 +243,7 @@ def getMinimaxedMove(board,computerLetter):
             return move
         # You can change the recursion depth here, makes it significantly slower though if you go
         # up... I think there's a bunch of optimization to be done here.
-        score = minimaxRecursion(tempBoard, playerLetter, computerLetter, 4, alpha, beta)
+        score = minimaxRecursion(tempBoard, playerLetter, computerLetter, 1000, alpha, beta)
         if score > bestScore:
             bestScore = score
             alpha = bestScore
@@ -250,7 +254,10 @@ def getMinimaxedMove(board,computerLetter):
         bestMove = allMoves.pop()
     return bestMove
 
+
 def minimaxRecursion(board, currentLetter, maxLetter, depth, alpha, beta):
+    global computed
+    computed+= 1
     # This is the recursive element of the minimax function - with alpha beta pruning!
 
     # Bookkeeping as to what the minLetter, and the oppositeLetter are
@@ -310,7 +317,7 @@ def minimaxRecursion(board, currentLetter, maxLetter, depth, alpha, beta):
         possible_scores.append(getBestScore(moves, board, currentLetter, maxLetter, depth - 1, alpha, beta))
 
 
-    if depth <= 0:
+    if computed > 10000:
         possible_scores.append(boardHeuristic(currentBoxes, otherBoxes, sign))
     else:
         possible_scores.append(getBestScore(allMoves, board, currentLetter, maxLetter, depth - 2, alpha, beta))
