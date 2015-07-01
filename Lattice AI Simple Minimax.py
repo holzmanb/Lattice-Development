@@ -30,7 +30,7 @@ def inputPlayerLetter():
     letter = ''
     while not (letter == 'X' or letter == 'O'):
         print('Do you want to be X or O?')
-        letter = input().upper()
+        letter = raw_input().upper()
 
     # the first element in the list is the player's letter, the second is the computer's letter.
     if letter == 'X':
@@ -41,7 +41,7 @@ def inputPlayerLetter():
 def whoGoesFirst():
     # Player can choose if they go first
     print('Do you want to go first?')
-    if input() == 'y':
+    if raw_input() == 'y':
         return 'player'
     else:
         return 'computer'
@@ -49,7 +49,7 @@ def whoGoesFirst():
 def playAgain():
     # This function returns True if the player wants to play again, otherwise it returns False.
     print('Do you want to play again? (yes or no)')
-    return input().lower().startswith('y')
+    return raw_input().lower().startswith('y')
 
 def makeMove(board, letter, move):
     board[move] = letter
@@ -140,7 +140,7 @@ def isSpaceFree(board, move):
     return board[move] == ' '
 
 def getMove():
-    move = input()
+    move = raw_input()
     try:
         move = int(move)
     except ValueError:
@@ -166,6 +166,7 @@ def isValidMove(board, move):
 
     return False
 
+
 def listBoxes():
     #generate a list of all the squares on the game board
     boxes = []
@@ -177,48 +178,37 @@ def listBoxes():
             boxes.append(corners)
     return boxes
 
-def boardHeuristic(board, maxLetter, currentLetter):
+
+def boardHeuristic(currentBoxes, otherBoxes, isMaximizing):
     # This is a heuristic for how good/bad the board state is, where positive
     # infinity is a winning board for maxLetter, and negative infinity is a
     # winning board for the otherletter.
 
     # How many squares with 1,2,3 or 4 pieces of only one colour does each
     # player control?
-    potentialSquares = [[0,0,0,0],[0,0,0,0]]
-
-    for box in listBoxes():
-        # Check for squares with only one kind of player in it
-
-        Xs = sum([1 if board[i] == "X" else 0 for i in box])
-        Os = sum([1 if board[i] == "O" else 0 for i in box])
-
-        if Os!= 0 and Xs == 0:
-            potentialSquares[1][Os-1] += 1
-        elif Os== 0 and Xs != 0:
-            potentialSquares[0][Xs-1] += 1
-
     # Here's a guestimate of what a board position is worth... this could be changed!
-    XCumulative = 10*potentialSquares[0][2]*potentialSquares[0][2]+5*potentialSquares[0][1]+potentialSquares[0][0]
-    OCumulative = 10*potentialSquares[1][2]*potentialSquares[0][2]+5*potentialSquares[1][1]+potentialSquares[1][0]
 
-    # Just making sure that if there's a potential for the current player to win
-    # that the heuristic says so...
-    if maxLetter == 'X':
-        if currentLetter == 'X':
-            if potentialSquares[0][2] >= 1:
-                return maxsize-1
-        else:
-            if potentialSquares[1][2] >=1:
-                return -maxsize+1
-        return XCumulative - OCumulative
-    else:
-        if currentLetter == 'X':
-            if potentialSquares[0][2] >= 1:
-                return -maxsize+1
-        else:
-            if potentialSquares[1][2] >=1:
-                return maxsize-1
-        return OCumulative - XCumulative
+    return isMaximizing * (
+      (10 * len(currentBoxes[3]) * len(currentBoxes[3]) + 5 * len(currentBoxes[2]) + len(currentBoxes[1])) -
+      (10 * len(otherBoxes[3]) * len(otherBoxes[3]) + 5 * len(otherBoxes[2]) + len(otherBoxes[1]))
+    )
+
+    return isMax * (XCumulative - OCumulative)
+
+def getAllMoves(board):
+    allMoves = []
+    for i,space in enumerate(board):
+        if space == ' ':
+            allMoves.append(i)
+    allMoves = set(allMoves)
+    allMoves.remove(0)
+    return allMoves
+
+
+def getScoreForMove(board, computerLetter, move):
+    tempBoard = list(board)
+    return minimaxRecursion(tempBoard, playerLetter, computerLetter, 4, -maxsize, maxsize)
+
 
 def getMinimaxedMove(board,computerLetter):
     # Uses the minimax function to determine computer's best move
@@ -226,12 +216,7 @@ def getMinimaxedMove(board,computerLetter):
     playerLetter = 'O' if computerLetter == 'X' else 'X'
 
     # start minimax recursion
-    allMoves = []
-    for i,space in enumerate(board):
-        if space == ' ':
-            allMoves.append(i)
-    allMoves = set(allMoves)
-    allMoves.remove(0)
+    allMoves = getAllMoves(board)
 
     if len(allMoves) == 36:
         # If it's the first move, must use an edge piece
@@ -254,7 +239,7 @@ def getMinimaxedMove(board,computerLetter):
             return move
         # You can change the recursion depth here, makes it significantly slower though if you go
         # up... I think there's a bunch of optimization to be done here.
-        score = minimaxRecursion(tempBoard, playerLetter, computerLetter, tempMoves, 3, alpha, beta)
+        score = minimaxRecursion(tempBoard, playerLetter, computerLetter, 4, alpha, beta)
         if score > bestScore:
             bestScore = score
             alpha = bestScore
@@ -265,7 +250,7 @@ def getMinimaxedMove(board,computerLetter):
         bestMove = allMoves.pop()
     return bestMove
 
-def minimaxRecursion(board, currentLetter, maxLetter, moves, depth, alpha, beta):
+def minimaxRecursion(board, currentLetter, maxLetter, depth, alpha, beta):
     # This is the recursive element of the minimax function - with alpha beta pruning!
 
     # Bookkeeping as to what the minLetter, and the oppositeLetter are
@@ -274,49 +259,96 @@ def minimaxRecursion(board, currentLetter, maxLetter, moves, depth, alpha, beta)
 
     # Is the current player maximising or minimising?
     maximising = currentLetter == maxLetter
+    sign = 1 if maximising else -1
 
-    if isWinner(board, maxLetter):
-        return maxsize
-    elif isWinner(board, minLetter):
-        return -maxsize
-    elif depth == 0:
-        return boardHeuristic(board,maxLetter,currentLetter)
+    currentBoxes = {1: [], 2:[], 3: [], 4: []}
+    otherBoxes = {1: [], 2:[], 3: [], 4: []}
+
+
+    for box in listBoxes():
+        # Check for squares with only one kind of player in it
+
+        currentLetterCount = sum([1 if board[i] == currentLetter else 0 for i in box])
+        otherLetterCount = sum([1 if board[i] == otherLetter else 0 for i in box])
+
+        if currentLetterCount != 0 and otherLetterCount == 0:
+            currentBoxes[currentLetterCount].append(list(box))
+        elif otherLetterCount != 0 and currentLetterCount == 0:
+            otherBoxes[otherLetterCount].append(list(box))
+
+    # Check if current won
+    if len(currentBoxes[4]):
+        return sign * maxsize
+
+    # Check if other won
+    if len(otherBoxes[4]):
+        return -1 * sign * maxsize
+
+    if len(currentBoxes[3]):
+        return sign * maxsize
+
+    if (len(otherBoxes[3])):
+        moves = []
+        for box in otherBoxes[3]:
+            for point in box:
+                if board[point] == ' ':
+                    moves.append(point)
+        return getBestScore(moves, board, currentLetter, maxLetter, depth, alpha, beta)
+
+
+    allMoves = getAllMoves(board)
+    possible_scores = []
+    if (len(currentBoxes[2])):
+        moves = []
+        for box in currentBoxes[2]:
+            for point in box:
+                if board[point] == ' ':
+                    moves.append(point)
+                    if point in allMoves:
+                        allMoves.remove(point)
+
+        possible_scores.append(getBestScore(moves, board, currentLetter, maxLetter, depth - 1, alpha, beta))
+
+
+    if depth <= 0:
+        possible_scores.append(boardHeuristic(currentBoxes, otherBoxes, sign))
     else:
-        bestScore = -maxsize if maximising else maxsize
-        for move in moves:
-            tempBoard = list(board)
-            tempBoard[move] = currentLetter
-            tempMoves = set(moves)
-            tempMoves.remove(move)
-            score = minimaxRecursion(tempBoard,otherLetter,maxLetter,tempMoves,depth-1,alpha,beta)
-
-            # This was to simply put people out of their misery sooner rather than later
-            # Otherwise it'll randomly play moves where it know it will win in the future
-            # even if there's a good winning move on the board.
-            if maximising:
-                score -=1
-                if score >= beta:
-                    # minimising player will go down the worse branch for maxer
-                    return beta
-                if score > alpha:
-                    # update the new
-                    alpha = score
-            else:
-                score+=1
-                if score <= alpha:
-                    # maximising player will go down better branch
-                    return alpha
-                if score < beta:
-                    beta = score
-
-            if (maximising and bestScore < score )or (not maximising and bestScore > score):
-                bestScore = score
+        possible_scores.append(getBestScore(allMoves, board, currentLetter, maxLetter, depth - 2, alpha, beta))
 
 
+    if maximising:
+        return max(possible_scores)
+    else:
+        return min(possible_scores)
 
-        return bestScore
 
+def getBestScore(moves, board, nextLetter, maxLetter, recursionDepth, alpha, beta):
+    otherLetter = 'O' if nextLetter == 'X' else 'X'
+    maximising = nextLetter == maxLetter
+    bestScore = -maxsize if maximising else maxsize
+    for move in moves:
+        tempBoard = list(board)
+        tempBoard[move] = nextLetter
+        score = minimaxRecursion(tempBoard, otherLetter, maxLetter, recursionDepth, alpha, beta)
 
+        if maximising:
+            if score >= beta:
+                # minimising player will go down the worse branch for maxer
+                return beta
+            if score > alpha:
+                # update the new
+                alpha = score
+        else:
+            if score <= alpha:
+                # maximising player will go down better branch
+                return alpha
+            if score < beta:
+                beta = score
+
+        if (maximising and bestScore < score) or (not maximising and bestScore > score):
+            bestScore = score
+
+    return bestScore
 
 #game play code
 print('Welcome to Lattice!')
@@ -368,7 +400,13 @@ while True:
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
                 print('The computer has beaten you! You lose.')
-                break
+                print('Undo?')
+                response = raw_input()
+                if response.lower().startswith('y') or response.lower().startswith('u'):
+                    oldBoards.pop()
+                    theBoard = oldBoards.pop()
+                else:
+                    break
             elif i == 36:
                 print('The game is a tie')
             else:
