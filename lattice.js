@@ -52,7 +52,7 @@ LatticeGame.prototype.playMove= function(moveElement){
             self.board_numeric[move] = self.players[self.turn];
             moveElement.addClass(self.players[self.turn])
             self.turn = (self.turn+1)%2;
-            //console.log(self.findWin());
+            self.findWin();
         }
 };
 
