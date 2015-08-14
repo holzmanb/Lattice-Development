@@ -25,7 +25,7 @@ LatticeGame.prototype.getSquares = function(){
 
 LatticeGame.prototype.resetGame = function(){
     self.board_numeric = new Array(36+1).join('0').split('').map(parseFloat);
-    $('#board-list').find(".board_place").removeClass("o x");
+    $('#board-list').find(".board_place div").removeClass("o x winning");
 }
 
 LatticeGame.prototype.findWin = function(){
