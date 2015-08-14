@@ -1,26 +1,144 @@
+#lattice-board{
+	overflow:auto;
+	background:#C77B4B;
+}
 
-#container {
-	max-width:600px;
-	margin:auto;
+@media all and (orientation: landscape){
+	#lattice-board{
+		margin:auto;
+		max-width:600px;
+	}
+}
+
+@media all and (orientation: portrait) { 
+	#lattice-board{
+		margin:auto;
+		max-width:600px;
+	}
 }
 
 .board_place {
-
+	position:relative;
 	float: left;
-	width: 16.5%;
-	padding-bottom:16.5%;
-	background: rgba(0,100,23,1);
+	width: 16.6666666%;
+	padding-bottom:16.6666666%;
 }
 
-.odd {
-	background:red;
+.piece {
+	width:50%;
+	height:50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);	
+	border-radius: 50%;
+}
+
+.piece:not(.o):not(.x):hover {
+	border-color:#55DD55;
+	border-width:5px;
+	border-style:solid;
 }
 
 .o {
-	background:blue;
+	border-color:#D8D8D8;
+	border-width:2px;
+	border-style: solid;
+	background:#EFEFEF;
 }
 
 .x {
-	background:purple;
+	border-color:#484848;
+	border-width:2px;
+	border-style: solid;
+	background:black;
 }
-/*******tic-tac-toe END******/
+
+.winning {
+	border-color:#F8FF00;
+}
+
+/* grid generation stuff */
+
+.vertical-and-horizontal {
+	   background:  linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+              		linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-down-horizontal-right {
+	background: linear-gradient(90deg, #ddd 48%, transparent 48%),
+	            linear-gradient(0, transparent 52%, #ddd 52%),
+	            linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%), 
+	            linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-down-horizontal-left {
+	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
+                linear-gradient(0, transparent 52%, #ddd 52%),
+                linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+                linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-up-horizontal-right {
+	background: linear-gradient(90deg, #ddd 48%, transparent 48%),
+	            linear-gradient(0, #ddd 48%, transparent 48%),
+	            linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%), 
+	            linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-up-horizontal-left {
+	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
+                linear-gradient(0, #ddd 48%, transparent 48%),
+                linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+                linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-and-horizontal-left {
+	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
+              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.vertical-and-horizontal-right {
+		  background: linear-gradient(90deg, #ddd 48%, transparent 48%),
+              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.horizontal-and-vertical-bottom {
+	  background: linear-gradient(0, transparent 52%, #ddd 52%),
+              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.horizontal-and-vertical-top {
+	  background: linear-gradient(0, #ddd 48%, transparent  48%),
+              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
+              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
+}
+
+.horizontal-line {
+	background: linear-gradient(0, #ddd 48%, #000 48%, #000 52%, #ddd 52%);
+}
+
+.vertical-line {
+	background: linear-gradient(90deg, #ddd 48%, #000 48%, #000 52%, #ddd 52%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
