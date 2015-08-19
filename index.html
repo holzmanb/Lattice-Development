@@ -5,15 +5,95 @@
   <script src="js/underscore-min.js"></script>
   <link rel="stylesheet" href="lattice.css">
 </head>
-<body>
-  <div id="container">
-    <div id="info"> <h1> Lattice Game </h1>
+  <body>
+    <div id="menu" class="screen">
+      <div class="vertical">
+      <title>Lattice</title>
+      </div>
     </div>
-    <div id="lattice-board">
-      <div id="board-list">
+
+    <div id="menu" class="screen">
+      <div class="vertical">
+      <h1>Lattice</h1>      
+        <p data-action="about">
+        About
+        </p>
+        <p data-action="game rules">
+        Game Rules
+        </p>
+        <p data-action="single player">
+        Single Player
+        </p>
+        <p data-action="multi player">
+        Multiplayer
+        </p>
+      </div>
+    </div>
+
+
+    <div id="about" class="screen text" data-action="rules">
+      <div class="vertical">
+      <h3>About</h3>
+      <div class="side-padded">  
+        <p>
+        Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.<br>
+        <br>
+        Game rules were created by Ben Holzman, and tested with Garrett Miller.<br>
+        <br>
+        AI testing and web development were done by Al Grant and Ben Holzman<br>
+
+        Source code is on github:
+        <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="game rules" class="screen text" data-action="rules">
+      <div class="vertical">
+      <div class="side-padded">  
+        <img src="js/Game Rules.png"
+        style="width: 500px;height500px;">
+      </div>
+    </div>
+
+  <div id="info"> <h2> Single Player </h2>
+    </div>
+      <p data-action="game settings">
+      Game Settings
+      </p>
+        <p>
+        Play as black or white? <button type="button">Black</button> <button type="button">White</button> <br>
+        <br>
+        AI Difficulty: <button type="button">1</button> <button type="button">2</button> <button type="button">3</button> <button type="button">4</button> <button type="button">5</button> <br>
+        <br>
+        Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
+        <br>
+          Time for game (min): <input type="text"> <br> 
+        <button type="button">Play</button> <button type="button">Back</button> <br>
+        <br>
+
+      <p data-action="play">
+      Play
+      </p>
+
+        <div id="lattice-board">
+        <div id="board-list">
       </div>
     </div>
   </div>
+
+  <div id="info"> <h2> Multiplayer </h2>
+    </div>
+    Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
+    <br>
+      Time for game (min): <input type="text"> <br> 
+      <button type="button">Play</button> <button type="button">Back</button> <br>
+      <br>
+    <div id="lattice-board">
+    <div id="board-list">
+    </div>
+  </div>
+
   <script src="lattice.js"></script>
 </body>
 </html>

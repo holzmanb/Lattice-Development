@@ -1,6 +1,11 @@
-#lattice-board{
+#start-screen{
 	overflow:auto;
 	background:#C77B4B;
+}
+#lattice-board{
+	overflow:auto;
+	background-image:url(js/board.png);
+	
 }
 
 @media all and (orientation: landscape){
@@ -35,26 +40,22 @@
 }
 
 .piece:not(.o):not(.x):hover {
-	border-color:#55DD55;
+	border-color:#00DD55;
 	border-width:5px;
 	border-style:solid;
 }
 
 .o {
-	border-color:#D8D8D8;
-	border-width:2px;
-	border-style: solid;
-	background:#EFEFEF;
+	background-image:url(js/white-player.png);
+		background-size: 100% 100%;
 }
 
 .x {
-	border-color:#484848;
-	border-width:2px;
-	border-style: solid;
-	background:black;
+	background-image:url(js/black-player.png);
+		background-size: 100% 100%;
 }
 
-.winning {
+.piece.winning {
 	border-color:#F8FF00;
 }
 
