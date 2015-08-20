@@ -5,20 +5,23 @@
 #lattice-board{
 	overflow:auto;
 	background-image:url(js/board.png);
-	
+		background-size:92.8%;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+			
 }
 
 @media all and (orientation: landscape){
 	#lattice-board{
 		margin:auto;
-		max-width:600px;
+		max-width:100%;
 	}
 }
 
 @media all and (orientation: portrait) { 
 	#lattice-board{
 		margin:auto;
-		max-width:600px;
+		max-width:100%;
 	}
 }
 
@@ -58,75 +61,6 @@
 .piece.winning {
 	border-color:#F8FF00;
 }
-
-/* grid generation stuff */
-
-.vertical-and-horizontal {
-	   background:  linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-              		linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-down-horizontal-right {
-	background: linear-gradient(90deg, #ddd 48%, transparent 48%),
-	            linear-gradient(0, transparent 52%, #ddd 52%),
-	            linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%), 
-	            linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-down-horizontal-left {
-	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
-                linear-gradient(0, transparent 52%, #ddd 52%),
-                linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-                linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-up-horizontal-right {
-	background: linear-gradient(90deg, #ddd 48%, transparent 48%),
-	            linear-gradient(0, #ddd 48%, transparent 48%),
-	            linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%), 
-	            linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-up-horizontal-left {
-	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
-                linear-gradient(0, #ddd 48%, transparent 48%),
-                linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-                linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-and-horizontal-left {
-	background: linear-gradient(90deg, transparent 52%, #ddd 52%),
-              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.vertical-and-horizontal-right {
-		  background: linear-gradient(90deg, #ddd 48%, transparent 48%),
-              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.horizontal-and-vertical-bottom {
-	  background: linear-gradient(0, transparent 52%, #ddd 52%),
-              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.horizontal-and-vertical-top {
-	  background: linear-gradient(0, #ddd 48%, transparent  48%),
-              linear-gradient(90deg, transparent 48%, #000 48%, #000 52%, transparent 52%),
-              linear-gradient(0, transparent 48%, #000 48%, #000 52%, transparent 52%);
-}
-
-.horizontal-line {
-	background: linear-gradient(0, #ddd 48%, #000 48%, #000 52%, #ddd 52%);
-}
-
-.vertical-line {
-	background: linear-gradient(90deg, #ddd 48%, #000 48%, #000 52%, #ddd 52%);
-}
-
-
 
 
 
