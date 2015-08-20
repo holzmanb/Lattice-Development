@@ -14,7 +14,7 @@
 @media all and (orientation: landscape){
 	#lattice-board{
 		margin:auto;
-		max-width:100%;
+		max-width:50%;
 	}
 }
 
