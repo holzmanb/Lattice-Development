@@ -1,14 +1,42 @@
-#start-screen{
-	overflow:auto;
-	background:#C77B4B;
+/*#container {
+	margin: auto;
+	position: absolute;
+	top:0;bottom:0; /* vertical center */
+/*	left:0;right:0; /* horizontal center */
+/*	overflow: hidden;
 }
+/*.vertical {
+ 	position: absolute;
+ 	top: 50%; left: 50%;
+ 	width: 100%;
+}
+
+.screen {
+ 	display: none;
+ 	position: absolute;
+ 	width: 100%; height: 100%;
+ 	right: 0; bottom: 0;
+}
+#feelsize {
+ 	position: fixed;
+ 	z-index: -1;
+ 	right:0; bottom:0;width: 100%; height: 100%;
+}
+
+#menu p {
+	margin: 0;
+}
+
+#about p {
+	margin: 0;
+}
+*/
 #lattice-board{
 	overflow:auto;
 	background-image:url(js/board.png);
 		background-size:92.8%;
 		background-repeat: no-repeat;
 		background-position: 50% 50%;
-			
 }
 
 @media all and (orientation: landscape){
@@ -62,7 +90,35 @@
 	border-color:#F8FF00;
 }
 
+h1,h2,h3 {
+  text-align: center;
+  font-family: 'Nyala';
+  color: white;
+  font-weight: normal;
+  margin: 5% 0;
+  white-space: nowrap;
+}
 
+h1{
+	font-size: 7vw;
+	margin: 7% 0 0 0;
+}
+
+h2 {
+  font-size: 4vw;
+  margin: 7% 0 0 0;
+}
+h3 {
+  font-size: 4vw;
+  margin: 5% 0 0 0;
+}			
+
+p {
+  font-family: 'Microsoft Uighur', Microsoft Uighur;
+  font-size: 3vw;
+  color: white;
+  text-align: center;
+}
 
 
 

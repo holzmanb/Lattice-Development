@@ -26,93 +26,115 @@
   </script>
 
 </head>
-  <body>
-    <div id="menu" class="screen">
-      <div class="vertical">
-      <title>Lattice</title>
+  <body bgcolor="#2E2E2E">
+    <div id="container">
+      <div id="menu" class="screen">
+        <div class="vertical">
+        <title>Lattice</title>
+        </div>
       </div>
-    </div>
 
-    <div id="menu" class="screen">
-      <div class="vertical">
-      <h1>Lattice</h1>      
-        <button onclick="alert('Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.Game rules were created by Ben Holzman, tested, then modified with Garrett Miller. AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman.')">About</button>
-
-        <p data-action="game rules">
-        Game Rules
-        </p>
-        <p data-action="single player">
-        Single Player
-        </p>
-        <p data-action="multi player">
-        Multiplayer
-        </p>
+      <div id="menu" class="screen">
+        <div class="vertical">
+        <h1>Lattice</h1>
+          <h2 data-action="about">
+          About
+          </h2>
+          <h2 data-action="rules">
+          Game Rules
+          </h2>
+          <h2 data-action="singleplayer">
+          Single Player
+          </h2>
+          <h2 data-action="multiplayer">
+          Multiplayer
+          </h2>
+        </div>
       </div>
-    </div>
 
+      <div id="about" class="screen text" data-action="rules">
+        <div class="vertical">
+        <h1>About</h1>
+        <div class="side-padded">
+          <p>
+          Lattice is an abstract strategy game first created in the back row of a geophysics class at the University of British Columbia.<br>
+          <br>
+          Game rules were created by Ben Holzman, then tested and modified with Garrett Miller.<br>
+          <br>
+          AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman<br>
 
-    <script>
-      function about(){
-        
-        <h3>About</h3>
-        <p>
-        Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.<br>
-        <br>
-        Game rules were created by Ben Holzman, tested, then modified with Garrett Miller.<br>
-        <br>
-        AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman<br>
+          Source code is on github:
+          <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a>
+          </p>
+          </div>
+        </div>
+      </div>
 
-        Source code is on github:
-        <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a>
+      <div id="rules" class="screen text" data-action="apps">
+        <h1>Lattice Rules</h1>
+        <div class="side-padded">
+          <h2>Objective:</h2>
+          <p>
+          Occupy all four corners of a square on the 6 x 6 grid. The winning square can be of any size (1 x 1, 2 x 2, 3 x 3, 4 x 4, 5 x 5, or 6 x 6), but must line up with the gridlines. Diamond shapes do not count.<br>
+          <br>
+          </p>
+          <h2>Game Play:</h2>
+          <p>
+          This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows, or columns, from their first stone. There are no restrictions on any future game moves.<br>
+          <br>
+          If the first player elects to play in the corner on their first move they may place a stone anywhere on the board on their second.<br>
+          <br>
+          If one player occupies three corners of a square, and can win the game on their next move, they must announce it to the other player. This is done by saying “three”. The game is won when a player makes a single move that produces multiple winning moves for the following turn.<br>
+          <br>
+          &copy; 2015<br>
+          latticegame.com
+          </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="info"> <h2> Single Player </h2>
+        </div>
+        <p data-action="settings">
+        <h1>Game Settings</h1>
         </p>
-      }
-    </script>
-
-    <div id="game rules" class="screen text" data-action="rules">
-      <div class="vertical">
-      <div class="side-padded">  
-        <img src="js/game-rules.PNG"
-        style="width: 500px;height500px;">
-      </div>
-    </div>
-
-    <div id="info"> <h2> Single Player </h2>
-      </div>
-      <p data-action="game settings">
-      Game Settings
-      </p>
-        <p>
-        Play as black or white? <button type="button">Black</button> <button type="button">White</button> <br>
-        <br>
-        AI Difficulty: <button type="button">1</button> <button type="button">2</button> <button type="button">3</button> <button type="button">4</button> <button type="button">5</button> <br>
-        <br>
-        Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
-        <br>
+          <p>
+          Play as black or white? <button type="button">Black</button> <button type="button">White</button> <br>
+          <br>
+          AI Difficulty: <button type="button">1</button> <button type="button">2</button> <button type="button">3</button> <button type="button">4</button> <button type="button">5</button> <br>
+          <br>
+          Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
+          <br>
           Time for game (min): <input type="text"> <br> 
-        <button type="button">Play</button> <button type="button">Back</button> <br>
-        <br>
+          <button type="button">Play</button> <button type="button">Back</button> <br>
+          <br>
+        </div>
+      </div>
 
-      <p data-action="play">
-      Play
-      </p>
-
+      <div id="play"> <h2> Game </h2>
+        </div>    
+        <p data-action="play">
+        Play
+        </p>
         <div id="lattice-board">
         <div id="board-list">
+        </div>
       </div>
+    </div>
+
+    <div id="info"> <h2> Multiplayer </h2>
+      </div>
+      Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
+      <br>
+      Time for game (min): <input type="text"> <br> 
+      <button type="button">Play</button> <button type="button">Back</button> <br>
+      <br>
+      <div id="lattice-board">
+      <div id="board-list">
     </div>
   </div>
 
-  <div id="info"> <h2> Multiplayer </h2>
-    </div>
-    Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
-    <br>
-    Time for game (min): <input type="text"> <br> 
-    <button type="button">Play</button> <button type="button">Back</button> <br>
-    <br>
-    <div id="lattice-board">
-    <div id="board-list">
-  </div>
-  
+  <script type="text/javascript" src="js/game.js"></script>
   <script src="lattice.js"></script>
   
   </body>
