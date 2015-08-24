@@ -81,25 +81,25 @@ LatticeGame.prototype.initBoard = function(){
                 )
             .appendTo(li);
         self.pieces.push[piece_centred];
-        if ( 0 < i && i < 5){
-            li.addClass("horizontal-and-vertical-bottom");
-        }else if ( 30 < i && i < 35 ){
-            li.addClass("horizontal-and-vertical-top");
-        }else if ( i%6 == 0 && 0 < i && i < 30){
-            li.addClass("vertical-and-horizontal-right");
-        }else if ( i%6 == 5 && 5 < i && i < 35){
-            li.addClass("vertical-and-horizontal-left");
-        }else if(i==0){
-            li.addClass("vertical-down-horizontal-right");
-        }else  if(i==5){
-            li.addClass("vertical-down-horizontal-left");
-        }else if(i==30){
-            li.addClass("vertical-up-horizontal-right");
-        }else if(i==35){
-            li.addClass("vertical-up-horizontal-left");
-        }else{
-            li.addClass("vertical-and-horizontal");
-        }
+        // if ( 0 < i && i < 5){
+        //     li.addClass("horizontal-and-vertical-bottom");
+        // }else if ( 30 < i && i < 35 ){
+        //     li.addClass("horizontal-and-vertical-top");
+        // }else if ( i%6 == 0 && 0 < i && i < 30){
+        //     li.addClass("vertical-and-horizontal-right");
+        // }else if ( i%6 == 5 && 5 < i && i < 35){
+        //     li.addClass("vertical-and-horizontal-left");
+        // }else if(i==0){
+        //     li.addClass("vertical-down-horizontal-right");
+        // }else  if(i==5){
+        //     li.addClass("vertical-down-horizontal-left");
+        // }else if(i==30){
+        //     li.addClass("vertical-up-horizontal-right");
+        // }else if(i==35){
+        //     li.addClass("vertical-up-horizontal-left");
+        // }else{
+        //     li.addClass("vertical-and-horizontal");
+        // }
     };
 };
 
