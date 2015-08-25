@@ -86,8 +86,10 @@
 		background-size: 100% 100%;
 }
 
-.piece.winning {
-	border-color:#F8FF00;
+.piece.winning{
+	border-style:solid;
+	border-width:5px;
+	border-color:#FFFF00;
 }
 
 h1,h2,h3 {

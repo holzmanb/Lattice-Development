@@ -10,6 +10,9 @@ Current version can simply be played as a local multiplayer.
 
 - Update CSS to use pics & be crossbrowser compatible
 
+- Deal with rules / unavailable locations for early play...
+	- Rules state only allowed to play 3 rows/columns away.
+
 - Determine game layout better
 	- Landscape mode
 	- Portrait mode
