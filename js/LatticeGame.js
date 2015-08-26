@@ -11,7 +11,7 @@ var LatticeGame = function(){
     self.pieces_dom = [];
 
     self.players = [ { name:"Player 1", id:"x", player_type:"AI", aiLevel:2},
-                     { name:"Player 2", id:"o", player_type:"human"}];
+                     { name:"Player 2", id:"o", player_type:"human"} ];
 
     self.starting_player = 0;
     self.turn = self.starting_player;
@@ -38,6 +38,46 @@ LatticeGame.BoardState = function(){
         })
     });
 };
+
+LatticeGame.prototype.newGame = function(game_options){
+    var self = this;
+
+    if(game_options.game_type = 'single_player'){
+        // initialise
+        self.players = [ { name:"You", id:"x", player_type:"human"},
+                         { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
+
+        // starting player
+        if(game_options.starting_player == "player"){
+            self.starting_player = 0;
+        }else {
+            self.starting_player = 1;
+        }
+        self.turn = self.starting_player;
+
+        // select color
+        if(game_options.player_colour == "white"){
+            console.log("white");
+            self.players[0].id = "o";
+            self.players[1].id = "x";
+        }else{
+            console.log("black");
+        }
+
+        self.resetGame();
+    }
+
+    if(game_options.game_type == "multi-player"){
+        // initialise
+        self.players = [ { name:"Player 1", id:"o", player_type:"human"},
+                         { name:"Player 2", id:"x", player_type:"human"}];
+
+        self.starting_player = 0;
+        self.turn = self.starting_player;
+
+        self.resetGame();
+    }
+}
 
 LatticeGame.BoardState.prototype.clone = function(){
     var self = this;
@@ -273,12 +313,15 @@ LatticeGame.prototype.resetGame = function(){
     var self = this;
 
     var new_state = new LatticeGame.BoardState();
-    var state_history = [];
+    self.state_history = [];
     self.state = new_state;
     self.state_history.push(new_state.clone());
 
     self.loadState(new_state);
     self.wins = [];
+
+    // I hate calling this all over the place... but such is life.
+    self.playAiTurn();
 };
 
 LatticeGame.prototype.playMove= function(move){
@@ -289,9 +332,12 @@ LatticeGame.prototype.playMove= function(move){
         self.addPiece(move, self.turn);
         self.turn = (self.turn+1)%2;
         self.wins = self.state.findWin();
+
+        self.state_history.push(self.state.clone());
+
         if (!self.wins[0]){
+            // would love to eventually not call this all over the place somehow...
             self.playAiTurn();
-            self.state_history.push(self.state.clone());
         }else {           
             _.each(self.wins[0],function(piece){
                 $("#"+piece).addClass("winning");
@@ -309,7 +355,13 @@ LatticeGame.prototype.undoMove = function(){
         self.state_history.pop();
         self.loadState(new_state);
         self.playAiTurn();
-    }else{
+    }else if(self.state_history.length == 2){
+        var new_state = self.state_history[self.state_history.length - 2].clone();
+        self.state_history.pop();
+        self.loadState(new_state);
+        self.turn = (self.turn+1)%2;
+        self.playAiTurn();        
+    }else {
         console.log("can't go back any further");
     }
 };
@@ -365,37 +417,7 @@ LatticeGame.prototype.initBoard = function(){
             .appendTo(li);
 
         self.pieces_dom.push(piece_centred);
-        // if ( 0 < i && i < 5){
-        //     li.addClass("horizontal-and-vertical-bottom");
-        // }else if ( 30 < i && i < 35 ){
-        //     li.addClass("horizontal-and-vertical-top");
-        // }else if ( i%6 == 0 && 0 < i && i < 30){
-        //     li.addClass("vertical-and-horizontal-right");
-        // }else if ( i%6 == 5 && 5 < i && i < 35){
-        //     li.addClass("vertical-and-horizontal-left");
-        // }else if(i==0){
-        //     li.addClass("vertical-down-horizontal-right");
-        // }else  if(i==5){
-        //     li.addClass("vertical-down-horizontal-left");
-        // }else if(i==30){
-        //     li.addClass("vertical-up-horizontal-right");
-        // }else if(i==35){
-        //     li.addClass("vertical-up-horizontal-left");
-        // }else{
-        //     li.addClass("vertical-and-horizontal");
-        // }
 
     };
 };
-
-var Latttttttt;
-$(document).ready(function() {
-    // JavaScript Document
-    Latttttttt= new LatticeGame();
-    console.log(Latttttttt);
-    Latttttttt.initBoard();
-    Latttttttt.playAiTurn();
-
-    $("#undo_button").click(function(){Latttttttt.undoMove()});
-});
 

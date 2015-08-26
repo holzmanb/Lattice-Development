@@ -1,0 +1,108 @@
+/* Sets up a container within a container which always maintains 
+the aspect-ratio 10:16, no matter the window size ; also sets keeps 
+this container centred */
+
+body{
+  margin:0;
+  background:#111;
+}
+
+.container-centred {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width:100%;
+}
+
+.container-aspect-ratio {
+  position: relative;
+}
+
+.container-aspect-ratio:after {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 160%;
+}
+
+.container-aspect-ratio > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #2E2E2E;
+  color: #DDD;
+
+  text-align:center;
+}
+
+.hidden {
+  display:none;
+}
+
+@media screen and (min-aspect-ratio: 10/16) {
+/* when the screen goes too wide make a vertical div */
+  .container-centred {
+    position:relative;
+    width:62.5vh;
+    margin:auto;
+  }
+  .container-aspect-ratio:after {
+    padding-top: 100vh;
+  }
+}
+
+/* Simple UI for Pages */ 
+
+
+/* Full width buttons */
+
+/* Lattice Board */
+
+#lattice-board{
+  overflow:auto;
+  background-image:url(js/board.png);
+    background-size:92.8%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.board_place {
+  position:relative;
+  float: left;
+  width: 16.6666666%;
+  padding-bottom:16.6666666%;
+}
+
+.piece {
+  width:50%;
+  height:50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  border-radius: 50%;
+}
+
+.piece:not(.o):not(.x):hover {
+  border-color:#00DD55;
+  border-width:5px;
+  border-style:solid;
+}
+
+.o {
+  background-image:url(js/white-player.png);
+    background-size: 100% 100%;
+}
+
+.x {
+  background-image:url(js/black-player.png);
+    background-size: 100% 100%;
+}
+
+.piece.winning{
+  border-style:solid;
+  border-width:5px;
+  border-color:#FFFF00;
+}
