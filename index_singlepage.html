@@ -3,27 +3,130 @@
   <title> Lattice </title>
   <script src="js/jquery.min.js"></script>
   <script src="js/underscore-min.js"></script>
+  <script src="js/lattice-app.js"></script>
   <link rel="stylesheet" href="lattice-singlepage.css">
 </head>
 <body>
  <div class="container-centred">
   <div class = "container-aspect-ratio">
-	  <div id="splash" class="screen content">
-	    <h1>Lattice</h1>
-	      <h2 data-action="about">
-	      About
-	      </h2>
-	      <h2 data-action="rules">
-	      Game Rules
-	      </h2>
-	      <h2 data-action="singleplayer">
-	      Single Player
-	      </h2>
-	      <h2 data-action="multiplayer">
-	      Multiplayer
-	      </h2>
-	  </div>
+      <div id="main-menu" class="content hidden">
+        <h1>Lattice</h1>
+          <h2 data-navigate="about">
+          About
+          </h2>
+          <h2 data-navigate="rules">
+          Game Rules
+          </h2>
+          <h2 data-navigate="single-player-setup">
+          Single Player
+          </h2>
+          <h2 data-navigate="multi-player-setup">
+          Multiplayer
+          </h2>
+      </div>
+
+      <div id="about" class="content hidden">
+        <h1>About</h1>
+        <div class="about-info">
+          <p>
+          Lattice is an abstract strategy game first created in the back row of a geophysics class at the University of British Columbia.<br>
+          <br>
+          Game rules were created by Ben Holzman, then tested and modified with Garrett Miller.<br>
+          <br>
+          AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman<br>
+
+          Source code is on github:
+          <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a>
+          </p>
+        </div>
+
+        <button type="button" data-navigate="main-menu">Back</button>
+      </div>
+
+      <div id="rules" class="content hidden">
+        <h1>Rules</h1>
+        <div class="about-info">
+          <h2>Objective:</h2>
+          <p>
+            Occupy all four corners of a square on the 6 x 6 grid. The winning square can be of any size (1 x 1, 2 x 2, 3 x 3, 4 x 4, 5 x 5, or 6 x 6), but must line up with the gridlines. Diamond shapes do not count.
+          </p>
+          <h2>Game Play:</h2>
+          <p>
+            This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows, or columns, from their first stone. There are no restrictions on any future game moves.<br>
+            <br>
+            If the first player elects to play in the corner on their first move they may place a stone anywhere on the board on their second.<br>
+            <br>
+            If one player occupies three corners of a square, and can win the game on their next move, they must announce it to the other player. This is done by saying 'three'. The game is won when a player makes a single move that produces multiple winning moves for the following turn.<br>
+            <br>
+            &copy; 2015<br>
+            latticegame.com
+          </p>
+        </div>
+
+        <button type="button" data-navigate="main-menu">Back</button>
+      </div>
+
+      <div id="single-player-setup" class="content">
+        <h1>Game Settings</h1>
+        <div class="about-info">
+          
+          <form id="single-player-starting-options">
+            Play as black or white? 
+            <label> <input type="radio" name="player-colour" value="white" checked> White </label>
+            <label> <input type="radio" name="player-colour" value="black"> Black </label>
+            <br>
+            Starting Player? 
+            <label> <input type="radio" name="starting-player" value="you" checked> You </label>
+            <label> <input type="radio" name="starting-player" value="ai"> AI </label>
+            <br>
+            AI Difficulty: 
+            <label> <input type="radio" name="AI-level" value="1" checked> 1 </label>
+            <label> <input type="radio" name="AI-level" value="2"> 2 </label>
+            <label> <input type="radio" name="AI-level" value="3" disabled> 3 </label>
+            <label> <input type="radio" name="AI-level" value="4" disabled> 4 </label>
+            <label> <input type="radio" name="AI-level" value="5" disabled> 5 </label>
+            <br>
+            Timed:
+            <label> <input type="radio" name="timed" value="No" checked> No </label>
+            <label> <input type="radio" name="timed" value="Yes" disabled> Yes </label>
+            <br>
+            Time for game: <input type="text" name="time-for-game" value="infinte" disabled>
+          </form>
+
+          <button type="button" data-startgame="single-player">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
+          <br>
+        </div>
+      </div>
+
+      <div id="multi-player-setup" class="content hidden">
+        <h2> Multiplayer </h2>
+        <div class="about-info">
+          Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
+          <br>
+          Time for game (min): <input type="text"> <br> 
+          <button type="button">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
+        </div>
+      </div>
+
+      <div id="game" class="content hidden">
+        <h2> Play </h2>
+        <div id="lattice-board">
+          <div id="board-list">
+          </div>
+        </div>
+
+        <div id="in-game-menu">
+
+          <button type="button">Undo</button>
+          <button type="button">Reset</button>
+          <button type="button">Menu</button>
+
+        </div>
+
+      </div>
+
+
   </div>
- </div>
+</div>
 
 </body>

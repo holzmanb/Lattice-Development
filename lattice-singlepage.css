@@ -1,41 +1,60 @@
-  body{
-    margin:0;
-  }
-  .container-centred {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width:100%;
-  }
-  .container-aspect-ratio {
-    position: relative;
-  }
-  .container-aspect-ratio:after {
-    display: block;
-    content: "";
-    width: 100%;
-    padding-top: 160%;
-  }
-  .container-aspect-ratio > .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: green;
-  }
+/* Sets up a container within a container which always maintains 
+the aspect-ratio 10:16, no matter the window size ; also sets keeps 
+this container centred */
 
-@media screen and (min-aspect-ratio: 10/16) { 
+body{
+  margin:0;
+  background:#111;
+}
+
+.container-centred {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width:100%;
+}
+
+.container-aspect-ratio {
+  position: relative;
+}
+
+.container-aspect-ratio:after {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 160%;
+}
+
+.container-aspect-ratio > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #2E2E2E;
+  color: #DDD;
+
+  text-align:center;
+}
+
+.hidden {
+  display:none;
+}
+
+@media screen and (min-aspect-ratio: 10/16) {
+/* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
     width:62.5vh;
     margin:auto;
   }
   .container-aspect-ratio:after {
-    width:10vh;
     padding-top: 100vh;
   }
-  .container-aspect-ratio > .content {
-    background: red;
-  }
 }
+
+/* Simple UI for Pages */ 
+
+
+/* Full width buttons */
+
