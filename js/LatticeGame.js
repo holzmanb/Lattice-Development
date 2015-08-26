@@ -361,7 +361,7 @@ LatticeGame.prototype.undoMove = function(){
         self.loadState(new_state);
         self.turn = (self.turn+1)%2;
         self.playAiTurn();        
-    }{
+    }else {
         console.log("can't go back any further");
     }
 };

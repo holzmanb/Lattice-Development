@@ -1,7 +1,8 @@
+// Make sure document is loaded...
 $(document).ready(function() {
-    /* Allow lattice game to set up */
+
+    /* Allow lattice game to set itself up */
     global_game = new LatticeGame();
-    console.log(global_game);
     global_game.initBoard();
 
     /* Set up single page navigation */
@@ -13,10 +14,11 @@ $(document).ready(function() {
         $("#" + $(this).data("navigate")).removeClass("hidden");
     })
 
-    /* Start a game */
+    /* start game button */
     $('[data-startgame]').click(function(){
+
+        // single player game options
         if($(this).data("startgame")=="single-player"){
-            console.log("start single player game");
             var game_options = {};
             $("#single-player-starting-options :input").each(function(){
                     if(this.checked == true){
@@ -30,7 +32,7 @@ $(document).ready(function() {
         }
 
         
-
+        // multi player game options
         if($(this).data("startgame") == "multi-player"){
             var game_options = {};
             game_options["game_type"] = "multi_player";
@@ -39,18 +41,15 @@ $(document).ready(function() {
         // start the game
         global_game.newGame(game_options);
 
-        // hide all
+        // hide all divs
         $('.content').addClass("hidden");
 
         // show this game div
         $("#game").removeClass("hidden");
-
     })
 
-
+    // Ties buttons to the global_game
     $( '[data-gameaction]' ).click(function(){
-        console.log($(this).data())
-        console.log($(this).data("gameaction"));
         switch ($(this).data("gameaction")){
             case "undo":
                 global_game.undoMove();
@@ -59,8 +58,6 @@ $(document).ready(function() {
                 global_game.resetGame();
                 break;
         }
-
     })
-
 
 });
