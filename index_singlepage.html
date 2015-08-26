@@ -3,6 +3,7 @@
   <title> Lattice </title>
   <script src="js/jquery.min.js"></script>
   <script src="js/underscore-min.js"></script>
+  <script src="js/LatticeGame.js"></script>
   <script src="js/lattice-app.js"></script>
   <link rel="stylesheet" href="lattice-singlepage.css">
 </head>
@@ -66,25 +67,25 @@
         <button type="button" data-navigate="main-menu">Back</button>
       </div>
 
-      <div id="single-player-setup" class="content">
+      <div id="single-player-setup" class="content ">
         <h1>Game Settings</h1>
         <div class="about-info">
           
           <form id="single-player-starting-options">
             Play as black or white? 
-            <label> <input type="radio" name="player-colour" value="white" checked> White </label>
-            <label> <input type="radio" name="player-colour" value="black"> Black </label>
+            <label> <input type="radio" name="player_colour" value="white" checked> White </label>
+            <label> <input type="radio" name="player_colour" value="black"> Black </label>
             <br>
             Starting Player? 
-            <label> <input type="radio" name="starting-player" value="you" checked> You </label>
-            <label> <input type="radio" name="starting-player" value="ai"> AI </label>
+            <label> <input type="radio" name="starting_player" value="player" checked> You </label>
+            <label> <input type="radio" name="starting_player" value="ai"> AI </label>
             <br>
             AI Difficulty: 
-            <label> <input type="radio" name="AI-level" value="1" checked> 1 </label>
-            <label> <input type="radio" name="AI-level" value="2"> 2 </label>
-            <label> <input type="radio" name="AI-level" value="3" disabled> 3 </label>
-            <label> <input type="radio" name="AI-level" value="4" disabled> 4 </label>
-            <label> <input type="radio" name="AI-level" value="5" disabled> 5 </label>
+            <label> <input type="radio" name="ai_level" value="1" checked> 1 </label>
+            <label> <input type="radio" name="ai_level" value="2"> 2 </label>
+            <label> <input type="radio" name="ai_level" value="3" disabled> 3 </label>
+            <label> <input type="radio" name="ai_level" value="4" disabled> 4 </label>
+            <label> <input type="radio" name="ai_level" value="5" disabled> 5 </label>
             <br>
             Timed:
             <label> <input type="radio" name="timed" value="No" checked> No </label>
@@ -99,12 +100,16 @@
       </div>
 
       <div id="multi-player-setup" class="content hidden">
-        <h2> Multiplayer </h2>
+        <h2> Local Multiplayer </h2>
         <div class="about-info">
-          Timed? <button type="button">Yes</button> <button type="button">No</button> <br>
-          <br>
-          Time for game (min): <input type="text"> <br> 
-          <button type="button">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
+        <form id="single-player-starting-options">
+            Timed:
+            <label> <input type="radio" name="timed" value="No" checked> No </label>
+            <label> <input type="radio" name="timed" value="Yes" disabled> Yes </label>
+            <br>
+            Time for game: <input type="text" name="time-for-game" value="infinte" disabled>
+          </form>
+          <button type="button" data-startgame="multi-player">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
         </div>
       </div>
 
@@ -117,9 +122,9 @@
 
         <div id="in-game-menu">
 
-          <button type="button">Undo</button>
-          <button type="button">Reset</button>
-          <button type="button">Menu</button>
+          <button type="button" data-gameaction="undo" > Undo </button>
+          <button type="button" data-gameaction="reset" > Reset </button>
+          <button type="button" data-navigate="main-menu" >Menu</button>
 
         </div>
 

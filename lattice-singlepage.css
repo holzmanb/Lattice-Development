@@ -58,3 +58,51 @@ body{
 
 /* Full width buttons */
 
+/* Lattice Board */
+
+#lattice-board{
+  overflow:auto;
+  background-image:url(js/board.png);
+    background-size:92.8%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.board_place {
+  position:relative;
+  float: left;
+  width: 16.6666666%;
+  padding-bottom:16.6666666%;
+}
+
+.piece {
+  width:50%;
+  height:50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  border-radius: 50%;
+}
+
+.piece:not(.o):not(.x):hover {
+  border-color:#00DD55;
+  border-width:5px;
+  border-style:solid;
+}
+
+.o {
+  background-image:url(js/white-player.png);
+    background-size: 100% 100%;
+}
+
+.x {
+  background-image:url(js/black-player.png);
+    background-size: 100% 100%;
+}
+
+.piece.winning{
+  border-style:solid;
+  border-width:5px;
+  border-color:#FFFF00;
+}
