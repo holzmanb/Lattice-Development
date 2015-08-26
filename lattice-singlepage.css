@@ -1,0 +1,41 @@
+  body{
+    margin:0;
+  }
+  .container-centred {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width:100%;
+  }
+  .container-aspect-ratio {
+    position: relative;
+  }
+  .container-aspect-ratio:after {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 160%;
+  }
+  .container-aspect-ratio > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: green;
+  }
+
+@media screen and (min-aspect-ratio: 10/16) { 
+  .container-centred {
+    position:relative;
+    width:62.5vh;
+    margin:auto;
+  }
+  .container-aspect-ratio:after {
+    width:10vh;
+    padding-top: 100vh;
+  }
+  .container-aspect-ratio > .content {
+    background: red;
+  }
+}
