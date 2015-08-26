@@ -11,7 +11,7 @@ var LatticeGame = function(){
     self.pieces_dom = [];
 
     self.players = [ { name:"Player 1", id:"x", player_type:"AI", aiLevel:2},
-                     { name:"Player 2", id:"o", player_type:"human"}];
+                     { name:"Player 2", id:"o", player_type:"human"} ];
 
     self.starting_player = 0;
     self.turn = self.starting_player;
