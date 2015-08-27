@@ -1,7 +1,8 @@
 // Make sure document is loaded...
 $(document).ready(function() {
 
-    /* Allow lattice game to set itself up */
+    /* Allow lattice game to set itself up 
+       Global Variable right now just for debug purposes */
     global_game = new LatticeGame();
     global_game.initBoard();
 

@@ -8,10 +8,10 @@ body{
 }
 
 .container-centred {
-  position: absolute;
+/*  position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width:100%;
+  width:100%;*/
 }
 
 .container-aspect-ratio {
@@ -22,7 +22,7 @@ body{
   display: block;
   content: "";
   width: 100%;
-  padding-top: 160%;
+  padding-top: 100vh;
 }
 
 .container-aspect-ratio > .content {
@@ -53,11 +53,97 @@ body{
   }
 }
 
-/* Simple UI for Pages */ 
+
+/* Some sizes based on screen height (100vh = 100% screen height) 
+  these are all just guesses though... might not work on some machines? */
+h1 {
+  font-size:4vh;
+
+}
+
+#rules h1 {
+  margin:1vh;
+}
+
+h2 {
+  font-size:3vh;
+  margin:.5vh;
+}
+
+p {
+  width:80%;
+  margin:auto;
+  font-size:2.1vh;
+}
+
+#main-menu h1 {
+  font-size:6vh;
+  color:white;
+  line-height:10vh;
+  background:purple;
+}
+
+#main-menu h2 {
+  font-size:5vh;
+  margin:2vh;
+}
+
+/* Radio Buttons */
 
 
+form h4 {
+  margin-bottom:.2vh;
+  margin-top:.2vh;
+  font-size:3vh;
+}
+
+.table-row{
+  display:table;
+  border-spacing:1.5vh;
+  width:80%;
+  margin:auto;
+  /*background:#222;*/
+  font-size:5vh;
+}
+
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {
+  display:table-cell;
+  padding:4px;
+  border-radius:5vh;
+  background:#222;
+  /*box-shadow: -.1vh .1vh 0px #888888;*/
+}
+input[type="radio"]:checked + label {
+    background:#492;
+    position: relative;
+    top: -.3vh;
+    right:-.3vh;
+    color:white;
+    box-shadow: -.3vh .3vh .1vh #222;
+    /* #655C25 */
+}
+input[type="radio"]:disabled + label {
+    background:#888;
+    color:black;
+    /*box-shadow: -.1vh .1vh 0px #666;*/
+}
 /* Full width buttons */
 
+.table-row .button {
+  display:table-cell;
+  border-radius:4vh;
+  background: #3B3BD2;
+  box-shadow: -.3vh .3vh .1vh #222;
+  font-size:4vh;
+}
+
+.button.back{
+  background: #AF0D0D;
+
+}
 /* Lattice Board */
 
 #lattice-board{

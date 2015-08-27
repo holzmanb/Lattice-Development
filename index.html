@@ -62,8 +62,9 @@
           <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a>
           </p>
         </div>
-
-        <button type="button" data-navigate="main-menu">Back</button>
+        <div class="table-row">
+          <div class="button back" data-navigate="main-menu">Back</div> 
+        </div>
       </div>
 
       <div id="rules" class="content hidden">
@@ -85,8 +86,9 @@
             latticegame.com
           </p>
         </div>
-
-        <button type="button" data-navigate="main-menu">Back</button>
+        <div class="table-row">
+          <div class="button back" data-navigate="main-menu">Back</div> 
+        </div>
       </div>
 
       <div id="single-player-setup" class="content hidden">
@@ -94,60 +96,79 @@
         <div class="about-info">
           
           <form id="single-player-starting-options">
-            Play as black or white? 
-            <label> <input type="radio" name="player_colour" value="white" checked> White </label>
-            <label> <input type="radio" name="player_colour" value="black"> Black </label>
-            <br>
-            Starting Player? 
-            <label> <input type="radio" name="starting_player" value="player" checked> You </label>
-            <label> <input type="radio" name="starting_player" value="ai"> AI </label>
-            <br>
-            AI Difficulty: 
-            <label> <input type="radio" name="ai_level" value="1" checked> 1 </label>
-            <label> <input type="radio" name="ai_level" value="2"> 2 </label>
-            <label> <input type="radio" name="ai_level" value="3" disabled> 3 </label>
-            <label> <input type="radio" name="ai_level" value="4" disabled> 4 </label>
-            <label> <input type="radio" name="ai_level" value="5" disabled> 5 </label>
-            <br>
-            Timed:
-            <label> <input type="radio" name="timed" value="No" checked> No </label>
-            <label> <input type="radio" name="timed" value="Yes" disabled> Yes </label>
-            <br>
-            Time for game: <input type="text" name="time-for-game" value="infinte" disabled>
+              <h4> Play as black or white? </h4>
+              <div class = "table-row">
+                <input type="radio" name="player_colour" value="white" id="pc1" checked> 
+                <label for="pc1"> White </label>
+                <input type="radio" name="player_colour" value="black" id="pc2"> 
+                <label for="pc2"> Black </label>
+              </div>
+              <h4> Starting Player? </h4>
+              <div class = "table-row">
+                <input id="sp1" type="radio" name="starting_player" value="player" checked > 
+                <label for="sp1"> You </label>
+                <input id="sp2"type="radio" name="starting_player" value="ai">
+                <label for="sp2"> AI </label>
+              </div>
+            <h4> AI Difficulty: </h4>
+            <div class = "table-row">
+              <input id="ai1" type="radio" name="ai_level" value="1" checked> 
+              <label for="ai1"> 1 </label>
+              <input id="ai2" type="radio" name="ai_level" value="2">
+              <label for="ai2"> 2 </label>
+              <input id="ai3" type="radio" name="ai_level" value="3" disabled>
+              <label for="ai3"> 3 </label>
+              <input id="ai4" type="radio" name="ai_level" value="4" disabled>
+              <label for="ai4"> 4 </label>
+              <input id="ai5" type="radio" name="ai_level" value="5" disabled>
+              <label for="ai5"> 5 </label>
+            </div>
+            <!-- <h4> Timed: </h4>
+              <div class="table-row">
+                <input id="t1" type="radio" name="timed" value="No" checked>
+                <label for="t1">  No </label>
+                <input id="t2" type="radio" name="timed" value="Yes" disabled>
+                <label for="t2">  Yes </label>
+              </div>
+              <h4> Time for game: </h4>
+              <input type="text" name="time-for-game" value="infinte" disabled> -->
           </form>
-
-          <button type="button" data-startgame="single-player">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
-          <br>
+            <div class="table-row">
+              <div class="button" data-startgame="single-player">Play</div> 
+              <div class="button back" data-navigate="main-menu">Back</div> 
+            </div>
         </div>
       </div>
 
       <div id="multi-player-setup" class="content hidden">
         <h2> Local Multiplayer </h2>
         <div class="about-info">
-        <form id="single-player-starting-options">
+        <form id="multi-player-starting-options">
             Timed:
-            <label> <input type="radio" name="timed" value="No" checked> No </label>
-            <label> <input type="radio" name="timed" value="Yes" disabled> Yes </label>
-            <br>
+            <div class = "table-row">
+            <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
+            <input id="t_m2" type="radio" name="timed" value="Yes" disabled> <label for="t_m2"> Yes </label>
+            </div>
             Time for game: <input type="text" name="time-for-game" value="infinte" disabled>
           </form>
-          <button type="button" data-startgame="multi-player">Play</button> <button type="button" data-navigate="main-menu">Back</button> <br>
+            <div class="table-row">
+              <div class="button" data-startgame="multi-player">Play</div> 
+              <div class="button back" data-navigate="main-menu">Back</div> 
+            </div>
         </div>
       </div>
 
       <div id="game" class="content hidden">
-        <h2> Play </h2>
+        <h1> Play </h1>
         <div id="lattice-board">
           <div id="board-list">
           </div>
         </div>
 
-        <div id="in-game-menu">
-
-          <button type="button" data-gameaction="undo" > Undo </button>
-          <button type="button" data-gameaction="reset" > Reset </button>
-          <button type="button" data-navigate="main-menu" >Menu</button>
-
+        <div id="in-game-menu" class="table-row">
+          <div class="button" data-gameaction="undo">Undo</div> 
+          <div class="button" data-gameaction="reset">Reset</div> 
+          <div class="button back" data-navigate="main-menu">Main Menu</div> 
         </div>
 
       </div>
