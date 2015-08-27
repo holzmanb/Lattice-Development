@@ -57,7 +57,7 @@ body{
 /* Some sizes based on screen height (100vh = 100% screen height) 
   these are all just guesses though... might not work on some machines? */
 h1 {
-  font-size:4vh;
+  font-size:8vh;
 
 }
 
@@ -66,7 +66,7 @@ h1 {
 }
 
 h2 {
-  font-size:3vh;
+  font-size:5vh;
   margin:.5vh;
 }
 
@@ -94,7 +94,7 @@ p {
 form h4 {
   margin-bottom:.2vh;
   margin-top:.2vh;
-  font-size:3vh;
+  font-size:5vh;
 }
 
 .table-row{
