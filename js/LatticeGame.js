@@ -414,7 +414,6 @@ LatticeGame.prototype.initBoard = function(){
             .appendTo(li)
             .click(function(e){
                         self.playMove($(e.currentTarget).attr("id"))
-                        console.log(e);
                     }
                 );
             
