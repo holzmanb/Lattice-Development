@@ -387,6 +387,7 @@ LatticeGame.prototype.loadState = function(state){
 };
 
 LatticeGame.prototype.addPiece = function(piece_index, player_index){
+    var self = this;
     self.state.playPiece(piece_index, self.players[player_index].id);
 
     self.pieces_dom[piece_index].addClass(self.players[player_index].id);
@@ -398,7 +399,7 @@ LatticeGame.prototype.removePiece = function(piece_index){
 };
 
 LatticeGame.prototype.initBoard = function(){
-    self = this;
+    var self = this;
     // Sets up the board in html
     var board_list = $('#board-list');
     for(var i = 0; i <36; i++)
@@ -410,11 +411,13 @@ LatticeGame.prototype.initBoard = function(){
         var piece_centred = $('<div/>')
             .addClass("piece")
             .attr('id',i)
+            .appendTo(li)
             .click(function(e){
-                        self.playMove($(e.toElement).attr("id"))
+                        self.playMove($(e.currentTarget).attr("id"))
+                        console.log(e);
                     }
-                )
-            .appendTo(li);
+                );
+            
 
         self.pieces_dom.push(piece_centred);
 
