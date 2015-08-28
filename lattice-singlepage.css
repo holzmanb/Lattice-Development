@@ -44,7 +44,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:80%;
+    width:62.5%;
     margin:auto;
   }
   .container-aspect-ratio:after {
@@ -72,7 +72,7 @@ h2 {
 p {
   width:100%;
   margin:auto;
-  font-size:3vh;
+  font-size:2.2vh;
 }
 
 #main-menu h1 {
