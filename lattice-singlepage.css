@@ -141,7 +141,7 @@ input[type="radio"]:disabled + label {
   border-radius:1vh;
   background: #476584;
   box-shadow: -.3vh .3vh .1vh #222;
-  font-size:4vh;
+  font-size:3vh;
 }
 
 .button.back{
