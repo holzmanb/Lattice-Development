@@ -29,12 +29,9 @@ body{
 }
 
 .container-aspect-ratio > .content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: #DDD;
+    position:relative;
+    width:90%;
+    margin:auto;
 
   text-align:center;
 }
@@ -47,7 +44,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:80%;
+    width:90%;
     margin:auto;
   }
   .container-board {
@@ -74,8 +71,8 @@ h1 {
 }
 
 h2 {
-  font-size:5vh;
-  margin:.5vh;
+  font-size:3.5vh;
+  margin:.1vh;
 }
 
 p {
