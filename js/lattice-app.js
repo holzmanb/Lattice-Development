@@ -36,7 +36,15 @@ $(document).ready(function() {
         // multi player game options
         if($(this).data("startgame") == "multi-player"){
             var game_options = {};
-            game_options["game_type"] = "multi_player";
+            $("#multi-player-starting-options :input").each(function(){
+                    if(this.checked == true){
+                        game_options[$(this).attr("name")] = $(this).val();
+                    }
+
+                    // this is only checking for radio buttons right now, cause we're not worried about anything else...
+                    // will have to do something for the timer & player info down the line
+                })
+            game_options["game_type"] = "single_player";
         }
 
         // start the game
