@@ -4,7 +4,7 @@ this container centred */
 
 body{
   margin:0;
-  background:#111;
+  background:#1B1B1A;
 }
 
 .container-centred {
@@ -31,7 +31,6 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
-  background: #2E2E2E;
   color: #DDD;
 
   text-align:center;
@@ -80,11 +79,13 @@ p {
   font-size:8vh;
   color:white;
   line-height:10vh;
+  font-family: Nyala;
 }
 
 #main-menu h2 {
   font-size:5vh;
-  margin:7vh;
+  margin:15%;
+  font-family: Nyala;
 }
 
 /* Radio Buttons */
@@ -140,7 +141,7 @@ input[type="radio"]:disabled + label {
 }
 
 .button.back{
-  background: #AF0D0D;
+  background: #D6D6C2;
 
 }
 /* Lattice Board */
