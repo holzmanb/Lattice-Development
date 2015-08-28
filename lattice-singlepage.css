@@ -29,6 +29,7 @@ body{
 }
 
 .container-aspect-ratio > .content {
+    color: #DDD;
     position:relative;
     width:90%;
     margin:auto;
