@@ -44,7 +44,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:45%;
+    width:60vh;
     margin:auto;
   }
   .container-aspect-ratio:after {
