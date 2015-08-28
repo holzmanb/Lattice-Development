@@ -15,7 +15,7 @@ body{
 }
 
 .container-board {
-  width: 50%;
+  width: 80%;
   position: absolute;
   top: 0;
   left: 25%;
@@ -48,6 +48,11 @@ body{
   .container-centred {
     position:relative;
     width:80%;
+    margin:auto;
+  }
+  .container-board {
+    position:relative;
+    width:50%;
     margin:auto;
   }
   .container-aspect-ratio:after {
