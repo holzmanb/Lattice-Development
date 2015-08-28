@@ -44,7 +44,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:62.5vh;
+    width:80%;
     margin:auto;
   }
   .container-aspect-ratio:after {
@@ -72,7 +72,7 @@ h2 {
 p {
   width:100%;
   margin:auto;
-  font-size:3vw;
+  font-size:3vh;
 }
 
 #main-menu h1 {
@@ -86,7 +86,7 @@ p {
 
 #main-menu h2 {
   font-size:5vh;
-  margin:15%;
+  margin:5%;
   font-family: 'Nyala';
   font-weight: normal;
   font-style: normal;
@@ -156,6 +156,9 @@ input[type="radio"]:disabled + label {
     background-size:92.8%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    @media screen and (min-aspect-ratio: 10/16) {
+      width: 62.5%;
+    }
 }
 
 .board_place {
