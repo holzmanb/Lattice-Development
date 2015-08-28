@@ -79,13 +79,15 @@ p {
   font-size:8vh;
   color:white;
   line-height:10vh;
-  font-family: Nyala;
+  font-family: 'Nyala';
+  font-weight: normal;
 }
 
 #main-menu h2 {
   font-size:5vh;
   margin:15%;
-  font-family: Nyala;
+  font-family: 'Nyala';
+  font-weight: normal;
 }
 
 /* Radio Buttons */
@@ -141,7 +143,7 @@ input[type="radio"]:disabled + label {
 }
 
 .button.back{
-  background: #D6D6C2;
+  background: black;
 
 }
 /* Lattice Board */
