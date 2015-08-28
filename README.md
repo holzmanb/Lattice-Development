@@ -8,22 +8,14 @@ Current version can simply be played as a local multiplayer.
 
 ## TODO
 
-- Update CSS to use pics & be crossbrowser compatible
-
-- Deal with rules / unavailable locations for early play...
-	- Rules state only allowed to play 3 rows/columns away.
-
-- Determine game layout better
-	- Landscape mode
-	- Portrait mode
-	- Menu Overlay / Buttons
-	- 
-
-- Determine game interactions better
-	- Undo
-	- Reset / New Game
-	- Game Start Menu Options
-	- Showing Hints (i.e. blocks, potential 2s & potential 3s)
-
-- Add AI / Play against computer
-	- Look at game flow probably to fix this.
+Iphone does not line pieces up correctly
+Remove back button and make entire page a back button for about and rules pages
+Add timer
+Add tutorial/sample game
+Fix first move handicap
+Green buttons on game setup
+Sizing on computer vs mobile
+Font not recognized on mobile
+AI levels 3-5, also modify levels 1 and 2
+Double tap for move
+Declare check/hint option
