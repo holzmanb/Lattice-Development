@@ -27,7 +27,7 @@ body{
 
 .container-aspect-ratio > .content {
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 0;
   right: 0;
   bottom: 0;
@@ -44,7 +44,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:62.5vh;
+    width:45%;
     margin:auto;
   }
   .container-aspect-ratio:after {
@@ -137,13 +137,13 @@ input[type="radio"]:disabled + label {
 .table-row .button {
   display:table-cell;
   border-radius:4vh;
-  background: #3B3BD2;
+  background: #476584;
   box-shadow: -.3vh .3vh .1vh #222;
   font-size:4vh;
 }
 
 .button.back{
-  background: black;
+  background: #476584;
 
 }
 /* Lattice Board */
