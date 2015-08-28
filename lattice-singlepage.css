@@ -14,8 +14,11 @@ body{
   width:100%;*/
 }
 
-.container-aspect-ratio {
-  position: relative;
+.container-board {
+  width: 50%;
+  position: absolute;
+  top: 0;
+  left: 25%;
 }
 
 .container-aspect-ratio:after {
@@ -44,7 +47,7 @@ body{
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
-    width:62.5%;
+    width:80%;
     margin:auto;
   }
   .container-aspect-ratio:after {
@@ -104,7 +107,7 @@ form h4 {
 .table-row{
   display:table;
   border-spacing:1.5vh;
-  width:80%;
+  width:90%;
   margin:auto;
   /*background:#222;*/
   font-size:5vh;
@@ -157,7 +160,7 @@ input[type="radio"]:disabled + label {
     background-repeat: no-repeat;
     background-position: 50% 50%;
     @media screen and (min-aspect-ratio: 10/16) {
-      width: 62.5%;
+      width: 50%;
     }
 }
 
