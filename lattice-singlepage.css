@@ -15,10 +15,10 @@ body{
 }
 
 .container-board {
-  width: 80%;
+  width: 100%;
   position: absolute;
   top: 0;
-  left: 25%;
+  left: 0;
 }
 
 .container-aspect-ratio:after {
@@ -43,7 +43,7 @@ body{
   display:none;
 }
 
-@media screen and (min-aspect-ratio: 10/16) {
+@media screen and (min-aspect-ratio: 1/1) {
 /* when the screen goes too wide make a vertical div */
   .container-centred {
     position:relative;
@@ -51,8 +51,9 @@ body{
     margin:auto;
   }
   .container-board {
-    position:relative;
-    width:50%;
+    position: absolute;
+    left: 25%;
+    width:45%;
     margin:auto;
   }
   .container-aspect-ratio:after {
@@ -113,6 +114,7 @@ form h4 {
   display:table;
   border-spacing:1.5vh;
   width:90%;
+  color: white;
   margin:auto;
   /*background:#222;*/
   font-size:5vh;
@@ -164,9 +166,6 @@ input[type="radio"]:disabled + label {
     background-size:92.8%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    @media screen and (min-aspect-ratio: 10/16) {
-      width: 50%;
-    }
 }
 
 .board_place {
