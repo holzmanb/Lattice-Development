@@ -52,7 +52,7 @@
       </div>
 
       <div id="about" class="content hidden">
-        <h1>About</h1>
+        <h2>About</h2>
         <div class="about-info">
           <p>
           Lattice is an abstract strategy game first created in the back row of a geophysics class at the University of British Columbia.<br>
@@ -73,14 +73,11 @@
 
       <div id="rules" class="content hidden">
         <div class="about-info">
-          <h2>Objective:</h2>
-          <br>
+          <h2>Objective</h2>
           <p>
           Occupy all four corners of a square on the 6 x 6 grid. The winning square can be of any size (1 x 1, 2 x 2, 3 x 3, 4 x 4, 5 x 5, or 6 x 6), but must line up with the gridlines. Diamond shapes do not count. <br>
-          <br>
           </p>
-          <h2>Game Play:</h2>
-          <br>
+          <h2>Game Play</h2>
           <p>
           This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows, or columns, from their first stone. There are no restrictions on any future game moves.<br>
           <br>
@@ -132,6 +129,7 @@
               </div>
               <h4> Time for game: </h4>
               <input type="text" name="time-for-game" value="infinte" disabled> -->
+
           </form>
             <div class="table-row">
               <div class="button" data-startgame="single-player">Play</div> 
@@ -141,15 +139,16 @@
       </div>
 
       <div id="multi-player-setup" class="content hidden">
-        <h2> Local Multiplayer </h2>
-        <div class="about-info">
-        <form id="multi-player-starting-options">
-            Timed:
+          <h1>Game Settings</h1>
+          <div class="about-info">
+
+          <form id="multi-player-starting-options">
+            <h4>Timed:</h4>
             <div class = "table-row">
-            <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
-            <input id="t_m2" type="radio" name="timed" value="Yes" disabled> <label for="t_m2"> Yes </label>
+              <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
+              <input id="t_m2" type="radio" name="timed" value="Yes" disabled> <label for="t_m2"> Yes </label>
             </div>
-            Time for game: <input type="text" name="time-for-game" value="infinte" disabled>
+            <h4>Time for game: <input type="text" name="time-for-game" value="infinte" disabled></h4>
           </form>
             <div class="table-row">
               <div class="button" data-startgame="multi-player">Play</div> 
