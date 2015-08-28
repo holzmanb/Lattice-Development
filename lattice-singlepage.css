@@ -26,7 +26,11 @@ body{
 }
 
 .container-aspect-ratio > .content {
-  position: center;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 0;
   color: #DDD;
 
   text-align:center;
