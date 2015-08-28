@@ -26,11 +26,7 @@ body{
 }
 
 .container-aspect-ratio > .content {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: center;
   color: #DDD;
 
   text-align:center;
@@ -81,6 +77,7 @@ p {
   line-height:10vh;
   font-family: 'Nyala';
   font-weight: normal;
+  font-style: normal;
 }
 
 #main-menu h2 {
@@ -88,6 +85,7 @@ p {
   margin:15%;
   font-family: 'Nyala';
   font-weight: normal;
+  font-style: normal;
 }
 
 /* Radio Buttons */
@@ -136,7 +134,7 @@ input[type="radio"]:disabled + label {
 
 .table-row .button {
   display:table-cell;
-  border-radius:4vh;
+  border-radius:1vh;
   background: #476584;
   box-shadow: -.3vh .3vh .1vh #222;
   font-size:4vh;
