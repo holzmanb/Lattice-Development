@@ -47,23 +47,18 @@ LatticeGame.prototype.newGame = function(game_options){
         self.players = [ { name:"You", id:"x", player_type:"human"},
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
 
-        // starting player
-        if(game_options.starting_player == "player"){
-            self.starting_player = 0;
-        }else {
-            self.starting_player = 1;
-        }
-        self.turn = self.starting_player;
 
-        // select color
+        // select color and who goes first
         if(game_options.player_colour == "white"){
             console.log("white");
             self.players[0].id = "o";
             self.players[1].id = "x";
+            self.starting_player = 1;
         }else{
             console.log("black");
+            self.starting_player = 0;
         }
-
+        self.turn = self.starting_player;
         self.resetGame();
     }
 
