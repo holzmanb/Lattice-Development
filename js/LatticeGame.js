@@ -211,7 +211,8 @@ LatticeGame.prototype.playAiTurn = function(){
         return these_ones;
         }
     
-    
+    var moves = self.state.getEmptySpaces();
+
     // Check that there's an AI that should play
     if (self.players[self.turn].player_type == "AI"){
         ai_player = self.players[self.turn];
@@ -219,7 +220,7 @@ LatticeGame.prototype.playAiTurn = function(){
 
         if(ai_player.aiLevel == "random"){
             console.log("random move");
-            var moves = self.state.getEmptySpaces();
+        }else if(moves.length == 36){
             self.playMove(randomOption(moves));
         }else if(ai_player.aiLevel == 1){
             // Level 1
