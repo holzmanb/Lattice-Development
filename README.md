@@ -12,7 +12,6 @@ Current version can simply be played as a local multiplayer.
 -Add timer
 -Add tutorial/sample game
 -Fix first move handicap
--Font not recognized on mobile
 -AI levels 3-5, also modify levels 1 and 2
 -Double tap for move
 -Declare check/hint option
@@ -21,3 +20,4 @@ Current version can simply be played as a local multiplayer.
 ## Done
 	
 - Sizing on computer vs mobile
+-Font not recognized on mobile
