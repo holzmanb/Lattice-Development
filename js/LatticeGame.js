@@ -166,10 +166,14 @@ LatticeGame.BoardState.prototype.getEmptySpaces = function(){
     var self = this;
 
     var empty_spaces = self.board_numeric.reduce(function(a, e, i) {
-                                if (e === 0)
-                                    a.push(i);
-                                return a;
-                            }, []);
+        if (e === 0)
+            a.push(i);
+        return a;
+    }, []);
+    if (empty_spaces.length == 34){
+        firstMove == 1;
+        empty_spaces = [1+1];
+    }
     return empty_spaces;
 };
 
@@ -212,6 +216,7 @@ LatticeGame.prototype.playAiTurn = function(){
         }
     
     var moves = self.state.getEmptySpaces();
+    var moveValues = self.state.moveValues();
 
     // Check that there's an AI that should play
     if (self.players[self.turn].player_type == "AI"){
@@ -221,11 +226,10 @@ LatticeGame.prototype.playAiTurn = function(){
         if(ai_player.aiLevel == "random"){
             console.log("random move");
         }else if(moves.length == 36){
-            self.playMove(randomOption(moves));
+            firstMove = self.playMove(randomOption(moves));
+            return firstMove;
         }else if(ai_player.aiLevel == 1){
             // Level 1
-
-            var moveValues = self.state.moveValues();
 
             if ( moveValues[ai_player.id][4].length > 0){
                 // Winning move
