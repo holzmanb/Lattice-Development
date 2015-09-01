@@ -239,7 +239,8 @@ LatticeGame.prototype.playAiTurn = function(){
         if(ai_player.aiLevel == "random"){
             console.log("random move");
         }else if(moves.length == 36){
-            firstMove = self.playMove(randomOption(moves)); /*Tried to define and log firstMove, but alas I am inept */
+            var firstMove = self.playMove(randomOption(moves));
+             /*Tried to define and log firstMove, but alas I am inept */
         }else if(ai_player.aiLevel == 1){
             // Level 1
 
@@ -250,14 +251,16 @@ LatticeGame.prototype.playAiTurn = function(){
             }else if( moveValues[other_player.id][4].length > 0){
                 // block winning move for opponent
                 self.playMove(randomOption(moveValues[other_player.id][4]));
-
+                
+            }else if( moveValues[ai_player.id][3].length > 0 ){
+                // take random check move for self
+                self.playMove(randomOption(moveValues[ai_player.id][3]));
+            
             }else if( moveValues[other_player.id][3].length > 0){
                 // block random check move for opponent
                 self.playMove(randomOption(moveValues[other_player.id][3]));
 
-            }else if( moveValues[ai_player.id][3].length > 0 ){
-                // take random check move for self
-                self.playMove(randomOption(moveValues[ai_player.id][3]));
+
 
             }else {
                 // play random move "best visible"
@@ -292,13 +295,13 @@ LatticeGame.prototype.playAiTurn = function(){
                 // Try to find random double
                 self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
-            }else if( moveValues[other_player.id][3].length > 0){
-                // block random check move for opponent
-                self.playMove(randomOption(moveValues[other_player.id][3]));
-
             }else if( moveValues[ai_player.id][3].length > 0 ){
                 // take random check move for self
                 self.playMove(randomOption(moveValues[ai_player.id][3]));
+
+            }else if( moveValues[other_player.id][3].length > 0){
+                // block random check move for opponent
+                self.playMove(randomOption(moveValues[other_player.id][3]));
 
             }else {
                 // play random move "best visible"
