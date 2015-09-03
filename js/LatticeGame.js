@@ -170,25 +170,22 @@ LatticeGame.BoardState.prototype.getEmptySpaces = function(){
             a.push(i);
         return a;
     }, []);
-    /*if (empty_spaces.length == 34){
-        var firstMove = self.state.playAITurn();
-        var empty_spaces = self.board_numeric.reduce(function(a,e,i){
-            if (e === 0)
-                a.push(5);
+
+    if (empty_spaces.length == 34){
+        var fm = self.firstMove.move;
+
+        empty_spaces = self.board_numeric.reduce(function(a,e,i){
+
+            if (e === 0 && (Math.abs(Math.floor(i/6) - Math.floor(fm/6)) >= 3 || Math.abs(i%6 - fm%6) >= 3))
+                a.push(i);
             return a;
+
         }, []);
-    }*/
+    }
+    console.log(empty_spaces);
     return empty_spaces;
 };
 
-LatticeGame.BoardState.prototype.firstMove = function(){
-    var self = this;
-
-    var firstMove = self.state.playAITurn();
-    if(moves.length == 36){
-        return firstMove;
-    }
-};
 
 LatticeGame.BoardState.prototype.squares = (function(){
     var self = this;
@@ -239,7 +236,7 @@ LatticeGame.prototype.playAiTurn = function(){
         if(ai_player.aiLevel == "random"){
             console.log("random move");
         }else if(moves.length == 36){
-            var firstMove = self.playMove(randomOption(moves));
+             self.playMove(randomOption(moves));
              /*Tried to define and log firstMove, but alas I am inept */
         }else if(ai_player.aiLevel == 1){
             // Level 1
@@ -252,16 +249,14 @@ LatticeGame.prototype.playAiTurn = function(){
                 // block winning move for opponent
                 self.playMove(randomOption(moveValues[other_player.id][4]));
                 
-            }else if( moveValues[ai_player.id][3].length > 0 ){
-                // take random check move for self
-                self.playMove(randomOption(moveValues[ai_player.id][3]));
-            
             }else if( moveValues[other_player.id][3].length > 0){
                 // block random check move for opponent
                 self.playMove(randomOption(moveValues[other_player.id][3]));
 
-
-
+            }else if( moveValues[ai_player.id][3].length > 0 ){
+                // take random check move for self
+                self.playMove(randomOption(moveValues[ai_player.id][3]));
+            
             }else {
                 // play random move "best visible"
                 var moves = self.state.getEmptySpaces();
@@ -319,9 +314,7 @@ LatticeGame.prototype.playAiTurn = function(){
                 }
                 
             }
-        return firstMove;
         } 
-
     }
 };
 
@@ -345,6 +338,11 @@ LatticeGame.prototype.playMove= function(move){
 
     var self = this;
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
+        console.log(self.state.getEmptySpaces(), "yeah");
+        if(self.state.getEmptySpaces().length == 36){
+            console.log("wooooh");
+            self.state.firstMove = {"move":move, "id":self.turn};
+        }
         self.addPiece(move, self.turn);
         self.turn = (self.turn+1)%2;
         self.wins = self.state.findWin();

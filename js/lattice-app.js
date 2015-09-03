@@ -11,6 +11,9 @@ $(document).ready(function() {
         // hide all content
         $('.content').addClass("hidden");
 
+        //Scroll to top of page 
+        $(window).scrollTop();
+        
         // show this specific div
         $("#" + $(this).data("navigate")).removeClass("hidden");
     })
