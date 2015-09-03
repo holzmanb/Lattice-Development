@@ -151,6 +151,7 @@ input[type="radio"]:disabled + label {
   background: #476584;
   box-shadow: -.3vh .3vh .1vh #222;
   font-size:4vh;
+  text-align:center;
 }
 
 .button.back{
@@ -184,6 +185,7 @@ input[type="radio"]:disabled + label {
   border-radius: 50%; 
   opacity: 80%; 
 }
+
 .piece {
   width:50%;
   height:50%;
