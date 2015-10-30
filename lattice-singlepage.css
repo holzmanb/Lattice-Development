@@ -200,7 +200,7 @@ input[type="radio"]:disabled + label {
 
 .piece:not(.o):not(.x):hover {
   border-color:#00DD55;
-  border-width:5px;
+  border-width:0.5%;
   border-style:solid;
 }
 
@@ -214,6 +214,11 @@ input[type="radio"]:disabled + label {
     background-size: 100% 100%;
 }
 
+.piece.last{
+  border-style:solid;
+  border-width:0.5%;
+  border-color:##00DD55;  
+}
 .piece.winning{
   border-style:solid;
   border-width:0.5%;
