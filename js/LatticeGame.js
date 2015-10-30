@@ -182,7 +182,7 @@ LatticeGame.BoardState.prototype.getEmptySpaces = function(){
 
         }, []);
     }
-    console.log(empty_spaces);
+    /*console.log(empty_spaces);*/
     return empty_spaces;
 };
 
@@ -227,6 +227,7 @@ LatticeGame.prototype.playAiTurn = function(){
     
     var moves = self.state.getEmptySpaces();
     var moveValues = self.state.moveValues();
+    var delay = 750; //sets computer delay at .75 seconds
 
     // Check that there's an AI that should play
     if (self.players[self.turn].player_type == "AI"){
@@ -234,47 +235,90 @@ LatticeGame.prototype.playAiTurn = function(){
         other_player = self.players[(self.turn+1)%2];
 
         if(ai_player.aiLevel == "random"){
-            console.log("random move");
+            /*console.log("random move");*/
         }else if(moves.length == 36){
              self.playMove(randomOption(moves));
              /*Tried to define and log firstMove, but alas I am inept */
         }else if(ai_player.aiLevel == 1){
             // Level 1
 
-            if ( moveValues[ai_player.id][4].length > 0){
-                // Winning move
-                self.playMove(randomOption(moveValues[ai_player.id][4]));
+            setTimeout(function(){
+                if ( moveValues[ai_player.id][4].length > 0){
+                    // Winning move
+                    self.playMove(randomOption(moveValues[ai_player.id][4]));
 
-            }else if( moveValues[other_player.id][4].length > 0){
-                // block winning move for opponent
-                self.playMove(randomOption(moveValues[other_player.id][4]));
+                }else if( moveValues[other_player.id][4].length > 0){
+                    // block winning move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][4]));
                 
-            }else if( moveValues[other_player.id][3].length > 0){
-                // block random check move for opponent
-                self.playMove(randomOption(moveValues[other_player.id][3]));
+                }else if( moveValues[other_player.id][3].length > 0){
+                    // block random check move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][3]));
 
-            }else if( moveValues[ai_player.id][3].length > 0 ){
-                // take random check move for self
-                self.playMove(randomOption(moveValues[ai_player.id][3]));
+                }else if( moveValues[ai_player.id][3].length > 0 ){
+                    // take random check move for self
+                    self.playMove(randomOption(moveValues[ai_player.id][3]));
             
-            }else {
-                // play random move "best visible"
-                var moves = self.state.getEmptySpaces();
-                var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                if ( centre_moves[0] != undefined){
-                    self.playMove(randomOption(centre_moves));
-                }else{
-                    var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                    if ( layer2_moves[0] != undefined){
-                        self.playMove(randomOption(layer2_moves));
+                }else {
+                    // play random move "best visible"
+                    var moves = self.state.getEmptySpaces();
+                    var centre_moves = pieces_in_both(piece_rank["centre"], moves);
+                    if ( centre_moves[0] != undefined){
+                        self.playMove(randomOption(centre_moves));
                     }else{
-                        self.playMove(randomOption(moves));
+                        var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
+                        if ( layer2_moves[0] != undefined){
+                            self.playMove(randomOption(layer2_moves));
+                        }else{
+                            self.playMove(randomOption(moves));
+                        }
                     }
                 }
-                
-            }
+            }, delay);
         }else if(ai_player.aiLevel == 2){
-            // Level 1
+            // Level 2
+            
+            var moveValues = self.state.moveValues();
+
+            setTimeout(function(){
+                if ( moveValues[ai_player.id][4].length > 0){
+                    // Winning move
+                    self.playMove(randomOption(moveValues[ai_player.id][4]));
+
+                }else if( moveValues[other_player.id][4].length > 0){
+                    // block winning move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][4]));
+            
+                }else if( moveValues[ai_player.id]["double_check"].length > 0){
+                    // Try to find random double
+                    self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
+
+                }else if( moveValues[ai_player.id][3].length > 0 ){
+                    // take random check move for self
+                    self.playMove(randomOption(moveValues[ai_player.id][3]));
+
+                }else if( moveValues[other_player.id][3].length > 0){
+                    // block random check move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][3]));
+
+                }else {
+                    // play random move "best visible"
+                    var moves = self.state.getEmptySpaces();
+                    var centre_moves = pieces_in_both(piece_rank["centre"], moves);
+                    if ( centre_moves[0] != undefined){
+                        self.playMove(randomOption(centre_moves));
+                    }else{
+                        var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
+                        if ( layer2_moves[0] != undefined){
+                            self.playMove(randomOption(layer2_moves));
+                        }else{
+                            self.playMove(randomOption(moves));
+                        }
+                    }
+                }
+            }, delay);
+        }else if(ai_player.aiLevel == 3){
+            // Level 3
             
             var moveValues = self.state.moveValues();
 
@@ -290,26 +334,85 @@ LatticeGame.prototype.playAiTurn = function(){
                 // Try to find random double
                 self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
-            }else if( moveValues[ai_player.id][3].length > 0 ){
-                // take random check move for self
-                self.playMove(randomOption(moveValues[ai_player.id][3]));
-
-            }else if( moveValues[other_player.id][3].length > 0){
-                // block random check move for opponent
-                self.playMove(randomOption(moveValues[other_player.id][3]));
-
             }else {
-                // play random move "best visible"
-                var moves = self.state.getEmptySpaces();
-                var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                if ( centre_moves[0] != undefined){
-                    self.playMove(randomOption(centre_moves));
-                }else{
-                    var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                    if ( layer2_moves[0] != undefined){
-                        self.playMove(randomOption(layer2_moves));
-                    }else{
-                        self.playMove(randomOption(moves));
+                
+                /*var no_played_move = true;
+                if( moveValues[ai_player.id][3].length > 0 ){
+                    
+                    /*var checkMoves = moveValues[ai_player.id][3]
+                    for (i in checkMoves) {
+                        var check_board = self.state.clone();
+                        check_board.playPiece(i,[ai_player.id]);
+                        var newMoveValues = check_board.moveValues();
+                         if( newMoveValues[ai_player.id]["double_check"].length > 1){
+                            console.log(i);
+                            self.playMove(i);
+                            no_played_move = false;                                               
+                    }
+                    _.each(moveValues[ai_player.id][3], function(a,i){
+                        console.log(a);
+                        var check_board = self.state.clone();
+                        self.playMove(i,[ai_player.id]);                       
+                        var newMoveValues = check_board.moveValues();
+                        if( newMoveValues[ai_player.id]["double_check"].length > 0){
+                            console.log(i);
+                            no_played_move = false;
+                        }else{
+                            self.removePiece(i);
+                        }*/
+
+                var no_played_move = true;
+                var checkMoves = ( moveValues[ai_player.id][3] );
+                console.log(checkMoves)
+                _.each(checkMoves, function(move){
+                    var checkMove = move;
+                    console.log(checkMove)
+                    var check_board = self.state.clone();
+                    check_board.playPiece(checkMove,[ai_player.id]);                        
+                    var newMoveValues = check_board.moveValues([check_board]);
+                    if( newMoveValues[ai_player.id]["double_check"].length > 0){
+                        no_played_move = false;
+                        self.playMove(checkMove, [ai_player.id]);
+                
+                        
+                        /*if (moveValues.prototype.count == 2){
+                        self.playMove(move[ai_player.id]);
+                        no_played_move = false;  
+                        /*_.each(moveValues[ai_player.id][3], function(move){
+                        console.log(move);
+                        if (count(moveValues, move) == 2){
+                            self.playMove(move[ai_player.id]);
+                            no_played_move = false;  
+                        }
+                    }); */ 
+                        }
+                    });
+                
+
+                if (no_played_move){
+
+                    if( moveValues[ai_player.id][3].length > 0 ){
+                        // take random check move for self
+                        self.playMove(randomOption(moveValues[ai_player.id][3])); 
+
+                    }if( moveValues[other_player.id][3].length > 0){
+                        // block random check move for opponent
+                        self.playMove(randomOption(moveValues[other_player.id][3]));
+
+                    }else {
+                        // play random move "best visible"
+                        var moves = self.state.getEmptySpaces();
+                        var centre_moves = pieces_in_both(piece_rank["centre"], moves);
+                        if ( centre_moves[0] != undefined){
+                            self.playMove(randomOption(centre_moves));
+                        }else{
+                            var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
+                            if ( layer2_moves[0] != undefined){
+                                self.playMove(randomOption(layer2_moves));
+                            }else{
+                                self.playMove(randomOption(moves));
+                            }
+                        }
                     }
                 }
                 
@@ -338,9 +441,9 @@ LatticeGame.prototype.playMove= function(move){
 
     var self = this;
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
-        console.log(self.state.getEmptySpaces(), "yeah");
+        /*console.log(self.state.getEmptySpaces(), "yeah");*/
         if(self.state.getEmptySpaces().length == 36){
-            console.log("wooooh");
+            /*console.log("wooooh");*/
             self.state.firstMove = {"move":move, "id":self.turn};
         }
         self.addPiece(move, self.turn);
