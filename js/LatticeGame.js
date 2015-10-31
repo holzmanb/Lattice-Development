@@ -94,6 +94,7 @@ LatticeGame.BoardState.prototype.clone = function(){
 LatticeGame.BoardState.prototype.playPiece = function(piece_index, player_id){
     var self = this;
     self.board_numeric[piece_index] = player_id;
+    console.log(self.board_numeric);
     // Update board stats;
     _.each(self.piece_index_to_squares[piece_index], function(square_index){
         if (self.square_stats[square_index] == undefined){
@@ -335,69 +336,60 @@ LatticeGame.prototype.playAiTurn = function(){
                 self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
             }else {
-                
-                /*var no_played_move = true;
-                if( moveValues[ai_player.id][3].length > 0 ){
-                    
-                    /*var checkMoves = moveValues[ai_player.id][3]
-                    for (i in checkMoves) {
-                        var check_board = self.state.clone();
-                        check_board.playPiece(i,[ai_player.id]);
-                        var newMoveValues = check_board.moveValues();
-                         if( newMoveValues[ai_player.id]["double_check"].length > 1){
-                            console.log(i);
-                            self.playMove(i);
-                            no_played_move = false;                                               
-                    }
-                    _.each(moveValues[ai_player.id][3], function(a,i){
-                        console.log(a);
-                        var check_board = self.state.clone();
-                        self.playMove(i,[ai_player.id]);                       
-                        var newMoveValues = check_board.moveValues();
-                        if( newMoveValues[ai_player.id]["double_check"].length > 0){
-                            console.log(i);
-                            no_played_move = false;
-                        }else{
-                            self.removePiece(i);
-                        }*/
 
+                // are there any moves that gives check, which produce double check opportunity
                 var no_played_move = true;
                 var checkMoves = ( moveValues[ai_player.id][3] );
-                console.log(checkMoves)
+                console.log("hello1", checkMoves)
                 _.each(checkMoves, function(move){
                     var checkMove = move;
-                    console.log(checkMove)
+                    console.log("test", checkMove)
                     var check_board = self.state.clone();
-                    check_board.playPiece(checkMove,[ai_player.id]);                        
+                    check_board.playPiece(checkMove, ai_player.id);                        
                     var newMoveValues = check_board.moveValues([check_board]);
-                    if( newMoveValues[ai_player.id]["double_check"].length > 0){
+                    if( newMoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
                         no_played_move = false;
-                        self.playMove(checkMove, [ai_player.id]);
-                
-                        
-                        /*if (moveValues.prototype.count == 2){
-                        self.playMove(move[ai_player.id]);
-                        no_played_move = false;  
-                        /*_.each(moveValues[ai_player.id][3], function(move){
-                        console.log(move);
-                        if (count(moveValues, move) == 2){
-                            self.playMove(move[ai_player.id]);
-                            no_played_move = false;  
-                        }
-                    }); */ 
+                        console.log("play move");
+                        self.playMove(checkMove, ai_player.id);
                         }
                     });
                 
 
                 if (no_played_move){
 
-                    if( moveValues[ai_player.id][3].length > 0 ){
-                        // take random check move for self
-                        self.playMove(randomOption(moveValues[ai_player.id][3])); 
-
-                    }if( moveValues[other_player.id][3].length > 0){
+                     if( moveValues[other_player.id][3].length > 0){
                         // block random check move for opponent
-                        self.playMove(randomOption(moveValues[other_player.id][3]));
+                        // self.playMove(randomOption(moveValues[other_player.id][3]));
+                        // clever check blocking..!
+                        var best_moves = [moveValues[other_player.id][3][0]];
+                        var best = 0;
+
+                        _.each(moveValues[other_player.id][3], function(check_blocking_move){
+                            var board_clone = self.state.clone();
+                            // have opponent play check move
+                            board_clone.playPiece(check_blocking_move, other_player.id)
+                            var moveValues = board_clone.moveValues();
+                            // block this check
+                            board_clone.playPiece(randomOption(moveValues[other_player.id][4]), ai_player.id);
+
+                            moveValues = board_clone.moveValues();
+                            //count how many checks are now available to opponent.
+                            if (moveValues[other_player.id][3].length > best){
+                                best_moves = [check_blocking_move];
+                                best = moveValues[other_player.id][3].length;
+                            }else if(moveValues[other_player.id][3].length == best){
+                                best_moves.push(check_blocking_move);
+                            }
+
+                        });
+
+                        if( best > 4  || moveValues[ai_player.id][3].length == 0 ){
+                            console.log("fancy blocky");
+                            self.playMove(randomOption(best_moves));
+                        }else{
+                            // take random check move for self
+                            self.playMove(randomOption(moveValues[ai_player.id][3])); 
+                        }
 
                     }else {
                         // play random move "best visible"
@@ -438,7 +430,7 @@ LatticeGame.prototype.resetGame = function(){
 
 LatticeGame.prototype.playMove= function(move){
     // Handles a board update / move being made
-
+    console.log("playeMove", move);
     var self = this;
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         /*console.log(self.state.getEmptySpaces(), "yeah");*/
