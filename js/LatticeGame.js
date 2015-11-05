@@ -94,7 +94,7 @@ LatticeGame.BoardState.prototype.clone = function(){
 LatticeGame.BoardState.prototype.playPiece = function(piece_index, player_id){
     var self = this;
     self.board_numeric[piece_index] = player_id;
-    console.log(self.board_numeric);
+    //console.log(self.board_numeric);
     // Update board stats;
     _.each(self.piece_index_to_squares[piece_index], function(square_index){
         if (self.square_stats[square_index] == undefined){
@@ -228,7 +228,7 @@ LatticeGame.prototype.playAiTurn = function(){
     
     var moves = self.state.getEmptySpaces();
     var moveValues = self.state.moveValues();
-    var delay = 750; //sets computer delay at .75 seconds
+    var delay = 500; //sets computer delay at .75 seconds
 
     // Check that there's an AI that should play
     if (self.players[self.turn].player_type == "AI"){
@@ -295,9 +295,26 @@ LatticeGame.prototype.playAiTurn = function(){
                     self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
                 }else if( moveValues[ai_player.id][3].length > 0 ){
+                    //take check move to double check move
+                    var no_played_move = true;
+                    var checkMoves = ( moveValues[ai_player.id][3] );
+                    console.log("check list 1", checkMoves)
+                    _.each(checkMoves, function(move){
+                        var checkMove = move;
+                        console.log("ai test move 1", checkMove)
+                        var check_board = self.state.clone();
+                        check_board.playPiece(checkMove, ai_player.id);                        
+                        var newMoveValues = check_board.moveValues([check_board]);
+                        if( newMoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
+                            no_played_move = false;
+                            console.log("play move for mate in 2");
+                            self.playMove(checkMove, ai_player.id);
+                            }
+                        });
                     // take random check move for self
-                    self.playMove(randomOption(moveValues[ai_player.id][3]));
-
+                    if (no_played_move){
+                        self.playMove(randomOption(moveValues[ai_player.id][3]));
+                    }
                 }else if( moveValues[other_player.id][3].length > 0){
                     // block random check move for opponent
                     self.playMove(randomOption(moveValues[other_player.id][3]));
@@ -322,93 +339,125 @@ LatticeGame.prototype.playAiTurn = function(){
             // Level 3
             
             var moveValues = self.state.moveValues();
+            setTimeout(function(){
+                if ( moveValues[ai_player.id][4].length > 0){
+                    // Winning move
+                    self.playMove(randomOption(moveValues[ai_player.id][4]));
 
-            if ( moveValues[ai_player.id][4].length > 0){
-                // Winning move
-                self.playMove(randomOption(moveValues[ai_player.id][4]));
-
-            }else if( moveValues[other_player.id][4].length > 0){
-                // block winning move for opponent
-                self.playMove(randomOption(moveValues[other_player.id][4]));
+                }else if( moveValues[other_player.id][4].length > 0){
+                    // block winning move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][4]));
             
-            }else if( moveValues[ai_player.id]["double_check"].length > 0){
-                // Try to find random double
-                self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
+                }else if( moveValues[ai_player.id]["double_check"].length > 0){
+                    // Try to find random double
+                    self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
-            }else {
+                }else {
 
-                // are there any moves that gives check, which produce double check opportunity
-                var no_played_move = true;
-                var checkMoves = ( moveValues[ai_player.id][3] );
-                console.log("hello1", checkMoves)
-                _.each(checkMoves, function(move){
-                    var checkMove = move;
-                    console.log("test", checkMove)
-                    var check_board = self.state.clone();
-                    check_board.playPiece(checkMove, ai_player.id);                        
-                    var newMoveValues = check_board.moveValues([check_board]);
-                    if( newMoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
-                        no_played_move = false;
-                        console.log("play move");
-                        self.playMove(checkMove, ai_player.id);
-                        }
-                    });
+                    // are there any moves that gives check, which produce double check opportunity
+                    var no_played_move = true;
+                    var checkMoves = ( moveValues[ai_player.id][3] );
+                    console.log("check list 1", checkMoves)
+                    _.each(checkMoves, function(move){
+                        var checkMove = move;
+                        console.log("ai test move 1", checkMove)
+                        var check_board = self.state.clone();
+                        check_board.playPiece(checkMove, ai_player.id);                        
+                        var newMoveValues = check_board.moveValues([check_board]);
+                        if( newMoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
+                            no_played_move = false;
+                            console.log("play move for mate in 2");
+                            self.playMove(checkMove, ai_player.id);
+                            }
+                        });
                 
+                    if (no_played_move){
+                        _.each(checkMoves, function(move){
+                            //Play 1st ai move
+                            var aiMove = move;
+                            var check_board = self.state.clone();
+                            check_board.playPiece(aiMove, ai_player.id);
+                            console.log("ai move 1", aiMove);
 
-                if (no_played_move){
+                            //play 1st block move
+                            var blockMoveValues = check_board.moveValues();
+                            var blockMove = ( blockMoveValues[ai_player.id][4] );
+                            console.log("block move 1", blockMove);
+                            check_board.playPiece(blockMove, other_player.id);
 
-                     if( moveValues[other_player.id][3].length > 0){
-                        // block random check move for opponent
-                        // self.playMove(randomOption(moveValues[other_player.id][3]));
-                        // clever check blocking..!
-                        var best_moves = [moveValues[other_player.id][3][0]];
-                        var best = 0;
+                            //list 2nd check moves                      
+                            var move2Values = check_board.moveValues();                    
+                            var check2Moves = ( move2Values[ai_player.id][3] );
+                            console.log("2nd check list", check2Moves);
 
-                        _.each(moveValues[other_player.id][3], function(check_blocking_move){
-                            var board_clone = self.state.clone();
-                            // have opponent play check move
-                            board_clone.playPiece(check_blocking_move, other_player.id)
-                            var moveValues = board_clone.moveValues();
-                            // block this check
-                            board_clone.playPiece(randomOption(moveValues[other_player.id][4]), ai_player.id);
+                            _.each(check2Moves, function(move2){
+                                //play 2nd check move
+                                var aiMove2 = move2;           
+                                console.log("play move 2", aiMove2);
+                                var check2_board = self.state.clone();
+                                check2_board.playPiece(aiMove2, ai_player.id);
 
-                            moveValues = board_clone.moveValues();
-                            //count how many checks are now available to opponent.
-                            if (moveValues[other_player.id][3].length > best){
-                                best_moves = [check_blocking_move];
-                                best = moveValues[other_player.id][3].length;
-                            }else if(moveValues[other_player.id][3].length == best){
-                                best_moves.push(check_blocking_move);
+                                //check if 2nd check move leads to winner
+                                var new2MoveValues = check2_board.moveValues([check2_board]);
+                                if( new2MoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
+                                    no_played_move = false;
+                                    console.log("play move 1 for 3 move win", aiMove);
+                                    self.playMove(aiMove, ai_player.id);    
+                                }
+                            });
+                        });                    
+                    
+                        if( moveValues[other_player.id][3].length > 0 && no_played_move){
+                            // clever check blocking..!
+                            var best_moves = [moveValues[other_player.id][3][0]];
+                            var best = 0;
+
+                            _.each(moveValues[other_player.id][3], function(check_blocking_move){
+                                var board_clone = self.state.clone();
+                                // have opponent play check move
+                                board_clone.playPiece(check_blocking_move, other_player.id)
+                                var moveValues = board_clone.moveValues();
+                                // block this check
+                                board_clone.playPiece(randomOption(moveValues[other_player.id][4]), ai_player.id);
+
+                                moveValues = board_clone.moveValues();
+                                //count how many checks are now available to opponent.
+                                if (moveValues[other_player.id][3].length > best){
+                                    best_moves = [check_blocking_move];
+                                    best = moveValues[other_player.id][3].length;
+                                }else if(moveValues[other_player.id][3].length == best){
+                                    best_moves.push(check_blocking_move);
+                                }
+
+                            });
+
+                            if( best > 4  || moveValues[ai_player.id][3].length == 0 ){
+                                console.log("fancy blocky");
+                                self.playMove(randomOption(best_moves));
+                            }else{
+                                // take random check move for self
+                                self.playMove(randomOption(moveValues[ai_player.id][3])); 
                             }
 
-                        });
-
-                        if( best > 4  || moveValues[ai_player.id][3].length == 0 ){
-                            console.log("fancy blocky");
-                            self.playMove(randomOption(best_moves));
-                        }else{
-                            // take random check move for self
-                            self.playMove(randomOption(moveValues[ai_player.id][3])); 
-                        }
-
-                    }else {
-                        // play random move "best visible"
-                        var moves = self.state.getEmptySpaces();
-                        var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                        if ( centre_moves[0] != undefined){
-                            self.playMove(randomOption(centre_moves));
-                        }else{
-                            var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                            if ( layer2_moves[0] != undefined){
-                                self.playMove(randomOption(layer2_moves));
+                        }else if (no_played_move) {
+                            // play random move "best visible"
+                            var moves = self.state.getEmptySpaces();
+                            var centre_moves = pieces_in_both(piece_rank["centre"], moves);
+                            if ( centre_moves[0] != undefined){
+                                self.playMove(randomOption(centre_moves));
                             }else{
-                                self.playMove(randomOption(moves));
+                                var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
+                                if ( layer2_moves[0] != undefined){
+                                    self.playMove(randomOption(layer2_moves));
+                                }else{
+                                    self.playMove(randomOption(moves));
+                                }
                             }
                         }
                     }
-                }
                 
-            }
+                }
+            }, delay);
         } 
     }
 };
@@ -430,7 +479,7 @@ LatticeGame.prototype.resetGame = function(){
 
 LatticeGame.prototype.playMove= function(move){
     // Handles a board update / move being made
-    console.log("playeMove", move);
+    console.log("playMove", move);
     var self = this;
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         /*console.log(self.state.getEmptySpaces(), "yeah");*/
