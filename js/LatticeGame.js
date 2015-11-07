@@ -42,7 +42,7 @@ LatticeGame.BoardState = function(){
 LatticeGame.prototype.newGame = function(game_options){
     var self = this;
     console.log(game_options);
-    if(game_options.game_type == "single-player"){
+    if(game_options.game_type == "single_player"){
         // initialise
         self.players = [ { name:"You", id:"x", player_type:"human"},
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
@@ -64,8 +64,8 @@ LatticeGame.prototype.newGame = function(game_options){
 
     if(game_options.game_type == "multi-player"){
         // initialise
-        self.players = [ { name:"Player 1", id:"o", player_type:"human"},
-                         { name:"Player 2", id:"x", player_type:"human"}];
+        self.players = [ { name:"Player 1", id:"x", player_type:"human"},
+                         { name:"Player 2", id:"o", player_type:"human"}];
 
         self.starting_player = 0;
         self.turn = self.starting_player;
@@ -83,6 +83,26 @@ LatticeGame.prototype.newGame = function(game_options){
         self.turn = self.starting_player;    
 
         self.resetGame();              
+    }
+}
+
+function GameTimer() {
+    var isWaiting = false;
+    var isRunning = false;
+    var seconds = 10;
+    var countdownTimer;
+    var minutes = Math.round((seconds - 30) / 60);
+    var remainingSeconds = seconds % 60;
+    if (remainingSeconds < 10) {
+        remainingSeconds = "0" + remainingSeconds;
+    }
+    document.getElementById('waiting_time').innerHTML = minutes + ":" + remainingSeconds;
+    if (seconds == 0) {
+        isRunning = true;
+
+    } else {
+        isWaiting = true;
+        seconds--;
     }
 }
 
@@ -485,6 +505,7 @@ LatticeGame.prototype.resetGame = function(){
 
     self.loadState(new_state);
     self.wins = [];
+    self.turn = self.starting_player;
 
     // I hate calling this all over the place... but such is life.
     self.playAiTurn();
