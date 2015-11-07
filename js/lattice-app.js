@@ -47,7 +47,7 @@ $(document).ready(function() {
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
                 })
-            game_options["game_type"] = "single_player";
+            game_options["game_type"] = "multi-player";
         }
 
         // sample game options
