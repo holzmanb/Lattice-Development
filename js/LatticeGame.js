@@ -41,8 +41,8 @@ LatticeGame.BoardState = function(){
 
 LatticeGame.prototype.newGame = function(game_options){
     var self = this;
-
-    if(game_options.game_type = 'single_player'){
+    console.log(game_options);
+    if(game_options.game_type == "single-player"){
         // initialise
         self.players = [ { name:"You", id:"x", player_type:"human"},
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
@@ -71,6 +71,18 @@ LatticeGame.prototype.newGame = function(game_options){
         self.turn = self.starting_player;
 
         self.resetGame();
+    }
+
+    console.log("new game", game_options);
+    if (game_options.game_type == "sample-game"){
+        console.log(" this happened ");
+        // initialise
+        self.players = [ { name:"Computer", id:"x", player_type:"AI", aiLevel:2 },
+                         { name:"Computer", id:"o", player_type:"AI", aiLevel:3 }];
+        self.starting_player = 0;
+        self.turn = self.starting_player;    
+
+        self.resetGame();              
     }
 }
 
@@ -232,9 +244,10 @@ LatticeGame.prototype.playAiTurn = function(){
 
     // Check that there's an AI that should play
     if (self.players[self.turn].player_type == "AI"){
+        
         ai_player = self.players[self.turn];
         other_player = self.players[(self.turn+1)%2];
-
+        console.log("playing an ai move", ai_player);
         if(ai_player.aiLevel == "random"){
             /*console.log("random move");*/
         }else if(moves.length == 36){
@@ -278,7 +291,7 @@ LatticeGame.prototype.playAiTurn = function(){
             }, delay);
         }else if(ai_player.aiLevel == 2){
             // Level 2
-            
+            console.log("playing a level 2 move");
             var moveValues = self.state.moveValues();
 
             setTimeout(function(){

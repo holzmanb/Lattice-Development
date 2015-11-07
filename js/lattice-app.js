@@ -50,6 +50,16 @@ $(document).ready(function() {
             game_options["game_type"] = "single_player";
         }
 
+        // sample game options
+        if($(this).data("startgame")=="sample-game"){
+
+            var game_options = {};
+            console.log("hello sample game");
+
+            game_options["game_type"] = "sample-game";
+        }
+
+        console.log("wtf", game_options);
         // start the game
         global_game.newGame(game_options);
 
