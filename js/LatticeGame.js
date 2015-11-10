@@ -204,15 +204,21 @@ LatticeGame.BoardState.prototype.getEmptySpaces = function(){
         return a;
     }, []);
 
-    if (empty_spaces.length == 34){
+
+    if (empty_spaces.length == 34 && fm != 0 && fm !=5 && fm != 30 && fm != 35){
         var fm = self.firstMove.move;
-
         empty_spaces = self.board_numeric.reduce(function(a,e,i){
+            if ( fm == 0 || fm ==5 || fm == 30 || fm == 35 ){
+                if (e === 0)
+                    a.push(i);
+                return a;
+            }
 
-            if (e === 0 && (Math.abs(Math.floor(i/6) - Math.floor(fm/6)) >= 3 || Math.abs(i%6 - fm%6) >= 3))
-                a.push(i);
-            return a;
-
+            else{
+                if (e === 0 && (Math.abs(Math.floor(i/6) - Math.floor(fm/6)) >= 3 || Math.abs(i%6 - fm%6) >= 3))
+                    a.push(i);
+                return a;
+            }
         }, []);
     }
     /*console.log(empty_spaces);*/
