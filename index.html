@@ -122,10 +122,10 @@
           <form id="single-player-starting-options">
             <h4> Play as black or white? </h4>
             <div class = "table-row">
-              <input type="radio" name="player_colour" value="white" id="pc1" checked> 
-              <label for="pc1"> White </label>
-              <input type="radio" name="player_colour" value="black" id="pc2"> 
-              <label for="pc2"> Black </label>
+              <input type="radio" name="player_colour" value="black" id="pc1" checked> 
+              <label for="pc1"> Black </label>
+              <input type="radio" name="player_colour" value="white" id="pc2"> 
+              <label for="pc2"> White </label>
             </div>
             <h4> Difficulty: </h4>
             <div class = "table-row">
@@ -189,7 +189,11 @@
       <div id="in-game-menu" class="table-row">
         <div class="button" data-gameaction="undo">Undo</div> 
         <div class="button" data-gameaction="reset">Reset</div> 
-        <div class="button back" data-navigate="main-menu">Main Menu</div> 
+        <div class="button back" data-navigate="main-menu">Main Menu</div>
+      </div>
+      <div id="timer" class="table-row">
+        <div class="timer" data-gameaction="countdown">Player 1 Timer</div>
+        <div class="timer" data-gameaction="countdown">Player 2 Timer</div>
       </div>
 
     </div>
