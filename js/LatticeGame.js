@@ -579,11 +579,14 @@ LatticeGame.prototype.playMove= function(move){
     // Handles a board update / move being made
     console.log("playMove", move);
     var self = this;
+    var allMoves = self.state.getEmptySpaces();
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
-        /*console.log(self.state.getEmptySpaces(), "yeah");*/
-        if(self.state.getEmptySpaces().length == 36){
-            /*console.log("wooooh");*/
+        if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
+        }
+        if (self.players[self.turn].player_type == "human" && !(move in allMoves)){
+            console.log(allMoves);
+            playMove();
         }
         self.addPiece(move, self.turn);
         self.turn = (self.turn+1)%2;
