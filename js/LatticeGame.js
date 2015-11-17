@@ -18,6 +18,8 @@ var LatticeGame = function(){
     self.turn = self.starting_player;
 
     self.wins = [];
+
+    self.message_controller = new LatticeMessageController();
 };
 
 LatticeGame.BoardState = function(){
@@ -256,7 +258,6 @@ LatticeGame.BoardState.prototype.getEmptySpaces = function(){
     /*console.log(empty_spaces);*/
     return empty_spaces;
 };
-
 
 LatticeGame.BoardState.prototype.squares = (function(){
     var self = this;
@@ -603,6 +604,12 @@ LatticeGame.prototype.resetGame = function(){
     self.wins = [];
     self.turn = self.starting_player;
 
+    if(self.previous_move){
+        // kill last move highlight
+        $("#"+self.previous_move).removeClass("last_played");
+    }
+
+
     // I hate calling this all over the place... but such is life.
     self.playAiTurn();
 };
@@ -621,13 +628,24 @@ LatticeGame.prototype.playMove= function(move){
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
+            self.previous_move = false;
         }
+
         if (self.players[self.turn].player_type == "human" && !(_.contains(allMoves, parseInt(move)) ) ){
+<<<<<<< HEAD
             console.log(allMoves, _.contains(allMoves, move), move);
             //playMove();
             return;
+=======
+            // invalid move... should only happen when on second turn...
+            self.message_controller.updateMessage("on your second move, you must place at least 3 rows or columns away");
+            // stop what we're doing, wait for another input.
+            return 
+>>>>>>> refs/remotes/origin/gh-pages
         }
+
         self.addPiece(move, self.turn);
+        var opponent = self.turn;
         self.turn = (self.turn+1)%2;
         self.wins = self.state.findWin();
 
@@ -637,12 +655,27 @@ LatticeGame.prototype.playMove= function(move){
         console.log("yeaaaaaa")
         
         if (!self.wins[0]){
+            // No one has won yet.
+            //1) show last move.
+            if(self.previous_move){
+                $("#"+self.previous_move).removeClass("last_played");
+            }
+            self.previous_move = move;
+            $("#"+move).addClass("last_played");
+            //2) alert if there's a check move.
+            var moveValues = self.state.moveValues();
+            console.log("move values...", moveValues[self.players[opponent].id][4])
+            if(moveValues[self.players[opponent].id][4].length > 0){
+                self.message_controller.updateMessage("there's check!!!!");
+            }else{
+                self.message_controller.updateMessage("");
+            }
             // would love to eventually not call this all over the place somehow...
             self.playAiTurn();
         }else {           
             _.each(self.wins[0],function(piece){
                 $("#"+piece).addClass("winning");
-            })
+            });
         }
         
     }
@@ -655,12 +688,20 @@ LatticeGame.prototype.undoMove = function(){
         self.state_history.pop();
         self.state_history.pop();
         self.loadState(new_state);
+        if(self.previous_move){
+            // kill last move highlight
+            $("#"+self.previous_move).removeClass("last_played");
+        }
         self.playAiTurn();
     }else if(self.state_history.length == 2){
         var new_state = self.state_history[self.state_history.length - 2].clone();
         self.state_history.pop();
         self.loadState(new_state);
         self.turn = (self.turn+1)%2;
+        if(self.previous_move){
+            // kill last move highlight
+            $("#"+self.previous_move).removeClass("last_played");
+        }
         self.playAiTurn();        
     }else {
         console.log("can't go back any further");
@@ -693,13 +734,6 @@ LatticeGame.prototype.addPiece = function(piece_index, player_index){
 
     self.pieces_dom[piece_index].addClass(self.players[player_index].id);
 };
-
-/*LatticeGame.prototype.addPieceHolder = function(piece_index, player_index){
-    var self = this;
-    self.state.playPiece(piece_index, self.players[player_index].id);
-
-    self.pieces_dom[piece_index].addClass(self.pieceHolder[player_index].id);
-};*/
 
 LatticeGame.prototype.removePiece = function(piece_index){
     self.board_numeric[piece_index] = 0;

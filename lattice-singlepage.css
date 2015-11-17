@@ -221,7 +221,7 @@ input[type="radio"]:disabled + label {
 .piece.last{
   border-style:solid;
   border-width:0.5%;
-  border-color:##00DD55;  
+  border-color:#00DD55;  
 }
 .piece.winning{
   border-style:solid;
@@ -229,6 +229,19 @@ input[type="radio"]:disabled + label {
   border-color:#CC3300;
 }
 
+<<<<<<< HEAD
 .hidden {
   display:none;
+=======
+#lattice-game-message {
+  font-size: 4vh;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  font-family: 'Nyala';
+  color: white;
+}
+
+.piece.last_played{
+  box-shadow: 0px 0px 2vh .7vh rgba(97,231,255,1);
+>>>>>>> refs/remotes/origin/gh-pages
 }
