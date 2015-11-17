@@ -37,9 +37,7 @@ body{
   text-align:center;
 }
 
-.hidden {
-  display:none;
-}
+
 
 @media screen and (min-aspect-ratio: 1/1) {
 /* when the screen goes too wide make a vertical div */
@@ -155,6 +153,12 @@ input[type="radio"]:disabled + label {
   text-align:center;
 }
 
+.table-row .timer {
+  display:table-cell;
+  font-size:4vh;
+  text-align:left;
+}
+
 .button.back{
   background: #476584;
 
@@ -223,4 +227,8 @@ input[type="radio"]:disabled + label {
   border-style:solid;
   border-width:0.5%;
   border-color:#CC3300;
+}
+
+.hidden {
+  display:none;
 }
