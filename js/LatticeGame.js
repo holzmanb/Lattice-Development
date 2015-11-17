@@ -584,9 +584,10 @@ LatticeGame.prototype.playMove= function(move){
         if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
         }
-        if (self.players[self.turn].player_type == "human" && !(move in allMoves)){
-            console.log(allMoves);
-            playMove();
+        if (self.players[self.turn].player_type == "human" && !(_.contains(allMoves, parseInt(move)) ) ){
+            console.log(allMoves, _.contains(allMoves, move), move);
+            //playMove();
+            return "suckittttttt";
         }
         self.addPiece(move, self.turn);
         self.turn = (self.turn+1)%2;
