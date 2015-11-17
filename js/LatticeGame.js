@@ -632,16 +632,10 @@ LatticeGame.prototype.playMove= function(move){
         }
 
         if (self.players[self.turn].player_type == "human" && !(_.contains(allMoves, parseInt(move)) ) ){
-<<<<<<< HEAD
-            console.log(allMoves, _.contains(allMoves, move), move);
-            //playMove();
-            return;
-=======
             // invalid move... should only happen when on second turn...
             self.message_controller.updateMessage("on your second move, you must place at least 3 rows or columns away");
             // stop what we're doing, wait for another input.
             return 
->>>>>>> refs/remotes/origin/gh-pages
         }
 
         self.addPiece(move, self.turn);
@@ -651,8 +645,10 @@ LatticeGame.prototype.playMove= function(move){
 
         self.state_history.push(self.state.clone());
 
-        self.GameTimer.toggle();
-        console.log("yeaaaaaa")
+        if(self.state.game_type == "multi-player"){
+            self.GameTimer.toggle();
+            console.log("yeaaaaaa")
+        }
         
         if (!self.wins[0]){
             // No one has won yet.
