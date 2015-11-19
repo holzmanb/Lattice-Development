@@ -633,7 +633,7 @@ LatticeGame.prototype.playMove= function(move){
 
         if (self.players[self.turn].player_type == "human" && !(_.contains(allMoves, parseInt(move)) ) ){
             // invalid move... should only happen when on second turn...
-            self.message_controller.updateMessage("on your second move, you must place at least 3 rows or columns away");
+            self.message_controller.updateMessage("Place at least 3 rows or columns away from your first move");
             // stop what we're doing, wait for another input.
             return 
         }
@@ -662,7 +662,7 @@ LatticeGame.prototype.playMove= function(move){
             var moveValues = self.state.moveValues();
             console.log("move values...", moveValues[self.players[opponent].id][4])
             if(moveValues[self.players[opponent].id][4].length > 0){
-                self.message_controller.updateMessage("there's check!!!!");
+                self.message_controller.updateMessage("Check!");
             }else{
                 self.message_controller.updateMessage("");
             }

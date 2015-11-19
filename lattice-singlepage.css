@@ -37,8 +37,6 @@ body{
   text-align:center;
 }
 
-
-
 @media screen and (min-aspect-ratio: 1/1) {
 /* when the screen goes too wide make a vertical div */
   .container-centred {
@@ -218,11 +216,6 @@ input[type="radio"]:disabled + label {
     background-size: 100% 100%;
 }
 
-.piece.last{
-  border-style:solid;
-  border-width:0.3%;
-  border-color:yellow;  
-}
 .piece.winning{
   border-style:solid;
   border-width:0.5%;
@@ -230,16 +223,16 @@ input[type="radio"]:disabled + label {
 }
 
 #lattice-game-message {
-  font-size: 4vh;
-  margin-bottom: 1vh;
-  margin-top: 1vh;
-  font-family: 'Nyala';
+  font-size: 3.5vh;
+  width:95%;
+  margin-left: 3.7vh;
   color: white;
+  padding: -5vh;
 }
 .hidden {
   display:none;
 }
 
 .piece.last_played{
-  box-shadow: 0px 0px 2vh .7vh rgba(97,231,255,1);
+  box-shadow: 0px 0px 1.5vh .5vh rgba(97,170,255,1);
 }
