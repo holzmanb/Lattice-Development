@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="lattice-singlepage.css">
   <link rel="stylesheet" href="fonts/fonts.css">
 
+  <meta name="description" content= "Lattice, a two player abstract strategy board game">
+  <meta name="keywords" content= "abstract strategy, board game, logic, two player, lattice">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
 
   <script>
@@ -163,9 +165,9 @@
             <h4>Timed:</h4>
             <div class = "table-row">
               <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
-              <input id="t_m2" type="radio" name="timed" value="Yes" disabled> <label for="t_m2"> Yes </label>
+              <input id="t_m2" type="radio" name="timed" value="Yes" checked> <label for="t_m2"> Yes </label>
             </div>
-            <h4>Time for game: <input type="text" name="time-for-game" value="infinte" disabled></h4>
+            <h4>Time for game (min): <input type="text" name="time-for-game" value="" ></h4>
           </form>
             <div class="table-row">
               <div class="button" data-startgame="multi-player">Play</div> 
@@ -189,8 +191,8 @@
         <div class="button back" data-navigate="main-menu">Main Menu</div>
       </div>
       <div id="timer" class="table-row">
-        <div class="timer" data-gameaction="countdown">Player 1 Timer</div>
-        <div class="timer" data-gameaction="countdown">Player 2 Timer</div>
+        <div class="timer" data-gameaction="countdown">Black: </div>
+        <div class="timer" data-gameaction="countdown">White: </div>
       </div>
 
     </div>

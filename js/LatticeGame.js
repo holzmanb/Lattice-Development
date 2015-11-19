@@ -1,3 +1,4 @@
+
 var LatticeGame = function(){
     var self = this;
 
@@ -49,7 +50,8 @@ LatticeGame.prototype.newGame = function(game_options){
         self.players = [ { name:"You", id:"x", player_type:"human"},
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
 
-
+        $("#timer").addClass("hidden");
+        console.log("whats this?", $("#timer"))
         // select color and who goes first
         if(game_options.player_colour == "white"){
             console.log("white");
@@ -71,6 +73,9 @@ LatticeGame.prototype.newGame = function(game_options){
 
         self.starting_player = 0;
         self.turn = self.starting_player;
+        self.gameTimer = new GameTimer();
+        $("#timer").removeClass ("hidden");
+        self.gameTimer.init(game_options.timelimit);
 
         self.resetGame();
     }
@@ -89,23 +94,50 @@ LatticeGame.prototype.newGame = function(game_options){
 }
 
 function GameTimer() {
-    var isWaiting = false;
-    var isRunning = false;
-    var seconds = 10;
-    var countdownTimer;
-    var minutes = Math.round((seconds - 30) / 60);
-    var remainingSeconds = seconds % 60;
-    if (remainingSeconds < 10) {
-        remainingSeconds = "0" + remainingSeconds;
-    }
-    document.getElementById('waiting_time').innerHTML = minutes + ":" + remainingSeconds;
-    if (seconds == 0) {
-        isRunning = true;
+    // var isWaiting = false;
+    // var isRunning = false;
+    // var seconds = 10;
+    // var countdownTimer;
+    // var minutes = Math.round((seconds - 30) / 60);
+    // var remainingSeconds = seconds % 60;
+    // if (remainingSeconds < 10) {
+    //     remainingSeconds = "0" + remainingSeconds;
+    // }
+    // document.getElementById('waiting_time').innerHTML = minutes + ":" + remainingSeconds;
+    // if (seconds == 0) {
+    //     isRunning = true;
 
-    } else {
-        isWaiting = true;
-        seconds--;
-    }
+    // } else {
+    //     isWaiting = true;
+    //     seconds--;
+    // }
+    //console.log("game timer!!!");
+
+
+}
+
+GameTimer.prototype.init = function(time){
+    // set up private variables
+    this.total_time = time;
+
+    this.player1_time = time;
+    this.player2_time = time;
+}
+
+GameTimer.prototype.startTimer = function(time){
+    // set up private variables
+    var self = this;
+    this.interval = setInterval(self.tick, 1000);
+
+}
+
+GameTimer.prototype.stopTimer = function(){
+    this.interval.stop();
+}
+
+GameTimer.prototype.toggleTimer = function(){
+    // set up private variables
+
 }
 
 LatticeGame.BoardState.prototype.clone = function(){
@@ -584,9 +616,15 @@ LatticeGame.prototype.resetGame = function(){
 
 LatticeGame.prototype.playMove= function(move){
     // Handles a board update / move being made
+    
     console.log("playMove", move);
     var self = this;
     var allMoves = self.state.getEmptySpaces();
+    if(self.state.game_type == "multi-player"){
+        console.log("multii")
+        // var countdownTimer = setInterval(gameTimer,1000);
+        // console.log(countdownTimer);
+    }
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
@@ -595,7 +633,7 @@ LatticeGame.prototype.playMove= function(move){
 
         if (self.players[self.turn].player_type == "human" && !(_.contains(allMoves, parseInt(move)) ) ){
             // invalid move... should only happen when on second turn...
-            self.message_controller.updateMessage("on your second move, you must place at least 3 rows or columns away");
+            self.message_controller.updateMessage("Place at least 3 rows or columns away from your first move");
             // stop what we're doing, wait for another input.
             return 
         }
@@ -607,6 +645,11 @@ LatticeGame.prototype.playMove= function(move){
 
         self.state_history.push(self.state.clone());
 
+        if(self.state.game_type == "multi-player"){
+            self.GameTimer.toggle();
+            console.log("yeaaaaaa")
+        }
+        
         if (!self.wins[0]){
             // No one has won yet.
             //1) show last move.
@@ -619,7 +662,7 @@ LatticeGame.prototype.playMove= function(move){
             var moveValues = self.state.moveValues();
             console.log("move values...", moveValues[self.players[opponent].id][4])
             if(moveValues[self.players[opponent].id][4].length > 0){
-                self.message_controller.updateMessage("there's check!!!!");
+                self.message_controller.updateMessage("Check!");
             }else{
                 self.message_controller.updateMessage("");
             }
