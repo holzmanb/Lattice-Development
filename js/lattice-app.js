@@ -44,8 +44,8 @@ $(document).ready(function() {
                         game_options[$(this).attr("name")] = $(this).val();
                     }
                     //timer converts minutes to milliseconds
-                    if (this.name == "time-for-game"){
-                        game_options[$(this).attr("name")] = $(this).val()*60000;
+                    if (this.name == "time-for-game" ){
+                        game_options[$(this).attr("name")] = $(this).val()*60;
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
