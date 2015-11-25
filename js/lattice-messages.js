@@ -6,5 +6,3 @@ LatticeMessageController.prototype.updateMessage = function(text){
 	this.message_div.innerHTML = text;
 }
 
-// var test = new LatticeMessageController();
-// test.updateMessage("WTFFFFF");
