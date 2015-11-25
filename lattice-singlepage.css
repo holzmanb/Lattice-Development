@@ -7,13 +7,6 @@ body{
   background:#1B1B1A;
 }
 
-.container-centred {
-/*  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width:100%;*/
-}
-
 .container-board {
   width: 100%;
   position: absolute;
@@ -106,11 +99,10 @@ form h4 {
 }
 .table-row{
   display:table;
-  border-spacing:1.5vh;
+  border-spacing:1.2vh;
   width:80%;
   color: white;
   margin:auto;
-  /*background:#222;*/
   font-size:5vh;
 }
 input[type="text"] {
@@ -124,7 +116,6 @@ input[type="radio"] + label {
   padding:4px;
   border-radius:5vh;
   background:#222;
-  /*box-shadow: -.1vh .1vh 0px #888888;*/
 }
 input[type="radio"]:checked + label {
     background:#492;
@@ -133,12 +124,10 @@ input[type="radio"]:checked + label {
     right:-.3vh;
     color:white;
     box-shadow: -.3vh .3vh .1vh #222;
-    /* #655C25 */
 }
 input[type="radio"]:disabled + label {
     background:#888;
     color:black;
-    /*box-shadow: -.1vh .1vh 0px #666;*/
 }
 /* Full width buttons */
 
@@ -223,11 +212,14 @@ input[type="radio"]:disabled + label {
 }
 
 #lattice-game-message {
-  font-size: 3.5vh;
+  font-size: 3vh;
   width:95%;
+  height: 3vh;
+  margin-bottom: -3vh;
   margin-left: 3.7vh;
   color: white;
-  padding: -5vh;
+  position: relative;
+  top: -3vh;
 }
 .hidden {
   display:none;

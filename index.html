@@ -139,16 +139,6 @@
               <input id="ai5" type="radio" name="ai_level" value="5" disabled>
               <label for="ai5"> 5 </label>
             </div>
-            <!-- <h4> Timed: </h4>
-              <div class="table-row">
-                <input id="t1" type="radio" name="timed" value="No" checked>
-                <label for="t1">  No </label>
-                <input id="t2" type="radio" name="timed" value="Yes" disabled>
-                <label for="t2">  Yes </label>
-              </div>
-              <h4> Time for game: </h4>
-              <input type="text" name="time-for-game" value="infinte" disabled> -->
-
           </form>
             <div class="table-row">
               <div class="button" data-startgame="single-player">Play</div> 
@@ -185,14 +175,16 @@
         </div>
       </div>
       <div id="lattice-game-message"> </div>
+      <div id="timer" class="table-row">
+        <div class="timer" >Black: </div>
+        <div id = "timerDisplay"></div>
+        <div class="timer" >White: </div>
+        <div id = "timerDisplay"></div>
+      </div>     
       <div id="in-game-menu" class="table-row">
         <div class="button" data-gameaction="undo">Undo</div> 
         <div class="button" data-gameaction="reset">Reset</div> 
         <div class="button back" data-navigate="main-menu">Main Menu</div>
-      </div>
-      <div id="timer" class="table-row">
-        <div class="timer" data-gameaction="countdown">Black: </div>
-        <div class="timer" data-gameaction="countdown">White: </div>
       </div>
 
     </div>
@@ -203,6 +195,7 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/underscore-min.js"></script>
   <script src="js/lattice-messages.js"></script>
+  <script src="js/timer.js"></script>
   <script src="js/LatticeGame.js"></script>
   <script src="js/lattice-app.js"></script>
 </body>
