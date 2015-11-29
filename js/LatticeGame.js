@@ -20,9 +20,6 @@ var LatticeGame = function(){
     self.wins = [];
 
     self.message_controller = new LatticeMessageController();
-     if(self.game_is_timed){
-        self.timer_display = new LatticeTimerDisplay();
-    }
 };
 
 LatticeGame.BoardState = function(){
@@ -45,6 +42,13 @@ LatticeGame.BoardState = function(){
     });
 };
 
+LatticeGame.prototype.stopGame = function(){
+    var self = this;
+    if( self.game_is_timed ){
+        self.gameTimer.stop();
+    }
+}
+
 LatticeGame.prototype.newGame = function(game_options){
     var self = this;
     self.game_is_timed = false;
@@ -56,6 +60,7 @@ LatticeGame.prototype.newGame = function(game_options){
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
 
         $("#timer").addClass("hidden");
+        $("#timerDisplay").addClass("hidden");       
         // select color and who goes first
         if(game_options.player_colour == "white"){
             self.players[0].id = "o";
@@ -76,10 +81,33 @@ LatticeGame.prototype.newGame = function(game_options){
         self.starting_player = 0;
         self.turn = self.starting_player;
         if (game_options["timed"] == "Yes"){
-            self.gameTimer = new GameTimer();
+            self.gameTimer = self.gameTimer || new GameTimer();
             $("#timer").removeClass ("hidden");
-            self.gameTimer.init(game_options["time-for-game"]);
+            $("#timerDisplay").removeClass("hidden");  
+            self.gameTimer.init(game_options["time-for-game"], 
+                function(currentTime){
+                    console.log(currentTime);
+                    var minutes = Math.floor(currentTime[0]/60);
+                    var seconds = currentTime[0] - minutes*60;
+                    if (seconds < 10){
+                        seconds = "0"+ seconds
+                    }
+                    var black_time = minutes+":"+seconds
+                    var minutes = Math.floor(currentTime[1]/60);
+                    var seconds = currentTime[1] - minutes*60;
+                    if (seconds < 10){
+                        seconds = "0"+ seconds
+                    }
+                    self.timer_display.updateTimer(black_time, minutes+":"+seconds);
+                    if (currentTime[0] == 0){
+                        self.message_controller.updateMessage("Black is out of time!"); 
+                    }
+                    if (currentTime[1] == 0){
+                        self.message_controller.updateMessage("White is out of time!");
+                    }
+            });
             self.game_is_timed = true;
+            self.timer_display = new LatticeTimerDisplay();  
         }
         self.resetGame();
     }
@@ -97,28 +125,19 @@ LatticeGame.prototype.newGame = function(game_options){
     }
 }
 
-
-// }
-// GameTimer.prototype.display = function(){
-//     //takes time and converts to clock numbers
-//     var player1Minutes = Math.floor(this.player1_time / 60000);
-//     var player1Seconds = (this.player1_time - (player1Minutes * 60000)) / 1000;
-//     Player1Display = (player1Minutes+":"player1Seconds);
-//     var player2Minutes = Math.floor(this.player2_time / 60000);
-//     var player2Seconds = (this.player1_time - (player2Minutes * 60000)) / 1000;
-//     Player2Display = (player2Minutes+":"player2Seconds);    
-// }
-// GameTimer.prototype.toggleTimer = function(){
-//     // set up private variables
-
-// }
-
 function GameTimer() {
     this.stop = this.stop.bind(this);
 }
 
-GameTimer.prototype.init = function(time){
-    this.startTime = [time, time];
+GameTimer.prototype.init = function(time, callbackfunction){
+    this.startTime = time;
+    this.timeRemaining = [time, time];
+    this.currentPlayer = 0;
+    this.callbackfunction = callbackfunction;
+}
+
+GameTimer.prototype.reset = function(){
+    var time = this.startTime;
     this.timeRemaining = [time, time];
     this.currentPlayer = 0;
 }
@@ -129,16 +148,17 @@ GameTimer.prototype.start = function(){
         function(){
             if(self.timeRemaining[self.currentPlayer]>0){
                 self.timeRemaining[self.currentPlayer] -= 1;
+
             }
             else{
-                self.stop();
-                self.timeRemaining = self.startTime;
+                self.stop();  
             }
-            console.log(self.timeRemaining)
+            self.callbackfunction(self.timeRemaining);
         }, 1000)
 }
 
 GameTimer.prototype.stop = function(){
+
     clearInterval(this.intervalID);
     
 };
@@ -562,6 +582,8 @@ LatticeGame.prototype.resetGame = function(){
         $("#"+self.previous_move).removeClass("last_played");
     }
     if( self.game_is_timed ){
+        self.gameTimer.stop();
+        self.gameTimer.reset();
         self.gameTimer.start();
     }
     // I hate calling this all over the place... but such is life.
@@ -618,8 +640,6 @@ LatticeGame.prototype.playMove= function(move){
             if(self.game_is_timed){
                 //self.GameTimer.toggleTimer();
                 self.gameTimer.changePlayer(self.turn);
-                console.log("yupppp")
-                self.timer_display.updateTimer("self.timeRemaining");
             }
             // would love to eventually not call this all over the place somehow...
             self.playAiTurn();

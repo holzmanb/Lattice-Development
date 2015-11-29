@@ -16,6 +16,11 @@ $(document).ready(function() {
         
         // show this specific div
         $("#" + $(this).data("navigate")).removeClass("hidden");
+
+         if ($(this).data("navigate") == "main-menu"){
+                console.log("STOOOOP")
+                global_game.stopGame();
+        }       
     })
 
     /* start game button */
@@ -57,12 +62,10 @@ $(document).ready(function() {
         if($(this).data("startgame")=="sample-game"){
 
             var game_options = {};
-            console.log("hello sample game");
 
             game_options["game_type"] = "sample-game";
         }
 
-        console.log("wtf", game_options);
         // start the game
         global_game.newGame(game_options);
 
@@ -83,6 +86,7 @@ $(document).ready(function() {
                 global_game.resetGame();
                 break;
         }
+
     })
 
 });

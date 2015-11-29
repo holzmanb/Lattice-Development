@@ -214,13 +214,22 @@ input[type="radio"]:disabled + label {
 #lattice-game-message {
   font-size: 3vh;
   width:95%;
-  height: 3vh;
-  margin-bottom: -3vh;
+  height: 6vh;
+  margin-bottom: -2.5vh;
   margin-left: 3.7vh;
   color: white;
   position: relative;
-  top: -3vh;
+  top: -2.5vh;
 }
+#timerDisplay {
+  font-size: 4vh;
+  width:95%;
+  height: 4vh;
+  margin-left: 2vh;
+  color: white;
+  position: relative;
+}
+
 .hidden {
   display:none;
 }
