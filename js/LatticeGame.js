@@ -610,6 +610,9 @@ LatticeGame.prototype.playMove= function(move){
             // stop what we're doing, wait for another input.
             return 
         }
+        /*if (self.players[self.turn].player_type == "AI" ){
+            !self.addPiece(move, self.player_type["human"])
+        }*/
 
         self.addPiece(move, self.turn);
         var opponent = self.turn;
@@ -646,7 +649,8 @@ LatticeGame.prototype.playMove= function(move){
         }else {                 
             _.each(self.wins[0],function(piece){
                 $("#"+piece).addClass("winning");
-            });    
+            });
+            self.gameTimer.stop();    
             if (self.players[opponent].id == "x"){
                 self.message_controller.updateMessage("Black wins!");
             }else{
