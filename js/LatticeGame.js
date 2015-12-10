@@ -650,7 +650,9 @@ LatticeGame.prototype.playMove= function(move){
             _.each(self.wins[0],function(piece){
                 $("#"+piece).addClass("winning");
             });
-            self.gameTimer.stop();    
+            if(self.game_is_timed){
+                self.gameTimer.stop();
+            }    
             if (self.players[opponent].id == "x"){
                 self.message_controller.updateMessage("Black wins!");
             }else{
