@@ -57,7 +57,7 @@
         <h2>About</h2>
         <div class="about-info">
           <p>
-          Lattice is an abstract strategy game first created in the back row of a geophysics class at the University of British Columbia.<br>
+          Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.<br>
           <br>
           Game rules were created by Ben Holzman, then tested and modified with Garrett Miller.<br>
           <br>
@@ -81,7 +81,7 @@
           </p>
           <h2>Game Play</h2>
           <p>
-          This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows, or columns, from their first stone. There are no restrictions on any future game moves.<br>
+          This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows or columns from their first stone. There are no restrictions on any future game moves.<br>
           <br>
           If the first player elects to play in the corner on their first move they may place a stone anywhere on the board on their second.<br>
           <br>
@@ -139,6 +139,12 @@
               <input id="ai5" type="radio" name="ai_level" value="5" disabled>
               <label for="ai5"> 5 </label>
             </div>
+            <h4>Timed:</h4>
+            <div class = "table-row">
+              <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
+              <input id="t_m2" type="radio" name="timed" value="Yes" checked> <label for="t_m2"> Yes </label>
+            </div>
+            <h4>Time for game (min): <input type="text" name="time-for-game" value="" ></h4>
           </form>
             <div class="table-row">
               <div class="button" data-startgame="single-player">Play</div> 
@@ -154,8 +160,8 @@
           <form id="multi-player-starting-options">
             <h4>Timed:</h4>
             <div class = "table-row">
-              <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
-              <input id="t_m2" type="radio" name="timed" value="Yes" checked> <label for="t_m2"> Yes </label>
+              <input id="M_m1" type="radio" name="timed" value="No" checked> <label for="M_m1"> No </label>
+              <input id="M_m2" type="radio" name="timed" value="Yes" checked> <label for="M_m2"> Yes </label>
             </div>
             <h4>Time for game (min): <input type="text" name="time-for-game" value="" ></h4>
           </form>

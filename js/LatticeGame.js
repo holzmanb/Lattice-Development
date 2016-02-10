@@ -60,7 +60,7 @@ LatticeGame.prototype.newGame = function(game_options){
                          { name:"Computer", id:"o", player_type:"AI", aiLevel:game_options.ai_level }];
 
         $("#timer").addClass("hidden");
-        $("#timerDisplay").addClass("hidden");       
+        $("#timerDisplay").addClass("hidden");      
         // select color and who goes first
         if(game_options.player_colour == "white"){
             self.players[0].id = "o";
@@ -70,6 +70,35 @@ LatticeGame.prototype.newGame = function(game_options){
             self.starting_player = 0;
         }
         self.turn = self.starting_player;
+        if (game_options["timed"] == "Yes"){
+            self.gameTimer = self.gameTimer || new GameTimer();
+            $("#timer").removeClass ("hidden");
+            $("#timerDisplay").removeClass("hidden"); 
+            self.gameTimer.init(game_options["time-for-game"], 
+                function(currentTime){
+                    console.log(currentTime);
+                    var minutes = Math.floor(currentTime[0]/60);
+                    var seconds = currentTime[0] - minutes*60;
+                    if (seconds < 10){
+                        seconds = "0"+ seconds
+                    }
+                    var black_time = minutes+":"+seconds
+                    var minutes = Math.floor(currentTime[1]/60);
+                    var seconds = currentTime[1] - minutes*60;
+                    if (seconds < 10){
+                        seconds = "0"+ seconds
+                    }
+                    self.timer_display.updateTimer(black_time, minutes+":"+seconds);
+                    if (currentTime[0] == 0){
+                        self.message_controller.updateMessage("Black is out of time!"); 
+                    }
+                    if (currentTime[1] == 0){
+                        self.message_controller.updateMessage("White is out of time!");
+                    }
+                })
+                self.game_is_timed = true;
+                self.timer_display = new LatticeTimerDisplay();  
+            };
         self.resetGame();
     }
 
@@ -78,6 +107,7 @@ LatticeGame.prototype.newGame = function(game_options){
         self.players = [ { name:"Player 1", id:"x", player_type:"human"},
                          { name:"Player 2", id:"o", player_type:"human"}];
         $("#timer").addClass("hidden");
+        $("#timerDisplay").addClass("hidden");         
         self.starting_player = 0;
         self.turn = self.starting_player;
         if (game_options["timed"] == "Yes"){
@@ -597,7 +627,7 @@ LatticeGame.prototype.playMove= function(move){
     console.log("playMove", move);
     var self = this;
     var allMoves = self.state.getEmptySpaces();
-
+    /*var sound = new Audio:url(js/playerMove.wav)*/
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
