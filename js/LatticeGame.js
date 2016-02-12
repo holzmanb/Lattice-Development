@@ -627,6 +627,7 @@ LatticeGame.prototype.playMove= function(move){
     console.log("playMove", move);
     var self = this;
     var allMoves = self.state.getEmptySpaces();
+    var audio = document.getElementsByTagName("audio")[0];
     /*var sound = new Audio:url(js/playerMove.wav)*/
     if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
         if(allMoves.length == 36){
@@ -640,18 +641,14 @@ LatticeGame.prototype.playMove= function(move){
             // stop what we're doing, wait for another input.
             return 
         }
-        /*if (self.players[self.turn].player_type == "AI" ){
-            !self.addPiece(move, self.player_type["human"])
-        }*/
-
+  
         self.addPiece(move, self.turn);
+        audio.play();
         var opponent = self.turn;
         self.turn = (self.turn+1)%2;
         self.wins = self.state.findWin();
 
         self.state_history.push(self.state.clone());
-
-
         
         if (!self.wins[0]){
             // No one has won yet.
