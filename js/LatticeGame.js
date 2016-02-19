@@ -589,10 +589,70 @@ LatticeGame.prototype.playAiTurn = function(){
                 
                 }
             }, delay);
-        } 
+        }else if(ai_player.aiLevel == 4){
+            // Level 4
+            
+            var moveValues = self.state.moveValues();
+            setTimeout(function(){
+                if ( moveValues[ai_player.id][4].length > 0){
+                    // Winning move
+                    self.playMove(randomOption(moveValues[ai_player.id][4]));
+
+                }else if( moveValues[other_player.id][4].length > 0){
+                    // block winning move for opponent
+                    self.playMove(randomOption(moveValues[other_player.id][4]));
+            
+                }else if( moveValues[ai_player.id]["double_check"].length > 0){
+                    // Try to find random double
+                    self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
+
+                }else {
+
+                    // self.playMove(randomOption(minimaxedMove[ai_player.id]));
+                    var bestRank = -100000;
+                    var no_played_move = true;
+                    var moves = self.state.getEmptySpaces();
+                    var bestMove = [];
+                    console.log(moves);
+                    _.each( moves, function(move){
+                        var passed_board = self.state.clone();
+                        passed_board.playPiece(move, ai_player.id); 
+                        var newMoveValues = passed_board.moveValues([passed_board]);
+                        var moveRank = ((10*newMoveValues[ai_player.id][3].length*newMoveValues[ai_player.id][3].length+5*newMoveValues[ai_player.id][2].length)-
+                            (10*newMoveValues[other_player.id][3].length*newMoveValues[other_player.id][3].length+5*newMoveValues[other_player.id][2].length));
+                        console.log(move, moveRank);
+                        if (moveRank > bestRank) {
+                            bestRank = moveRank;
+                            bestMove = move;
+                            } 
+                        /*else if (moveRank = bestRank){
+                            bestMove.push(move);
+                        }*/               
+                        });
+                    self.playMove(bestMove);
+                    }
+                })
+        }         
     }
 };
 
+/*LatticeGame.BoardState.minimaxedMove = function(){
+
+}
+LatticeGame.prototype.bestScore = function(){
+    var allMoves = getEmptySpaces();
+    var bestRank = -100000;
+    _.each( allMoves, function(move){
+        var passed_board = self.state.clone();
+        var newMoveValues = passed_board.moveValues([passed_board]);
+        var moveRank = (10*newMoveValues[ai_player.id][3].length*newMoveValues[ai_player.id][3].length+5*newMoveValues[ai_player.id][2]+newMoveValues[ai_player.id][1])-
+        (10*newMoveValues[other_player.id][3].length*newMoveValues[other_player.id][3].length+5*newMoveValues[other_player.id][2]+newMoveValues[other_player.id][1]);
+        if (moveRank > bestRank) {
+            bestRank = moveRank;
+        }                
+    });
+    return[bestRank,move]
+}*/
 LatticeGame.prototype.resetGame = function(){
     var self = this;
 
