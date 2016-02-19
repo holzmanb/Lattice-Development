@@ -73,12 +73,9 @@ p {
 }
 
 #main-menu h1 {
-  font-size:13vh;
+  font-size:12vh;
   color:white;
   line-height:13vh;
-  font-family: 'Nyala';
-  font-weight: normal;
-  font-style: normal;
 }
 
 #main-menu h2 {
