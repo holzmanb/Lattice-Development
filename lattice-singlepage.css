@@ -73,9 +73,9 @@ p {
 }
 
 #main-menu h1 {
-  font-size:12vh;
+  font-size:11vh;
   color:white;
-  line-height:13vh;
+  font-family: 'Book Antiqua';
 }
 
 #main-menu h2 {
