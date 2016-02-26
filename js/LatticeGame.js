@@ -593,25 +593,84 @@ LatticeGame.prototype.playAiTurn = function(){
             // Level 4
             
             var moveValues = self.state.moveValues();
+            var moves = self.state.getEmptySpaces();        
             setTimeout(function(){
+                var no_played_move = true;                 
                 if ( moveValues[ai_player.id][4].length > 0){
                     // Winning move
+                    no_played_move = false;
                     self.playMove(randomOption(moveValues[ai_player.id][4]));
 
-                }else if( moveValues[other_player.id][4].length > 0){
+                }else if( moveValues[other_player.id][4].length > 0 && no_played_move){
                     // block winning move for opponent
+                    no_played_move = false;
                     self.playMove(randomOption(moveValues[other_player.id][4]));
             
-                }else if( moveValues[ai_player.id]["double_check"].length > 0){
+                }else if( moveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
                     // Try to find random double
+                    no_played_move = false;
                     self.playMove(randomOption(moveValues[ai_player.id]["double_check"]));
 
-                }else {
+                }else if (moves.length == 35) {
+                    // play random move "best visible"
+                    var centre_moves = pieces_in_both(piece_rank["centre"], moves);
+                    self.playMove(randomOption(centre_moves));
+                }   
+                var checkMoves = ( moveValues[ai_player.id][3] );
+                console.log("check list 1", checkMoves)
+                _.each(checkMoves, function(move){
+                    var checkMove = move;
+                    console.log("ai test move 1", checkMove)
+                    var check_board = self.state.clone();
+                    check_board.playPiece(checkMove, ai_player.id);                        
+                    var newMoveValues = check_board.moveValues([check_board]);
+                    if( newMoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
+                        no_played_move = false;
+                        console.log("play move for mate in 2");
+                        self.playMove(checkMove, ai_player.id);
+                        }
+                    });
+                
+                if (no_played_move){
+                    _.each(checkMoves, function(move){
+                        //Play 1st ai move
+                        var aiMove = move;
+                        var check_board = self.state.clone();
+                        check_board.playPiece(aiMove, ai_player.id);
+                        console.log("ai move 1", aiMove);
+
+                        //play 1st block move
+                        var blockMoveValues = check_board.moveValues();
+                        var blockMove = ( blockMoveValues[ai_player.id][4] );
+                        console.log("block move 1", blockMove);
+                        check_board.playPiece(blockMove, other_player.id);
+
+                        //list 2nd check moves                      
+                        var move2Values = check_board.moveValues();                    
+                        var check2Moves = ( move2Values[ai_player.id][3] );
+                        console.log("2nd check list", check2Moves);
+
+                        _.each(check2Moves, function(move2){
+                            //play 2nd check move
+                            var aiMove2 = move2;           
+                            console.log("play move 2", aiMove2);
+                            var check2_board = self.state.clone();
+                            check2_board.playPiece(aiMove2, ai_player.id);
+
+                            //check if 2nd check move leads to winner
+                            var new2MoveValues = check2_board.moveValues([check2_board]);
+                            if( new2MoveValues[ai_player.id]["double_check"].length > 0 && no_played_move){
+                                no_played_move = false;
+                                console.log("play move 1 for 3 move win", aiMove);
+                                self.playMove(aiMove, ai_player.id);    
+                            }
+                        });
+                    });
+                }if (no_played_move){
 
                     // self.playMove(randomOption(minimaxedMove[ai_player.id]));
                     var bestRank = -100000;
                     var no_played_move = true;
-                    var moves = self.state.getEmptySpaces();
                     var bestMove = [];
                     console.log(moves);
                     _.each( moves, function(move){
@@ -624,14 +683,14 @@ LatticeGame.prototype.playAiTurn = function(){
                         if (moveRank > bestRank) {
                             bestRank = moveRank;
                             bestMove = move;
-                            } 
+                        } 
                         /*else if (moveRank = bestRank){
                             bestMove.push(move);
                         }*/               
-                        });
-                    self.playMove(bestMove);
-                    }
-                })
+                    });
+                self.playMove(bestMove);
+                }
+            })
         }         
     }
 };
