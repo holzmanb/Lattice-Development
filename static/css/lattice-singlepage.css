@@ -75,13 +75,13 @@ p {
 #main-menu h1 {
   font-size:11vh;
   color:white;
-  font-family: 'Book Antiqua';
+  font-family: 'Helvetica';
 }
 
 #main-menu h2 {
   font-size:5vh;
   margin:6vh;
-  font-family: 'Nyala';
+  font-family: 'Helvetica';
   font-weight: normal;
   font-style: normal;
 }
@@ -151,7 +151,7 @@ input[type="radio"]:disabled + label {
 
 #lattice-board{
   overflow:auto;
-  background-image:url(static/js/board.png);
+  background-image:url(/static/img/board.png);
     background-size:92.8%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -193,12 +193,12 @@ input[type="radio"]:disabled + label {
 }
 
 .o {
-  background-image:url(static/js/white-player.png);
+  background-image:url(/static/img/white-player.png);
     background-size: 100% 100%;
 }
 
 .x {
-  background-image:url(static/js/black-player.png);
+  background-image:url(/static/img/black-player.png);
     background-size: 100% 100%;
 }
 

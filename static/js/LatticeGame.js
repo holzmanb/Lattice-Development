@@ -1,3 +1,8 @@
+$(".loader").delay( 500 ).slideUp( { duration: 5000, easing: "easeInOutQuart" }, function() {
+        //let the information preload and then draw up
+        //the curtains for show time!
+
+});
 
 var LatticeGame = function(){
     var self = this;
@@ -38,7 +43,7 @@ LatticeGame.BoardState = function(){
             if(square.indexOf(piece_index)!=-1){
                 self.piece_index_to_squares[piece_index].push(square_index);
             }
-        })
+        });
     });
 };
 
@@ -47,7 +52,7 @@ LatticeGame.prototype.stopGame = function(){
     if( self.game_is_timed ){
         self.gameTimer.stop();
     }
-}
+};
 
 LatticeGame.prototype.newGame = function(game_options){
     var self = this;
@@ -80,25 +85,26 @@ LatticeGame.prototype.newGame = function(game_options){
                     var minutes = Math.floor(currentTime[0]/60);
                     var seconds = currentTime[0] - minutes*60;
                     if (seconds < 10){
-                        seconds = "0"+ seconds
+                        seconds = "0"+ seconds;
                     }
-                    var black_time = minutes+":"+seconds
+                    var black_time = minutes+":"+seconds;
+                    // Why are minutes and seconds redefined here?
                     var minutes = Math.floor(currentTime[1]/60);
                     var seconds = currentTime[1] - minutes*60;
                     if (seconds < 10){
-                        seconds = "0"+ seconds
+                        seconds = "0"+ seconds;
                     }
                     self.timer_display.updateTimer(black_time, minutes+":"+seconds);
-                    if (currentTime[0] == 0){
+                    if (currentTime[0] === 0){
                         self.message_controller.updateMessage("Black is out of time!");
                     }
-                    if (currentTime[1] == 0){
+                    if (currentTime[1] === 0){
                         self.message_controller.updateMessage("White is out of time!");
                     }
-                })
+                });
                 self.game_is_timed = true;
                 self.timer_display = new LatticeTimerDisplay();
-            };
+            }
         self.resetGame();
     }
 
@@ -120,19 +126,20 @@ LatticeGame.prototype.newGame = function(game_options){
                     var minutes = Math.floor(currentTime[0]/60);
                     var seconds = currentTime[0] - minutes*60;
                     if (seconds < 10){
-                        seconds = "0"+ seconds
+                        seconds = "0"+ seconds;
                     }
-                    var black_time = minutes+":"+seconds
+                    var black_time = minutes+":"+seconds;
+                    // why are minutes and seconds redefined here?
                     var minutes = Math.floor(currentTime[1]/60);
                     var seconds = currentTime[1] - minutes*60;
                     if (seconds < 10){
-                        seconds = "0"+ seconds
+                        seconds = "0"+ seconds;
                     }
                     self.timer_display.updateTimer(black_time, minutes+":"+seconds);
-                    if (currentTime[0] == 0){
+                    if (currentTime[0] === 0){
                         self.message_controller.updateMessage("Black is out of time!");
                     }
-                    if (currentTime[1] == 0){
+                    if (currentTime[1] === 0){
                         self.message_controller.updateMessage("White is out of time!");
                     }
             });
@@ -153,7 +160,7 @@ LatticeGame.prototype.newGame = function(game_options){
 
         self.resetGame();
     }
-}
+};
 
 function GameTimer() {
     this.stop = this.stop.bind(this);
@@ -164,13 +171,13 @@ GameTimer.prototype.init = function(time, callbackfunction){
     this.timeRemaining = [time, time];
     this.currentPlayer = 0;
     this.callbackfunction = callbackfunction;
-}
+};
 
 GameTimer.prototype.reset = function(){
     var time = this.startTime;
     this.timeRemaining = [time, time];
     this.currentPlayer = 0;
-}
+};
 
 GameTimer.prototype.start = function(){
     var self = this;
@@ -184,8 +191,8 @@ GameTimer.prototype.start = function(){
                 self.stop();
             }
             self.callbackfunction(self.timeRemaining);
-        }, 1000)
-}
+        }, 1000);
+};
 
 GameTimer.prototype.stop = function(){
 
@@ -195,7 +202,7 @@ GameTimer.prototype.stop = function(){
 
 GameTimer.prototype.changePlayer = function(playerIndex){
     this.currentPlayer = playerIndex;
-}
+};
 
 LatticeGame.BoardState.prototype.clone = function(){
     var self = this;
@@ -203,7 +210,7 @@ LatticeGame.BoardState.prototype.clone = function(){
     new_board_start.board_numeric = self.board_numeric.slice();
     new_board_start.square_stats = [];
     _.each(self.square_stats, function(square_stat, stats_index){
-        if(square_stat != undefined){
+        if(square_stat !== undefined){
             new_board_start.square_stats[stats_index] = {
                 control: square_stat.control,
                 amount: square_stat.amount
@@ -391,11 +398,11 @@ LatticeGame.prototype.playAiTurn = function(){
                     // play random move "best visible"
                     var moves = self.state.getEmptySpaces();
                     var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                    if ( centre_moves[0] != undefined){
+                    if ( centre_moves[0] !== undefined){
                         self.playMove(randomOption(centre_moves));
                     }else{
                         var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                        if ( layer2_moves[0] != undefined){
+                        if ( layer2_moves[0] !== undefined){
                             self.playMove(randomOption(layer2_moves));
                         }else{
                             self.playMove(randomOption(moves));
@@ -426,10 +433,10 @@ LatticeGame.prototype.playAiTurn = function(){
                     //take check move to double check move
                     var no_played_move = true;
                     var checkMoves = ( moveValues[ai_player.id][3] );
-                    console.log("check list 1", checkMoves)
+                    console.log("check list 1", checkMoves);
                     _.each(checkMoves, function(move){
                         var checkMove = move;
-                        console.log("ai test move 1", checkMove)
+                        console.log("ai test move 1", checkMove);
                         var check_board = self.state.clone();
                         check_board.playPiece(checkMove, ai_player.id);
                         var newMoveValues = check_board.moveValues([check_board]);
@@ -451,11 +458,11 @@ LatticeGame.prototype.playAiTurn = function(){
                     // play random move "best visible"
                     var moves = self.state.getEmptySpaces();
                     var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                    if ( centre_moves[0] != undefined){
+                    if ( centre_moves[0] !== undefined){
                         self.playMove(randomOption(centre_moves));
                     }else{
                         var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                        if ( layer2_moves[0] != undefined){
+                        if ( layer2_moves[0] !== undefined){
                             self.playMove(randomOption(layer2_moves));
                         }else{
                             self.playMove(randomOption(moves));
@@ -485,10 +492,10 @@ LatticeGame.prototype.playAiTurn = function(){
                     // are there any moves that gives check, which produce double check opportunity
                     var no_played_move = true;
                     var checkMoves = ( moveValues[ai_player.id][3] );
-                    console.log("check list 1", checkMoves)
+                    console.log("check list 1", checkMoves);
                     _.each(checkMoves, function(move){
                         var checkMove = move;
-                        console.log("ai test move 1", checkMove)
+                        console.log("ai test move 1", checkMove);
                         var check_board = self.state.clone();
                         check_board.playPiece(checkMove, ai_player.id);
                         var newMoveValues = check_board.moveValues([check_board]);
@@ -547,7 +554,7 @@ LatticeGame.prototype.playAiTurn = function(){
                             _.each(moveValues[other_player.id][3], function(check_blocking_move){
                                 var board_clone = self.state.clone();
                                 // have opponent play check move
-                                board_clone.playPiece(check_blocking_move, other_player.id)
+                                board_clone.playPiece(check_blocking_move, other_player.id);
                                 var moveValues = board_clone.moveValues();
                                 // block this check
                                 board_clone.playPiece(randomOption(moveValues[other_player.id][4]), ai_player.id);
@@ -563,7 +570,7 @@ LatticeGame.prototype.playAiTurn = function(){
 
                             });
 
-                            if( best > 7  || moveValues[ai_player.id][3].length == 0 ){
+                            if( best > 7  || moveValues[ai_player.id][3].length === 0 ){
                                 console.log("fancy blocky");
                                 self.playMove(randomOption(best_moves));
                             }else{
@@ -575,11 +582,11 @@ LatticeGame.prototype.playAiTurn = function(){
                             // play random move "best visible"
                             var moves = self.state.getEmptySpaces();
                             var centre_moves = pieces_in_both(piece_rank["centre"], moves);
-                            if ( centre_moves[0] != undefined){
+                            if ( centre_moves[0] !== undefined){
                                 self.playMove(randomOption(centre_moves));
                             }else{
                                 var layer2_moves = pieces_in_both(piece_rank["layer2"], moves);
-                                if ( layer2_moves[0] != undefined){
+                                if ( layer2_moves[0] !== undefined){
                                     self.playMove(randomOption(layer2_moves));
                                 }else{
                                     self.playMove(randomOption(moves));
@@ -592,7 +599,7 @@ LatticeGame.prototype.playAiTurn = function(){
             }, delay);
         }else if(ai_player.aiLevel == 4){
             // Level 4
-
+            // NOTES: why redefining moveValues and moves?
             var moveValues = self.state.moveValues();
             var moves = self.state.getEmptySpaces();
             setTimeout(function(){
@@ -618,10 +625,10 @@ LatticeGame.prototype.playAiTurn = function(){
                     self.playMove(randomOption(centre_moves));
                 }
                 var checkMoves = ( moveValues[ai_player.id][3] );
-                console.log("check list 1", checkMoves)
+                console.log("check list 1", checkMoves);
                 _.each(checkMoves, function(move){
                     var checkMove = move;
-                    console.log("ai test move 1", checkMove)
+                    console.log("ai test move 1", checkMove);
                     var check_board = self.state.clone();
                     check_board.playPiece(checkMove, ai_player.id);
                     var newMoveValues = check_board.moveValues([check_board]);
@@ -671,6 +678,8 @@ LatticeGame.prototype.playAiTurn = function(){
 
                     // self.playMove(randomOption(minimaxedMove[ai_player.id]));
                     var bestRank = -100000;
+                    // redundant?  we've made it here because no_played_move
+                    // passed the 'if' statement above
                     var no_played_move = true;
                     var bestMove = [];
                     console.log(moves);
@@ -691,7 +700,7 @@ LatticeGame.prototype.playAiTurn = function(){
                     });
                 self.playMove(bestMove);
                 }
-            })
+            });
         }
     }
 };
@@ -749,7 +758,7 @@ LatticeGame.prototype.playMove= function(move){
     var allMoves = self.state.getEmptySpaces();
     var audio = document.getElementsByTagName("audio")[0];
     /*var sound = new Audio:url(js/playerMove.wav)*/
-    if(self.state.board_numeric[move] == 0 && ! self.wins[0]){
+    if(self.state.board_numeric[move] === 0 && ! self.wins[0]){
         if(allMoves.length == 36){
             self.state.firstMove = {"move":move, "id":self.turn};
             self.previous_move = false;
@@ -759,7 +768,7 @@ LatticeGame.prototype.playMove= function(move){
             // invalid move
             self.message_controller.updateMessage("Place at least 3 rows or columns away from your first move");
             // stop what we're doing, wait for another input.
-            return
+            return;
         }
 
         self.addPiece(move, self.turn);
@@ -780,7 +789,7 @@ LatticeGame.prototype.playMove= function(move){
             $("#"+move).addClass("last_played");
             //2) alert if there's a check move.
             var moveValues = self.state.moveValues();
-            console.log("move values...", moveValues[self.players[opponent].id][4])
+            console.log("move values...", moveValues[self.players[opponent].id][4]);
             if(moveValues[self.players[opponent].id][4].length > 0){
                 self.message_controller.updateMessage("Check!");
             }else{
@@ -847,11 +856,11 @@ LatticeGame.prototype.loadState = function(state){
     _.each(_.range(0,36),function(piece_index){
         self.pieces_dom[piece_index].removeClass("x o winning");
 
-        if(self.state.board_numeric[piece_index] != 0){
-            self.pieces_dom[piece_index].addClass(state.board_numeric[piece_index])
+        if(self.state.board_numeric[piece_index] !== 0){
+            self.pieces_dom[piece_index].addClass(state.board_numeric[piece_index]);
         }
 
-    })
+    });
 
     // make sure wins is still correct.
     self.wins = self.state.findWin();
@@ -883,13 +892,13 @@ LatticeGame.prototype.initBoard = function(){
             .addClass("piece")
             .attr('id',i)
             .appendTo(li)
-            .click(function(e){
-                        self.playMove($(e.currentTarget).attr("id"))
+            .click( function (e){
+                        self.playMove($(e.currentTarget).attr("id"));
                     }
                 );
         self.pieces_dom.push(piece_centred);
 
-    };
+    }
 };
 
 
