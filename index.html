@@ -3,8 +3,8 @@
   <title> Lattice </title>
 
 
-  <link rel="stylesheet" href="lattice-singlepage.css">
-  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="static/css/lattice-singlepage.css">
+  <link rel="stylesheet" href="static/fonts/fonts.css">
 
   <meta name="description" content= "Lattice, a two player abstract strategy board game">
   <meta name="keywords" content= "abstract strategy, board game, logic, two player, lattice, strategy, game">
@@ -34,7 +34,7 @@
   <div class = "container-aspect-ratio">
       <div id="main-menu" class="content">
         <h1></h1>
-        <img src = js/logo.png style="height:15%;">
+        <img src = static/js/logo.png style="height:15%;">
           <h2 data-navigate="single-player-setup">
           Single Player
           </h2>
@@ -64,11 +64,11 @@
           <br>
           Source code is on github: <br>
           <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a> <br>
-          <br> 
+          <br>
           </p>
         </div>
         <div class="table-row">
-          <div class="button back" data-navigate="main-menu">Back</div> 
+          <div class="button back" data-navigate="main-menu">Back</div>
         </div>
       </div>
 
@@ -93,7 +93,7 @@
 
         <div class="table-row">
           <div class="button back" data-navigate="main-menu">Back</div>
-          <div class="button" data-startgame="sample-game">Sample Game</div>  
+          <div class="button" data-startgame="sample-game">Sample Game</div>
         </div>
       </div>
 
@@ -104,30 +104,30 @@
           When a player moves to the third corner of an open square the opponent is forced to block at the fourth corner. The player retains control of the board as long as they are placing the opponent in 'check'. A winning position can often be built by forcing a string of successive checks. A common method is to build a '+' of either 1 x 1 or 2 x 2 squares. if the board is clear, and the player can complete a '+', the final move will give two checks and the game will be won. Wins in this method can be seen easily up to 5 moves in advance. <br>
           <br>
           The trick is knowing when a successful winning position can be built. If the player cannot visualize the sequence to completion they will likely hit a dead end, then lose when they give up control of the board. In some cases it may be preferable to skip a 'check' move to make a preemptive defensive one. Either way the player must be precise. Every point on the board quickly becomes critical. <br>
-          <br> 
+          <br>
           </p>
         </div>
 
         <div class="table-row">
-          <div class="button back" data-navigate="main-menu">Back</div> 
+          <div class="button back" data-navigate="main-menu">Back</div>
         </div>
       </div>
 
       <div id="single-player-setup" class="content hidden">
         <h1>Game Settings</h1>
         <div class="about-info">
-          
+
           <form id="single-player-starting-options">
             <h4> Play as black or white? </h4>
             <div class = "table-row">
-              <input type="radio" name="player_colour" value="black" id="pc1" checked> 
+              <input type="radio" name="player_colour" value="black" id="pc1" checked>
               <label for="pc1"> Black </label>
-              <input type="radio" name="player_colour" value="white" id="pc2"> 
+              <input type="radio" name="player_colour" value="white" id="pc2">
               <label for="pc2"> White </label>
             </div>
             <h4> Difficulty: </h4>
             <div class = "table-row">
-              <input id="ai1" type="radio" name="ai_level" value="1" checked> 
+              <input id="ai1" type="radio" name="ai_level" value="1" checked>
               <label for="ai1"> 1 </label>
               <input id="ai2" type="radio" name="ai_level" value="2">
               <label for="ai2"> 2 </label>
@@ -146,8 +146,8 @@
             <h4>Time for game (min): <input type="text" name="time-for-game" value="" ></h4>
           </form>
             <div class="table-row">
-              <div class="button" data-startgame="single-player">Play</div> 
-              <div class="button back" data-navigate="main-menu">Back</div> 
+              <div class="button" data-startgame="single-player">Play</div>
+              <div class="button back" data-navigate="main-menu">Back</div>
             </div>
         </div>
       </div>
@@ -165,12 +165,12 @@
             <h4>Time for game (min): <input type="text" name="time-for-game" value="" ></h4>
           </form>
             <div class="table-row">
-              <div class="button" data-startgame="multi-player">Play</div> 
-              <div class="button" data-navigate="main-menu">Back</div> 
+              <div class="button" data-startgame="multi-player">Play</div>
+              <div class="button" data-navigate="main-menu">Back</div>
             </div>
         </div>
       </div>
-    </div>      
+    </div>
   </div>
 
   <div class="container-board">
@@ -182,13 +182,13 @@
       <div id="lattice-game-message"> </div>
       <div id="timer" class="table-row">
         <div class="timer" >Black: </div>
-        <div id="timerDisplayBlack"></div>  
+        <div id="timerDisplayBlack"></div>
         <div class="timer" >White: </div>
-        <div id="timerDisplayWhite"></div>  
+        <div id="timerDisplayWhite"></div>
       </div>
       <div id="in-game-menu" class="table-row">
-        <div class="button" data-gameaction="undo">Undo</div> 
-        <div class="button" data-gameaction="reset">Reset</div> 
+        <div class="button" data-gameaction="undo">Undo</div>
+        <div class="button" data-gameaction="reset">Reset</div>
         <div class="button" data-navigate="main-menu">Main Menu</div>
       </div>
 
@@ -199,13 +199,13 @@
 </div>
 
 <audio>
-  <source src="js/sound.mp3"></source>
+  <source src="static/js/sound.mp3"></source>
 </audio>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/underscore-min.js"></script>
-  <script src="js/lattice-messages.js"></script>
-  <script src="js/timer.js"></script>
-  <script src="js/LatticeGame.js"></script>
-  <script src="js/lattice-app.js"></script>
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/underscore-min.js"></script>
+  <script src="static/js/lattice-messages.js"></script>
+  <script src="static/js/timer.js"></script>
+  <script src="static/js/LatticeGame.js"></script>
+  <script src="static/js/lattice-app.js"></script>
 </body>

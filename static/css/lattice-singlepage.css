@@ -1,5 +1,5 @@
-/* Sets up a container within a container which always maintains 
-the aspect-ratio 10:16, no matter the window size ; also sets keeps 
+/* Sets up a container within a container which always maintains
+the aspect-ratio 10:16, no matter the window size ; also sets keeps
 this container centred */
 
 body{
@@ -49,7 +49,7 @@ body{
 }
 
 
-/* Some sizes based on screen height (100vh = 100% screen height) 
+/* Some sizes based on screen height (100vh = 100% screen height)
   these are all just guesses though... might not work on some machines? */
 h1 {
   margin-top: 8vh;
@@ -103,7 +103,7 @@ form h4 {
   font-size:5vh;
 }
 input[type="text"] {
-    font-size: 4vh;   
+    font-size: 4vh;
 }
 input[type="radio"] {
     display:none;
@@ -151,7 +151,7 @@ input[type="radio"]:disabled + label {
 
 #lattice-board{
   overflow:auto;
-  background-image:url(js/board.png);
+  background-image:url(static/js/board.png);
     background-size:92.8%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -170,9 +170,9 @@ input[type="radio"]:disabled + label {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
-  border-radius: 50%; 
-  opacity: 80%; 
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 80%;
 }
 
 .piece {
@@ -182,7 +182,7 @@ input[type="radio"]:disabled + label {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   border-radius: 50%;
 }
 
@@ -193,12 +193,12 @@ input[type="radio"]:disabled + label {
 }
 
 .o {
-  background-image:url(js/white-player.png);
+  background-image:url(static/js/white-player.png);
     background-size: 100% 100%;
 }
 
 .x {
-  background-image:url(js/black-player.png);
+  background-image:url(static/js/black-player.png);
     background-size: 100% 100%;
 }
 

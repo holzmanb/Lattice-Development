@@ -1,5 +1,9 @@
 # Lattice Game
-Abstract strategy game.
+
+## About
+Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.
+
+## Run the Game
 
 
 ## Status
@@ -14,8 +18,3 @@ Current version can simply be played as a local multiplayer.
 - AI levels 4-5
 - Declare check/hint option
 
-
-## Done
-	
-- Sizing on computer vs mobile
-- Font not recognized on mobile
