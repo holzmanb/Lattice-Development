@@ -1,8 +1,3 @@
-$(".loader").delay( 500 ).slideUp( { duration: 5000, easing: "easeInOutQuart" }, function() {
-        //let the information preload and then draw up
-        //the curtains for show time!
-
-});
 
 var LatticeGame = function(){
     var self = this;
@@ -900,5 +895,4 @@ LatticeGame.prototype.initBoard = function(){
 
     }
 };
-
 
