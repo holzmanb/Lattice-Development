@@ -44,3 +44,7 @@ Temporary Items
 
 # Other folders with temporary information
 /static/img/logo_animation/
+/node_modules
+/static/js/snap
+/static/img/logo_animation
+/static/img/ss

@@ -1,10 +1,14 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
   <title> Lattice </title>
 
 
   <link rel="stylesheet" href="static/css/lattice-singlepage.css">
   <link rel="stylesheet" href="static/fonts/fonts.css">
+  <link rel="stylesheet" href="static/css/snapstyle.css"
+  <link rel="icon" href="favicon.ico">
 
   <meta name="description" content= "Lattice, a two player abstract strategy board game">
   <meta name="keywords" content= "abstract strategy, board game, logic, two player, lattice, strategy, game">
@@ -30,173 +34,176 @@
   </script>
 </head>
 <body>
- <div class="container-centred">
-  <div class = "container-aspect-ratio">
-      <div id="main-menu" class="content">
-        <h1></h1>
-        <img src = static/img/logo.png style="height:15%;">
-          <h2 data-navigate="single-player-setup">
-          Single Player
-          </h2>
-          <h2 data-navigate="multi-player-setup">
-          Multiplayer
-          </h2>
-          <h2 data-navigate="about">
-          About
-          </h2>
-          <h2 data-navigate="rules">
-          Game Rules
-          </h2>
-          <h2 data-navigate="strategy">
-          Strategy
-          </h2>
-      </div>
-
-      <div id="about" class="content hidden">
-        <h2>About</h2>
-        <div class="about-info">
-          <p>
-          Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.<br>
-          <br>
-          Game rules were created by Ben Holzman, then tested and modified with Garrett Miller.<br>
-          <br>
-          AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman.<br>
-          <br>
-          Source code is on github: <br>
-          <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a> <br>
-          <br>
-          </p>
-        </div>
-        <div class="table-row">
-          <div class="button back" data-navigate="main-menu">Back</div>
-        </div>
-      </div>
-
-      <div id="rules" class="content hidden">
-        <div class="about-info">
-          <h2>Objective</h2>
-          <p>
-          Occupy all four corners of a square on the 6 x 6 grid. The winning square can be of any size (1 x 1, 2 x 2, 3 x 3, 4 x 4, 5 x 5, or 6 x 6), but must line up with the gridlines. Diamond shapes do not count. <br>
-          </p>
-          <h2>Game Play</h2>
-          <p>
-          This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows or columns from their first stone. There are no restrictions on any future game moves.<br>
-          <br>
-          If the first player elects to play in the corner on their first move they may place a stone anywhere on the board on their second.<br>
-          <br>
-          If one player occupies three corners of a square, and can win the game on their next move, they must announce it to the other player. The game is won when a player makes a single move that produces multiple winning moves for the following turn.<br>
-          <br>
-          &copy; 2015<br>
-          latticegame.com
-          </p>
+  <div class="loader">
+    <svg id="loader-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <div class="container-centred">
+    <div class = "container-aspect-ratio">
+        <div id="main-menu" class="content">
+          <h1></h1>
+          <img src = static/img/logo.png style="height:15%;">
+            <h2 data-navigate="single-player-setup">
+            Single Player
+            </h2>
+            <h2 data-navigate="multi-player-setup">
+            Multiplayer
+            </h2>
+            <h2 data-navigate="about">
+            About
+            </h2>
+            <h2 data-navigate="rules">
+            Game Rules
+            </h2>
+            <h2 data-navigate="strategy">
+            Strategy
+            </h2>
         </div>
 
-        <div class="table-row">
-          <div class="button back" data-navigate="main-menu">Back</div>
-          <div class="button" data-startgame="sample-game">Sample Game</div>
+        <div id="about" class="content hidden">
+          <h2>About</h2>
+          <div class="about-info">
+            <p>
+            Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.<br>
+            <br>
+            Game rules were created by Ben Holzman, then tested and modified with Garrett Miller.<br>
+            <br>
+            AI testing was completed years later by Al Grant and Ben Holzman. The rules were further modifed based on computer results and the finished game was put online by Al Grant and Ben Holzman.<br>
+            <br>
+            Source code is on github: <br>
+            <a target="_blank" href="https://github.com/holzmanb/Lattice-Development">github.com/holzmanb/Lattice-Development</a> <br>
+            <br>
+            </p>
+          </div>
+          <div class="table-row">
+            <div class="button back" data-navigate="main-menu">Back</div>
+          </div>
         </div>
-      </div>
 
-      <div id="strategy" class="content hidden">
-        <div class="about-info">
-          <h2>Basic Strategy</h2>
-          <p>
-          When a player moves to the third corner of an open square the opponent is forced to block at the fourth corner. The player retains control of the board as long as they are placing the opponent in 'check'. A winning position can often be built by forcing a string of successive checks. A common method is to build a '+' of either 1 x 1 or 2 x 2 squares. if the board is clear, and the player can complete a '+', the final move will give two checks and the game will be won. Wins in this method can be seen easily up to 5 moves in advance. <br>
-          <br>
-          The trick is knowing when a successful winning position can be built. If the player cannot visualize the sequence to completion they will likely hit a dead end, then lose when they give up control of the board. In some cases it may be preferable to skip a 'check' move to make a preemptive defensive one. Either way the player must be precise. Every point on the board quickly becomes critical. <br>
-          <br>
-          </p>
+        <div id="rules" class="content hidden">
+          <div class="about-info">
+            <h2>Objective</h2>
+            <p>
+            Occupy all four corners of a square on the 6 x 6 grid. The winning square can be of any size (1 x 1, 2 x 2, 3 x 3, 4 x 4, 5 x 5, or 6 x 6), but must line up with the gridlines. Diamond shapes do not count. <br>
+            </p>
+            <h2>Game Play</h2>
+            <p>
+            This is a two player game. Each player takes a turn placing a stone on an intersection on the grid. Black moves first, and can place the first stone anywhere. White now places a stone anywhere on the board. Blacks' second move must be located at least three rows or columns from their first stone. There are no restrictions on any future game moves.<br>
+            <br>
+            If the first player elects to play in the corner on their first move they may place a stone anywhere on the board on their second.<br>
+            <br>
+            If one player occupies three corners of a square, and can win the game on their next move, they must announce it to the other player. The game is won when a player makes a single move that produces multiple winning moves for the following turn.<br>
+            <br>
+            &copy; 2015<br>
+            latticegame.com
+            </p>
+          </div>
+
+          <div class="table-row">
+            <div class="button back" data-navigate="main-menu">Back</div>
+            <div class="button" data-startgame="sample-game">Sample Game</div>
+          </div>
         </div>
 
-        <div class="table-row">
-          <div class="button back" data-navigate="main-menu">Back</div>
+        <div id="strategy" class="content hidden">
+          <div class="about-info">
+            <h2>Basic Strategy</h2>
+            <p>
+            When a player moves to the third corner of an open square the opponent is forced to block at the fourth corner. The player retains control of the board as long as they are placing the opponent in 'check'. A winning position can often be built by forcing a string of successive checks. A common method is to build a '+' of either 1 x 1 or 2 x 2 squares. if the board is clear, and the player can complete a '+', the final move will give two checks and the game will be won. Wins in this method can be seen easily up to 5 moves in advance. <br>
+            <br>
+            The trick is knowing when a successful winning position can be built. If the player cannot visualize the sequence to completion they will likely hit a dead end, then lose when they give up control of the board. In some cases it may be preferable to skip a 'check' move to make a preemptive defensive one. Either way the player must be precise. Every point on the board quickly becomes critical. <br>
+            <br>
+            </p>
+          </div>
+
+          <div class="table-row">
+            <div class="button back" data-navigate="main-menu">Back</div>
+          </div>
         </div>
-      </div>
 
-      <div id="single-player-setup" class="content hidden">
-        <h1>Game Settings</h1>
-        <div class="about-info">
-
-          <form id="single-player-starting-options">
-            <h4> Play as black or white? </h4>
-            <div class = "table-row">
-              <input type="radio" name="player_colour" value="black" id="pc1" checked>
-              <label for="pc1"> Black </label>
-              <input type="radio" name="player_colour" value="white" id="pc2">
-              <label for="pc2"> White </label>
-            </div>
-            <h4> Difficulty: </h4>
-            <div class = "table-row">
-              <input id="ai1" type="radio" name="ai_level" value="1" checked>
-              <label for="ai1"> 1 </label>
-              <input id="ai2" type="radio" name="ai_level" value="2">
-              <label for="ai2"> 2 </label>
-              <input id="ai3" type="radio" name="ai_level" value="3">
-              <label for="ai3"> 3 </label>
-              <input id="ai4" type="radio" name="ai_level" value="4">
-              <label for="ai4"> 4 </label>
-              <input id="ai5" type="radio" name="ai_level" value="5" disabled>
-              <label for="ai5"> 5 </label>
-            </div>
-            <h4>Timed:</h4>
-            <div class = "table-row">
-              <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
-              <input id="t_m2" type="radio" name="timed" value="Yes" checked> <label for="t_m2"> Yes </label>
-            </div>
-            <h4>Time for game (min):</h4>
-            <input type="text" name="time-for-game" value="" >
-          </form>
-            <div class="table-row">
-              <div class="button" data-startgame="single-player">Play</div>
-              <div class="button back" data-navigate="main-menu">Back</div>
-            </div>
-        </div>
-      </div>
-
-      <div id="multi-player-setup" class="content hidden">
+        <div id="single-player-setup" class="content hidden">
           <h1>Game Settings</h1>
           <div class="about-info">
 
-          <form id="multi-player-starting-options">
-            <h4>Timed:</h4>
-            <div class = "table-row">
-              <input id="M_m1" type="radio" name="timed" value="No" checked> <label for="M_m1"> No </label>
-              <input id="M_m2" type="radio" name="timed" value="Yes" checked> <label for="M_m2"> Yes </label>
-            </div>
-            <h4>Time for game (min): </h4>
-            <input type="text" name="time-for-game" value="" >
-          </form>
-            <div class="table-row">
-              <div class="button" data-startgame="multi-player">Play</div>
-              <div class="button" data-navigate="main-menu">Back</div>
-            </div>
+            <form id="single-player-starting-options">
+              <h4> Play as black or white? </h4>
+              <div class = "table-row">
+                <input type="radio" name="player_colour" value="black" id="pc1" checked>
+                <label for="pc1"> Black </label>
+                <input type="radio" name="player_colour" value="white" id="pc2">
+                <label for="pc2"> White </label>
+              </div>
+              <h4> Difficulty: </h4>
+              <div class = "table-row">
+                <input id="ai1" type="radio" name="ai_level" value="1" checked>
+                <label for="ai1"> 1 </label>
+                <input id="ai2" type="radio" name="ai_level" value="2">
+                <label for="ai2"> 2 </label>
+                <input id="ai3" type="radio" name="ai_level" value="3">
+                <label for="ai3"> 3 </label>
+                <input id="ai4" type="radio" name="ai_level" value="4">
+                <label for="ai4"> 4 </label>
+                <input id="ai5" type="radio" name="ai_level" value="5" disabled>
+                <label for="ai5"> 5 </label>
+              </div>
+              <h4>Timed:</h4>
+              <div class = "table-row">
+                <input id="t_m1" type="radio" name="timed" value="No" checked> <label for="t_m1"> No </label>
+                <input id="t_m2" type="radio" name="timed" value="Yes" checked> <label for="t_m2"> Yes </label>
+              </div>
+              <h4>Time for game (min):</h4>
+              <input type="text" name="time-for-game" value="" >
+            </form>
+              <div class="table-row">
+                <div class="button" data-startgame="single-player">Play</div>
+                <div class="button back" data-navigate="main-menu">Back</div>
+              </div>
+          </div>
+        </div>
+
+        <div id="multi-player-setup" class="content hidden">
+            <h1>Game Settings</h1>
+            <div class="about-info">
+
+            <form id="multi-player-starting-options">
+              <h4>Timed:</h4>
+              <div class = "table-row">
+                <input id="M_m1" type="radio" name="timed" value="No" checked> <label for="M_m1"> No </label>
+                <input id="M_m2" type="radio" name="timed" value="Yes" checked> <label for="M_m2"> Yes </label>
+              </div>
+              <h4>Time for game (min): </h4>
+              <input type="text" name="time-for-game" value="" >
+            </form>
+              <div class="table-row">
+                <div class="button" data-startgame="multi-player">Play</div>
+                <div class="button" data-navigate="main-menu">Back</div>
+              </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container-board">
-    <div id="game" class="content hidden">
-      <div id="lattice-board">
-        <div id="board-list">
+    <div class="container-board">
+      <div id="game" class="content hidden">
+        <div id="lattice-board">
+          <div id="board-list">
+          </div>
         </div>
-      </div>
-      <div id="lattice-game-message"> </div>
-      <div id="timer" class="table-row">
-        <div class="timer" >Black: </div>
-        <div id="timerDisplayBlack"></div>
-        <div class="timer" >White: </div>
-        <div id="timerDisplayWhite"></div>
-      </div>
-      <div id="in-game-menu" class="table-row">
-        <div class="button" data-gameaction="undo">Undo</div>
-        <div class="button" data-gameaction="reset">Reset</div>
-        <div class="button" data-navigate="main-menu">Main Menu</div>
+        <div id="lattice-game-message"> </div>
+        <div id="timer" class="table-row">
+          <div class="timer" >Black: </div>
+          <div id="timerDisplayBlack"></div>
+          <div class="timer" >White: </div>
+          <div id="timerDisplayWhite"></div>
+        </div>
+        <div id="in-game-menu" class="table-row">
+          <div class="button" data-gameaction="undo">Undo</div>
+          <div class="button" data-gameaction="reset">Reset</div>
+          <div class="button" data-navigate="main-menu">Main Menu</div>
+        </div>
+
       </div>
 
     </div>
-
-  </div>
 
 </div>
 
@@ -204,10 +211,13 @@
   <source src="static/media/sound.mp3"></source>
 </audio>
 
-  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/jquery-3.1.0.js"></script>
   <script src="static/js/underscore-min.js"></script>
+  <script src="static/js/snap.svg-min.js"></script>
+  <script src="static/js/splash_animation.js"></script>
   <script src="static/js/lattice-messages.js"></script>
   <script src="static/js/timer.js"></script>
   <script src="static/js/LatticeGame.js"></script>
   <script src="static/js/lattice-app.js"></script>
 </body>
+
