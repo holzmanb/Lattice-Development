@@ -1,5 +1,16 @@
-@font-face {
+/*
+https://fonts.google.com/specimen/Playfair+Display
+*/
+
+/*@font-face {
   font-family: 'Nyala';
   src: url('Nyala.ttf') format('truetype');
   font-weight: normal;
-  font-style: normal;
+  font-style: normal;*/
+
+@font-face {
+    font-family: 'Playfair-Display';
+    src: url('PlayfairDisplay-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -5,6 +5,7 @@ this container centred */
 body{
   margin:0;
   background:#1B1B1A;
+  font-family: 'Playfair-Display'
 }
 
 /* preload image title */
@@ -34,6 +35,23 @@ body{
   text-align:center;
 }
 
+.title-container {
+  margin-top: 25px;
+  text-align: center;
+  height: 75px;
+  width: 100vw;
+}
+
+.gametitle {
+  width: 100%;
+  height: 100px;
+  background: url("/static/img/gametitle_white.svg") no-repeat;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+}
+
 .loader {
   padding:0;
   margin:0;
@@ -45,31 +63,12 @@ body{
   background: rgb(255, 255, 255);
 }
 
-@media screen and (min-aspect-ratio: 1/1) {
-/* when the screen goes too wide make a vertical div */
-  .container-centred {
-    position:relative;
-    width:70%;
-    margin:auto;
-  }
-  .container-board {
-    position: absolute;
-    left: 25%;
-    width:45%;
-    margin:auto;
-  }
-  .container-aspect-ratio:after {
-    padding-top: 100vh;
-  }
-}
-
 
 /* Some sizes based on screen height (100vh = 100% screen height)
   these are all just guesses though... might not work on some machines? */
 h1 {
   margin-top: 8vh;
   font-size:8vh;
-  font-family: 'Helvetica';
   font-weight: 100;
 
 }
@@ -78,26 +77,22 @@ h2 {
   font-size:6vh;
   margin-bottom: 3vh;
   margin-top: 5vh;
-  font-family: 'Helvetica';
 }
 
 p {
   width:100%;
   margin:auto;
   font-size:3vh;
-  font-family: 'Helvetica';
 }
 
 #main-menu h1 {
-  font-size:11vh;
+  font-size:10vh;
   color:white;
-  font-family: 'Helvetica';
 }
 
 #main-menu h2 {
   font-size:5vh;
   margin:6vh;
-  font-family: 'Helvetica';
   font-weight: normal;
   font-style: normal;
 }
@@ -251,4 +246,22 @@ input[type="radio"]:disabled + label {
 
 .piece.last_played{
   box-shadow: 0px 0px 1.5vh .5vh rgba(97,170,255,1);
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+/* when the screen goes too wide make a vertical div */
+  .container-centred {
+    position:relative;
+    width:70%;
+    margin:auto;
+  }
+  .container-board {
+    position: absolute;
+    left: 25%;
+    width:45%;
+    margin:auto;
+  }
+  .container-aspect-ratio:after {
+    padding-top: 100vh;
+  }
 }

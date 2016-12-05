@@ -1,0 +1,21 @@
+{
+  "name": "lattice",
+  "version": "1.0.0",
+  "description": "## About Lattice is an abstract strategy game created in the back row of a geophysics class at the University of British Columbia.",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holzmanb/Lattice-Development.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/holzmanb/Lattice-Development/issues"
+  },
+  "homepage": "https://github.com/holzmanb/Lattice-Development#readme"
+}

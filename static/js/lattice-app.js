@@ -10,12 +10,6 @@ $(document).ready(function() {
     //     strokeWidth: 3
     // });
 
-
-    $(".loader").delay( 3000 ).slideUp( "slow", function() {
-        //let the information preload and then draw up
-        //the curtains for show time!
-    });
-
     /* Allow lattice game to set itself up
        Global Variable right now just for debug purposes */
     global_game = new LatticeGame();

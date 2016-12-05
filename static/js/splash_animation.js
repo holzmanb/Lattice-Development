@@ -125,14 +125,14 @@ function init() {
     }
 }
 
-$("svg#loader-svg").click(function(e){
-    console.log('here?');
-    e.preventDefault();
-    $(".loader").delay( 200 ).slideUp( "slow", function() {
-    //let the information preload and then draw up
-    //the curtains for show time!
-    });
-});
+// var title_button = document.getElementById("loader-svg");
+// $(title_button).click(function(e){
+//     e.preventDefault();
+//     $(".loader").delay( 150 ).slideUp( "slow", function() {
+//         //let the information preload and then draw up
+//         //the curtains for show time!
+//     });
+// });
 
 
 // information on Snap transforms:
