@@ -85,7 +85,7 @@ function init() {
             opacity: '0.9'
         });
         // animate the progress bar to extend from left to right
-        prg_bar.animate({x2: '200'}, 3200, mina.easeinout);
+        prg_bar.animate({x2: '200'}, 2700, mina.easeinout);
         return prg_bar
     }
 
@@ -113,7 +113,7 @@ function init() {
         wipe_board();
         change_color(p_bar);
         load_pb();
-    }, 3400);
+    }, 3000);
 
 
     var dx;
@@ -138,7 +138,7 @@ function init() {
             s.append(title);
             title.animate({transform: 's0.62 t-400, -250'}, 1000, mina.elastic);
         });
-    }, 2800);
+    }, 3700);
 
     function select_random_color() {
         var r = Math.random();

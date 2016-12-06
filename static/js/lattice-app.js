@@ -103,4 +103,8 @@ $(document).ready(function() {
 
     });
 
+    $("#timer").click(function(e) {
+        $("#time-limit").toggleClass("hidden");
+    });
+
 });
