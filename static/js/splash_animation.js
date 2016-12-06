@@ -4,18 +4,34 @@ function init() {
     'use strict';
 
     var s = Snap("#loader-svg");
+    var play_btn = Snap("#play-button")
 
     var piece;
+    var square;
     var shadow;
     var x = 15;
     var y = 15;
     var colour;
+    var sq_colour;
     var allPieces = [];
     var grp;
     var i;
     var j;
 
-    // create the pieces
+    //create pattern for board
+    var bp = s.path("M15 15 h 85 v 85 -85 Z").attr({
+        fill: "none",
+        stroke: "rgba(50, 50, 50, 0.3)",
+        strokeWidth: 5
+    });
+
+    bp = bp.pattern(15, 15, 85, 85);
+
+    var board = s.rect(0, 0, 200, 200).attr({
+        fill: bp
+    });
+
+    // create the pieces and the playing board
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
             // create circle
@@ -27,6 +43,7 @@ function init() {
             piece.attr({
                 fill: colour
             });
+
 
             // create shadow effect
             shadow = s.ellipse(x + 3 + 400, y + 3 + 50, 3, 3);
@@ -40,8 +57,8 @@ function init() {
             // animate the piece and its shadow into their place
             // piece.animate({cy: y}, 1000, mina.bounce);
             // myFrames.push({animation: {transform:''}, dur: 1000});
-            piece.animate({transform: 't0 400'}, 1000, mina.bounce );
-            shadow.animate({transform: 't-400 -50 s5 5'}, 1000, mina.bounce );
+            piece.animate({transform: 't0 400'}, 1500, mina.bounce );
+            shadow.animate({transform: 't-400 -50 s5 5'}, 1500, mina.bounce );
 
             // create a group for the piece and its shadow
             // and push this to a set of all pieces
@@ -60,35 +77,43 @@ function init() {
             y = 15;
         }
     }
-    // Load the "Play" button once the 'progress bar' is complete
-    var play_button = function() {
-        Snap.load("static/img/play_button.svg", function(play_button) {
-            var play = play_button.select("g#play_button").attr({
-                transform: 's0.7 t-230, -90'
-            });
-            s.append(play);
-            play.animate({transform: "s0.75 t-220, -90"}, 2000, mina.elastic);
+    // create a 'progress bar' to imitate loading of resources
+    var progress_bar = function() {
+        var prg_bar = s.line(0, 200, 0, 200).attr({
+            stroke: "rgba(50,50,50, 0.95)",
+            strokeWidth: 7,
+            opacity: '0.9'
+        });
+        // animate the progress bar to extend from left to right
+        prg_bar.animate({x2: '200'}, 3200, mina.easeinout);
+        return prg_bar
+    }
+
+    var load_pb = function() {
+        var play = document.getElementById("play-button");
+        $(play).css("display", "block");
+    }
+
+    var change_color = function(p_bar) {
+        p_bar.attr({
+            stroke: "rgb(103, 173, 100)",
+            strokeWidth: 8
         });
     };
 
-    // create a 'progress bar' to imitate loading of resources
-    var p_bar = s.line(0, 200, 0, 200).attr({
-        stroke: "rgba(50,50,50, 0.75)",
-        strokeWidth: 2,
-        opacity: '0.9'
-    });
-    p_bar.animate({x2: '200'}, 3200, mina.easeinout);
-    var change_color = function() {
-        p_bar.attr({
-        stroke: "rgb(103, 173, 100)",
-        strokeWidth: 5
-        });
-    };
+    var wipe_board = function() {
+        board.animate({
+            opacity: '0'
+        }, 500, mina.easeout)
+    }
+
+    var p_bar = progress_bar();
 
     setTimeout( function() {
-        play_button();
+        wipe_board();
         change_color(p_bar);
-    }, 3200);
+        load_pb();
+    }, 3400);
 
 
     var dx;
@@ -102,18 +127,18 @@ function init() {
             transform_string = 't ' + dx + ' ' + dy;
             el.animate({transform: transform_string}, 6000, mina.elastic);
         });
-    }, 1500);
+    }, 2800);
 
-    // drop the LATTICEGAME logo into frame
+    //drop the LATTICEGAME logo into frame
     setTimeout(function() {
         Snap.load("static/img/gametitle.svg", function(title_image) {
             var title = title_image.select("g#game_title").attr({
-                transform: 's0.5 t-500, -600'
+                transform: 's0.5 t-500, -600',
             });
             s.append(title);
-            title.animate({transform: 's0.67 t-355, -250'}, 1000, mina.elastic);
+            title.animate({transform: 's0.62 t-400, -250'}, 1000, mina.elastic);
         });
-    }, 1500);
+    }, 2800);
 
     function select_random_color() {
         var r = Math.random();
@@ -125,14 +150,14 @@ function init() {
     }
 }
 
-// var title_button = document.getElementById("loader-svg");
-// $(title_button).click(function(e){
-//     e.preventDefault();
-//     $(".loader").delay( 150 ).slideUp( "slow", function() {
-//         //let the information preload and then draw up
-//         //the curtains for show time!
-//     });
-// });
+var title_button = document.getElementById("play-button");
+$(title_button).click(function(e){
+    e.preventDefault();
+    $(".loader").delay( 150 ).slideUp( "slow", function() {
+        //let the information preload and then draw up
+        //the curtains for show time!
+    });
+});
 
 
 // information on Snap transforms:

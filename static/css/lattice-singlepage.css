@@ -97,6 +97,13 @@ p {
   font-style: normal;
 }
 
+#play-button {
+  display: none;
+  position: relative;
+  font-size: 3em;
+  top: 200px;
+}
+
 /* Radio Buttons */
 
 
