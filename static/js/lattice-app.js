@@ -5,8 +5,12 @@ $(document).ready(function() {
     global_game = new LatticeGame();
     global_game.initBoard();
 
+    // variable for avoiding starting game before all inputs are valid
+    var start_ok = false;
+
     /* Set up single page navigation */
     var setup = function() {
+        console.log('running setup?');
         $('[data-navigate]').click(function() {
             // hide all content
             $('.content').addClass("hidden");
@@ -35,19 +39,27 @@ $(document).ready(function() {
 
     /* start game button */
     $('[data-startgame]').click(function(){
-        // check if valid time limit has been entered
-        var time_limit = document.getElementsByName('time-for-game')[0].value;
-
-        if (Number.isInteger(parseInt(time_limit)) === false) {
-            return setup();
-        } else if (time_limit <= 0) {
-            return setup();
-        }
+        var check_inputs = function(game_time) {
+            // check if valid time limit has been entered
+            //var time_limit = document.getElementsByName('time-for-game')[0].value;
+            if (global_game.game_options['timed'] == "Yes") {
+                console.log('time limit: ', game_time);
+                if (Number.isInteger(parseInt(game_time)) === false) {
+                    console.log('not an integer');
+                    return false;
+                } else if (game_time <= 0) {
+                    console.log('negative or zero');
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        };
 
         // single player game options
-        if($(this).data("startgame")=="single-player"){
-
-            console.log()
+        if($(this).data("startgame")=="single-player") {
             $("#single-player-starting-options :input").each(function(){
                     if(this.checked === true){
                         global_game.game_options[$(this).attr("name")] = $(this).val();
@@ -56,6 +68,14 @@ $(document).ready(function() {
                     //timer converts minutes to milliseconds
                     if (this.name == "time-for-game" ){
                         global_game.game_options[$(this).attr("name")] = $(this).val()*60;
+                        // check if game options are valid
+                        // if not, re-initialize
+                        if (check_inputs(this.value) === false) {
+                            this.value = "Invalid time limit.";
+                            $(this).addClass("error");
+                        } else {
+                            start_ok = true;
+                        }
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
@@ -73,28 +93,38 @@ $(document).ready(function() {
                     //timer converts minutes to milliseconds
                     if (this.name == "time-for-game" ){
                         global_game.game_options[$(this).attr("name")] = $(this).val()*60;
+                        // check if game options are valid
+                        // if not, re-initialize
+                        if (check_inputs(this.value) === false) {
+                            this.value = "Invalid time limit.";
+                            $(this).addClass("error");
+                        } else {
+                            start_ok = true;
+                        }
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
-                });
+            });
             global_game.game_options["game_type"] = "multi-player";
         }
 
         // sample game options
         if($(this).data("startgame")=="sample-game"){
-
             global_game.game_options["game_type"] = "sample-game";
         }
 
-        //  game options is out of scope?
         // start the game
-        global_game.newGame(global_game.game_options);
+        if (start_ok === true) {
+            global_game.newGame(global_game.game_options);
 
-        // hide all divs
-        $('.content').addClass("hidden");
+            // hide all divs
+            $('.content').addClass("hidden");
 
-        // show this game div
-        $("#game").removeClass("hidden");
+            // show this game div
+            $("#game").removeClass("hidden");
+        } else {
+            setup();
+        }
     });
 
     // Ties buttons to the global_game
@@ -107,11 +137,19 @@ $(document).ready(function() {
                 global_game.resetGame();
                 break;
         }
-
     });
 
     $("#timer").click(function(e) {
         $("#time-limit").toggleClass("hidden");
+
+        // Reset game timer values for game_options object
+        var game_timer = $(this).parent().siblings()[0];
+        if (game_timer.value == "Yes") {
+            $(game_timer).value = "No";
+        } else if (game_timer.value == "No") {
+            $(game_timer).value = "Yes";
+        }
+        global_game.game_options['timed'] = $(game_timer).value;
     });
 
 });
