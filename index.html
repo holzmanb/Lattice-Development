@@ -35,7 +35,7 @@
   </script>
 </head>
 <body>
-  <div class="loader" style="display: none">
+  <div class="loader" hidden>
     <svg id="loader-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
     <div id="play-button">Play</div>
   </div>
@@ -44,19 +44,19 @@
         <div id="main-menu" class="content">
           <h1>latticegame</h1>
             <h2 data-navigate="single-player-setup">
-            Single Player
+              Single Player
             </h2>
             <h2 data-navigate="multi-player-setup">
-            Multiplayer
+              Multiplayer
             </h2>
             <h2 data-navigate="about">
-            About
+              About
             </h2>
             <h2 data-navigate="rules">
-            Game Rules
+              Game Rules
             </h2>
             <h2 data-navigate="strategy">
-            Strategy
+              Strategy
             </h2>
         </div>
 
@@ -76,7 +76,7 @@
             </p>
           </div>
           <div class="table-row">
-            <div class="button back" data-navigate="main-menu">Back</div>
+            <div class="button back" data-navigate="main-menu"><i class="fa fa-backward fa-2x"></i></div>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
           </div>
 
           <div class="table-row">
-            <div class="button back" data-navigate="main-menu">Back</div>
+            <div class="button back" data-navigate="main-menu"><i class="fa fa-backward fa-2x"></i></div>
             <div class="button" data-startgame="sample-game">Sample Game</div>
           </div>
         </div>
@@ -117,7 +117,7 @@
           </div>
 
           <div class="table-row">
-            <div class="button back" data-navigate="main-menu">Back</div>
+            <div class="button back" data-navigate="main-menu"><i class="fa fa-backward fa-2x"></i></div>
           </div>
         </div>
 
@@ -148,7 +148,7 @@
               </div>
               <!--<h4>Timed:</h4>-->
               <div class="table-row">
-                <input id="t_m1" type="checkbox" name="timer" value="Yes" checked>
+                <input id="t_m1" type="checkbox" name="timed" value="Yes" checked>
                 <label for="t_m1">
                   <i class="fa fa-hourglass-half fa-2x" id="timer"></i>
                 </label>
@@ -174,10 +174,10 @@
               <div class="table-row">
                 <input id="M_m1" type="checkbox" name="timer" value="Yes" checked>
                 <label for="M_m1">
-                  <i class="fa fa-hourglass-half fa-2x" id="timer"></i>
+                  <i class="fa fa-hourglass-half fa-2x" id="timer" data-tip="Set a time limit for the game."></i>
                 </label>
                 <div id="time-limit">
-                  <input type="text" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
+                  <input type="text" name="time-for-game" id="time-limit" placeholder="Time Limit (min)" data-tip="Set a time limit for the game.">
                 </div>
               </div>
             </form>
@@ -193,19 +193,21 @@
     <div class="container-board">
       <div id="game" class="content hidden">
         <div id="lattice-board">
+          <svg id="board"></svg>
           <div id="board-list">
           </div>
         </div>
 
         <div id="lattice-game-message"> </div>
 
-        <div id="timer" class="table-row">
-          <div class="timer" id="timer-black" data-tip="Timer for black player">
+        <!-- Game - Timer Container -->
+        <div class="table-row">
+          <div class="timer" id="timer-black">
             <i class="fa fa-clock-o fa-2x"></i>
           </div>
           <div id="timerDisplayBlack"></div>
 
-          <div class="timer" id="timer-white"  data-tip="Timer for white player">
+          <div class="timer" id="timer-white">
             <i class="fa fa-clock-o fa-2x"></i>
           </div>
           <div id="timerDisplayWhite"></div>
@@ -213,11 +215,11 @@
         </div>
 
         <div id="in-game-menu" class="table-row">
+          <div class="button" data-gameaction="reset">
+            <i class="fa fa-fast-backward fa-2x"></i></div>
           <div class="button" data-gameaction="undo">
             <i class="fa fa-undo fa-2x"></i>
           </div>
-          <div class="button" data-gameaction="reset">
-            <i class="fa fa-fast-backward fa-2x"></i></div>
           <div class="button" data-navigate="main-menu">
             <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
           </div>

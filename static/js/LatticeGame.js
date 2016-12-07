@@ -874,6 +874,60 @@ LatticeGame.prototype.removePiece = function(piece_index){
 };
 
 LatticeGame.prototype.initBoard = function(){
+
+    // Draw the playing board
+    var b = Snap("#board");
+    var width = $( document ).width() * 0.95;
+    console.log(width, 'width');
+    console.log('width: ', width)
+    var single_sq = width / 6; // dimension of a single playing square
+    var sq_c = single_sq / 2; // dimension to the middle of the square
+    console.log('single_sq', single_sq);
+    // Starting point
+    var start_pos = sq_c;
+    var edge_len = single_sq / 8;
+
+    // Start Move-to command
+    var pattern_str = "M" + Math.round(start_pos).toString() + ',';
+    pattern_str += Math.round(start_pos).toString();
+    // Start Line-to command - horizontal line to right
+    pattern_str += 'h' + Math.round(edge_len).toString() + ',';
+    pattern_str += Math.round(0).toString();
+    // move back to origin
+    pattern_str += "M" + Math.round(start_pos).toString() + ',';
+    pattern_str += Math.round(start_pos).toString();
+    // Start vertical line downward
+    pattern_str += 'v' + Math.round(0).toString() + ',';
+    pattern_str += Math.round(edge_len).toString();
+    // move back to origin
+    pattern_str += "M" + Math.round(start_pos).toString() + ',';
+    pattern_str += Math.round(start_pos).toString();
+    // Move horizontal line to the left
+    pattern_str += 'h' + Math.round(0).toString() + ',-';
+    pattern_str += Math.round(edge_len).toString();
+    // move back to origin
+    pattern_str += "M" + Math.round(start_pos).toString() + ',';
+    pattern_str += Math.round(start_pos).toString();
+    // Start vertical line downward
+    pattern_str += 'v' + Math.round(0).toString() + ',-';
+    pattern_str += Math.round(edge_len).toString();
+    pattern_str += 'Z';
+    console.log(pattern_str);
+    //create pattern for board
+
+    var boardPattern = b.path(pattern_str).attr({
+        fill: "none",
+        stroke: "rgba(10, 10, 10, 0.9)",
+        opacity: '0.8',
+        strokeWidth: 2
+    });
+
+    boardPat = boardPattern.pattern(0, 0, single_sq, single_sq);
+    var gameboard = b.rect(0, 0, width, 608).attr({
+         fill: boardPat
+    });
+
+
     var self = this;
     // Sets up the board in html
     var board_list = $('#board-list');

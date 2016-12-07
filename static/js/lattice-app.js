@@ -1,15 +1,5 @@
 // Make sure document is loaded...
 $(document).ready(function() {
-    //create Snap object for loader icon animation
-    // var s = Snap("#loader-svg");
-
-    // var block = s.circle(100, 100, 100, 100, 20, 20);
-    // block.attr({
-    //     fill: "rgb(236, 240, 241)",
-    //     stroke: "#1f2c39",
-    //     strokeWidth: 3
-    // });
-
     /* Allow lattice game to set itself up
        Global Variable right now just for debug purposes */
     global_game = new LatticeGame();
@@ -34,6 +24,7 @@ $(document).ready(function() {
 
     /* start game button */
     $('[data-startgame]').click(function(){
+        console.log('here', $("#time-limit").value);
 
         // single player game options
         if($(this).data("startgame")=="single-player"){
