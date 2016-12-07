@@ -878,8 +878,7 @@ LatticeGame.prototype.initBoard = function(){
     // Draw the playing board
     var b = Snap("#board");
     var width = $( document ).width() * 0.95;
-    console.log(width, 'width');
-    console.log('width: ', width)
+    console.log('width: ', width);
     var single_sq = width / 6; // dimension of a single playing square
     var sq_c = single_sq / 2; // dimension to the middle of the square
     console.log('single_sq', single_sq);
@@ -912,7 +911,7 @@ LatticeGame.prototype.initBoard = function(){
     pattern_str += 'v' + Math.round(0).toString() + ',-';
     pattern_str += Math.round(edge_len).toString();
     pattern_str += 'Z';
-    console.log(pattern_str);
+    console.log('fill pattern string: ', pattern_str);
     //create pattern for board
 
     var boardPattern = b.path(pattern_str).attr({

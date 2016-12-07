@@ -6,7 +6,8 @@ $(document).ready(function() {
     global_game.initBoard();
 
     /* Set up single page navigation */
-    $('[data-navigate]').click(function(){
+    var setup = function() {
+        $('[data-navigate]').click(function(){
         // hide all content
         $('.content').addClass("hidden");
 
@@ -16,15 +17,25 @@ $(document).ready(function() {
         // show this specific div
         $("#" + $(this).data("navigate")).removeClass("hidden");
 
-         if ($(this).data("navigate") == "main-menu"){
-                console.log("STOOOOP");
-                global_game.stopGame();
-        }
-    });
+            if ($(this).data("navigate") == "main-menu"){
+                    console.log("STOOOOP");
+                    global_game.stopGame();
+            }
+        });
+    };
+
+    setup();
 
     /* start game button */
     $('[data-startgame]').click(function(){
-        console.log('here', $("#time-limit").value);
+        // check if valid time limit has been entered
+        var time_limit = document.getElementsByName('time-for-game')[0].value;
+
+        if (Number.isInteger(parseInt(time_limit)) === false) {
+            return setup();
+        } else if (time_limit <= 0) {
+            return setup();
+        }
 
         // single player game options
         if($(this).data("startgame")=="single-player"){
