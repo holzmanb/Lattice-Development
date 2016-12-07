@@ -7,18 +7,25 @@ $(document).ready(function() {
 
     /* Set up single page navigation */
     var setup = function() {
-        $('[data-navigate]').click(function(){
-        // hide all content
-        $('.content').addClass("hidden");
+        $('[data-navigate]').click(function() {
+            // hide all content
+            $('.content').addClass("hidden");
 
-        //Scroll to top of page
-        $(window).scrollTop();
+            //Scroll to top of page
+            $(window).scrollTop();
 
-        // show this specific div
-        $("#" + $(this).data("navigate")).removeClass("hidden");
+            // show this specific div
+            $("#" + $(this).data("navigate")).removeClass("hidden");
 
             if ($(this).data("navigate") == "main-menu"){
-                    console.log("STOOOOP");
+                    // reset global game options
+                    global_game.game_options = {};
+                    // reset the timer input forms
+                    var time_entries = document.getElementsByName("time-for-game");
+                    time_entries.forEach(function(entry) {
+                        entry.value = "";
+                    });
+                    //stop game
                     global_game.stopGame();
             }
         });
@@ -39,51 +46,49 @@ $(document).ready(function() {
 
         // single player game options
         if($(this).data("startgame")=="single-player"){
-            var game_options = {};
+
+            console.log()
             $("#single-player-starting-options :input").each(function(){
                     if(this.checked === true){
-                        game_options[$(this).attr("name")] = $(this).val();
+                        global_game.game_options[$(this).attr("name")] = $(this).val();
                     }
 
                     //timer converts minutes to milliseconds
                     if (this.name == "time-for-game" ){
-                        game_options[$(this).attr("name")] = $(this).val()*60;
+                        global_game.game_options[$(this).attr("name")] = $(this).val()*60;
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
                 });
-            game_options["game_type"] = "single_player";
+            global_game.game_options["game_type"] = "single_player";
         }
 
 
         // multi player game options
         if($(this).data("startgame") == "multi-player"){
-            var game_options = {};
             $("#multi-player-starting-options :input").each(function(){
                     if(this.checked === true){
-                        game_options[$(this).attr("name")] = $(this).val();
+                        global_game.game_options[$(this).attr("name")] = $(this).val();
                     }
                     //timer converts minutes to milliseconds
                     if (this.name == "time-for-game" ){
-                        game_options[$(this).attr("name")] = $(this).val()*60;
+                        global_game.game_options[$(this).attr("name")] = $(this).val()*60;
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
                 });
-            game_options["game_type"] = "multi-player";
+            global_game.game_options["game_type"] = "multi-player";
         }
 
         // sample game options
         if($(this).data("startgame")=="sample-game"){
 
-            var game_options = {};
-
-            game_options["game_type"] = "sample-game";
+            global_game.game_options["game_type"] = "sample-game";
         }
 
         //  game options is out of scope?
         // start the game
-        global_game.newGame(game_options);
+        global_game.newGame(global_game.game_options);
 
         // hide all divs
         $('.content').addClass("hidden");

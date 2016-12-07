@@ -20,6 +20,10 @@ var LatticeGame = function(){
     self.wins = [];
 
     self.message_controller = new LatticeMessageController();
+
+    // Initialize a game options object once with scope to allow
+    // resetting options when navigating in and out of game.
+    self.game_options = {};
 };
 
 LatticeGame.BoardState = function(){
