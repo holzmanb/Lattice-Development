@@ -10,7 +10,6 @@ $(document).ready(function() {
 
     /* Set up single page navigation */
     var setup = function() {
-        console.log('running setup?');
         $('[data-navigate]').click(function() {
             // hide all content
             $('.content').addClass("hidden");
@@ -70,7 +69,7 @@ $(document).ready(function() {
                         global_game.game_options[$(this).attr("name")] = $(this).val()*60;
                         // check if game options are valid
                         // if not, re-initialize
-                        if (check_inputs(this.value) === false) {
+                        if (check_inputs($(this).val()) === false) {
                             this.value = "Invalid time limit.";
                             $(this).addClass("error");
                         } else {
@@ -95,8 +94,9 @@ $(document).ready(function() {
                         global_game.game_options[$(this).attr("name")] = $(this).val()*60;
                         // check if game options are valid
                         // if not, re-initialize
-                        if (check_inputs(this.value) === false) {
-                            this.value = "Invalid time limit.";
+                        console.log(this.value, 'this valueee');
+                        if (check_inputs($(this).val()) === false) {
+                            this.value = "Invalid time limit 1.";
                             $(this).addClass("error");
                         } else {
                             start_ok = true;
@@ -139,8 +139,9 @@ $(document).ready(function() {
         }
     });
 
-    $("#timer").click(function(e) {
-        $("#time-limit").toggleClass("hidden");
+    $("[id='timer']").click(function() {
+        console.log('hi');
+        $(this).parent().siblings("#time-limit").toggleClass("hidden");
 
         // Reset game timer values for game_options object
         var game_timer = $(this).parent().siblings()[0];
@@ -150,6 +151,14 @@ $(document).ready(function() {
             $(game_timer).value = "Yes";
         }
         global_game.game_options['timed'] = $(game_timer).value;
+    });
+
+    // reset
+    $("input#time-limit").click(function() {
+        // Reset game timer values for game_options object
+        console.log('heere', this.value);
+        this.value = "";
+        $(this).removeClass("error");
     });
 
 });
