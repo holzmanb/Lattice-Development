@@ -5,11 +5,9 @@ $(document).ready(function() {
     global_game = new LatticeGame();
     global_game.initBoard();
 
-    // variable for avoiding starting game before all inputs are valid
-    var start_ok = false;
-
     /* Set up single page navigation */
     var setup = function() {
+        console.log('redo setup');
         $('[data-navigate]').click(function() {
             // hide all content
             $('.content').addClass("hidden");
@@ -21,15 +19,16 @@ $(document).ready(function() {
             $("#" + $(this).data("navigate")).removeClass("hidden");
 
             if ($(this).data("navigate") == "main-menu"){
-                    // reset global game options
-                    global_game.game_options = {};
-                    // reset the timer input forms
-                    var time_entries = document.getElementsByName("time-for-game");
-                    time_entries.forEach(function(entry) {
-                        entry.value = "";
-                    });
-                    //stop game
-                    global_game.stopGame();
+                console.log('reset');
+                // reset global game options
+                global_game.game_options = {};
+                // reset the timer input forms
+                var time_entries = document.getElementsByName("time-for-game");
+                time_entries.forEach(function(entry) {
+                    entry.value = "";
+                });
+                //stop game
+                global_game.stopGame();
             }
         });
     };
@@ -38,47 +37,30 @@ $(document).ready(function() {
 
     /* start game button */
     $('[data-startgame]').click(function(){
-        var check_inputs = function(game_time) {
-            // check if valid time limit has been entered
-            //var time_limit = document.getElementsByName('time-for-game')[0].value;
-            if (global_game.game_options['timed'] == "Yes") {
-                console.log('time limit: ', game_time);
-                if (Number.isInteger(parseInt(game_time)) === false) {
-                    console.log('not an integer');
-                    return false;
-                } else if (game_time <= 0) {
-                    console.log('negative or zero');
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return true;
-            }
-        };
 
         // single player game options
         if($(this).data("startgame")=="single-player") {
             $("#single-player-starting-options :input").each(function(){
-                    if(this.checked === true){
-                        global_game.game_options[$(this).attr("name")] = $(this).val();
+                if(this.checked === true){
+                    global_game.game_options[$(this).attr("name")] = $(this).val();
+                }
+                //timer converts minutes to milliseconds
+                if (this.name == "time-for-game" ){
+                    // timer is the range slider value
+                    var timer = $(this).siblings("#timer")[0];
+                    console.log('game option updated: ', $(this).attr("name"), ': ', $(this).val());
+                    // game is timed if id=timer element also has class box_checked
+                    if ( $(timer).attr("value") == "Yes" ) {
+                        global_game.game_options['timed'] = "Yes";
+                        global_game.game_options[this.name] = $(this).val()*60;
+                    } else {
+                        global_game.game_options['timed'] = "No";
+                        global_game.game_options[this.name] = "-";
                     }
-
-                    //timer converts minutes to milliseconds
-                    if (this.name == "time-for-game" ){
-                        global_game.game_options[$(this).attr("name")] = $(this).val()*60;
-                        // check if game options are valid
-                        // if not, re-initialize
-                        if (check_inputs($(this).val()) === false) {
-                            this.value = "Invalid time limit.";
-                            $(this).addClass("error");
-                        } else {
-                            start_ok = true;
-                        }
-                    }
-                    // this is only checking for radio buttons right now, cause we're not worried about anything else...
-                    // will have to do something for the timer & player info down the line
-                });
+                }
+                // this is only checking for radio buttons right now, cause we're not worried about anything else...
+                // will have to do something for the timer & player info down the line
+            });
             global_game.game_options["game_type"] = "single_player";
         }
 
@@ -88,19 +70,10 @@ $(document).ready(function() {
             $("#multi-player-starting-options :input").each(function(){
                     if(this.checked === true){
                         global_game.game_options[$(this).attr("name")] = $(this).val();
+                        //timer converts minutes to milliseconds
                     }
-                    //timer converts minutes to milliseconds
                     if (this.name == "time-for-game" ){
-                        global_game.game_options[$(this).attr("name")] = $(this).val()*60;
-                        // check if game options are valid
-                        // if not, re-initialize
-                        console.log(this.value, 'this valueee');
-                        if (check_inputs($(this).val()) === false) {
-                            this.value = "Invalid time limit 1.";
-                            $(this).addClass("error");
-                        } else {
-                            start_ok = true;
-                        }
+                        global_game.game_options[$(this).attr("name")] = $(this).val() * 60;
                     }
                     // this is only checking for radio buttons right now, cause we're not worried about anything else...
                     // will have to do something for the timer & player info down the line
@@ -111,20 +84,18 @@ $(document).ready(function() {
         // sample game options
         if($(this).data("startgame")=="sample-game"){
             global_game.game_options["game_type"] = "sample-game";
+            start_ok = true;
         }
 
         // start the game
-        if (start_ok === true) {
-            global_game.newGame(global_game.game_options);
 
-            // hide all divs
-            $('.content').addClass("hidden");
+        global_game.newGame(global_game.game_options);
 
-            // show this game div
-            $("#game").removeClass("hidden");
-        } else {
-            setup();
-        }
+        // hide all divs
+        $('.content').addClass("hidden");
+
+        // show this game div
+        $("#game").removeClass("hidden");
     });
 
     // Ties buttons to the global_game
@@ -140,25 +111,27 @@ $(document).ready(function() {
     });
 
     $("[id='timer']").click(function() {
-        console.log('hi');
-        $(this).parent().siblings("#time-limit").toggleClass("hidden");
-
-        // Reset game timer values for game_options object
-        var game_timer = $(this).parent().siblings()[0];
-        if (game_timer.value == "Yes") {
-            $(game_timer).value = "No";
-        } else if (game_timer.value == "No") {
-            $(game_timer).value = "Yes";
+        $( this ).siblings("#time-limit").toggleClass("hidden");
+        $( this ).siblings("#time").toggleClass("hidden");
+        $( this ).toggleClass("box_checked");
+        // timer value yes or no indicates whether game is timed
+        if ( $( this ).attr("value") == "Yes" ) {
+            $( this ).attr("value", "No");
+            // reset the time in game options to avoid
+            // legacy time being entered when user
+            // navigates in and out of settings menu
+            global_game.game_options['time-for-game'] = "-";
+        } else if ( $( this ).attr("value") == "No" ) {
+            $( this ).attr("value", "Yes");
         }
-        global_game.game_options['timed'] = $(game_timer).value;
     });
 
-    // reset
-    $("input#time-limit").click(function() {
-        // Reset game timer values for game_options object
-        console.log('heere', this.value);
-        this.value = "";
-        $(this).removeClass("error");
+    // game time limit selector
+    $( "[type=range]" ).change(function() {
+        console.log(this.value);
+        $( "#time" ).text( this.value  + " minutes");
     });
+
+
 
 });

@@ -128,14 +128,14 @@
             <form id="single-player-starting-options">
               <h4> Choose colour: </h4>
               <div class = "table-row">
-                <input type="radio" name="player_colour" value="black" id="pc1" checked>
+                <input type="radio" name="player_colour" value="black" id="pc1" checked="checked">
                 <label for="pc1"> Black </label>
                 <input type="radio" name="player_colour" value="white" id="pc2">
                 <label for="pc2"> White </label>
               </div>
               <h4> Difficulty: </h4>
               <div class = "table-row">
-                <input id="ai1" type="radio" name="ai_level" value="1" checked>
+                <input id="ai1" type="radio" name="ai_level" value="1" checked="checked">
                 <label for="ai1"> 1 </label>
                 <input id="ai2" type="radio" name="ai_level" value="2">
                 <label for="ai2"> 2 </label>
@@ -146,15 +146,11 @@
                 <input id="ai5" type="radio" name="ai_level" value="5" disabled>
                 <label for="ai5"> 5 </label>
               </div>
-              <!--<h4>Timed:</h4>-->
+              <!-- Timer: -->
               <div class="table-row">
-                <input id="t_m1" type="checkbox" name="timed" value="Yes" checked>
-                <label for="t_m1">
-                  <i class="fa fa-hourglass-half fa-2x" id="timer"></i>
-                </label>
-                <div id="time-limit">
-                  <input type="text" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
-                </div>
+                <i class="fa fa-hourglass-half fa-2x box_checked" id="timer" value="Yes"></i>
+                <label for"time-for-game" id="time">5 minutes</label>
+                <input type="range" min="1" max="30" step="1" value="5" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
               </div>
 
             </form>
@@ -172,10 +168,7 @@
             <form id="multi-player-starting-options">
             <!--<h4>Timed:</h4>-->
               <div class="table-row">
-                <input id="M_m1" type="checkbox" name="timed" value="Yes" checked>
-                <label for="M_m1">
-                  <i class="fa fa-hourglass-half fa-2x" id="timer"></i>
-                </label>
+                <i class="fa fa-hourglass-half fa-2x box_checked" id="timer" data="Yes"></i>
                 <div id="time-limit">
                   <input type="text" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
                 </div>
