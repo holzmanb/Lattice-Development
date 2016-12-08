@@ -7,7 +7,6 @@ $(document).ready(function() {
 
     /* Set up single page navigation */
     var setup = function() {
-        console.log('redo setup');
         $('[data-navigate]').click(function() {
             // hide all content
             $('.content').addClass("hidden");
@@ -19,7 +18,6 @@ $(document).ready(function() {
             $("#" + $(this).data("navigate")).removeClass("hidden");
 
             if ($(this).data("navigate") == "main-menu"){
-                console.log('reset');
                 // reset global game options
                 global_game.game_options = {};
                 // reset the timer input forms
@@ -38,6 +36,19 @@ $(document).ready(function() {
     /* start game button */
     $('[data-startgame]').click(function(){
 
+        var set_timer = function(time_el) {
+            // timer is the range slider value
+            var timer = $(time_el).siblings("#timer")[0];
+            // game is timed if id=timer element also has class box_checked
+            if ( $(timer).attr("value") == "Yes" ) {
+                global_game.game_options['timed'] = "Yes";
+                global_game.game_options[time_el.name] = $( time_el ).val()*60;
+            } else {
+                global_game.game_options['timed'] = "No";
+                global_game.game_options[time_el.name] = "-";
+            }
+        };
+
         // single player game options
         if($(this).data("startgame")=="single-player") {
             $("#single-player-starting-options :input").each(function(){
@@ -46,37 +57,21 @@ $(document).ready(function() {
                 }
                 //timer converts minutes to milliseconds
                 if (this.name == "time-for-game" ){
-                    // timer is the range slider value
-                    var timer = $(this).siblings("#timer")[0];
-                    console.log('game option updated: ', $(this).attr("name"), ': ', $(this).val());
-                    // game is timed if id=timer element also has class box_checked
-                    if ( $(timer).attr("value") == "Yes" ) {
-                        global_game.game_options['timed'] = "Yes";
-                        global_game.game_options[this.name] = $(this).val()*60;
-                    } else {
-                        global_game.game_options['timed'] = "No";
-                        global_game.game_options[this.name] = "-";
-                    }
+                    set_timer(this);
                 }
-                // this is only checking for radio buttons right now, cause we're not worried about anything else...
-                // will have to do something for the timer & player info down the line
             });
             global_game.game_options["game_type"] = "single_player";
         }
 
-
         // multi player game options
         if($(this).data("startgame") == "multi-player"){
             $("#multi-player-starting-options :input").each(function(){
-                    if(this.checked === true){
-                        global_game.game_options[$(this).attr("name")] = $(this).val();
-                        //timer converts minutes to milliseconds
-                    }
-                    if (this.name == "time-for-game" ){
-                        global_game.game_options[$(this).attr("name")] = $(this).val() * 60;
-                    }
-                    // this is only checking for radio buttons right now, cause we're not worried about anything else...
-                    // will have to do something for the timer & player info down the line
+                if(this.checked === true){
+                    global_game.game_options[$(this).attr("name")] = $(this).val();
+                }
+                if (this.name == "time-for-game" ){
+                    set_timer(this);
+                }
             });
             global_game.game_options["game_type"] = "multi-player";
         }
@@ -88,7 +83,6 @@ $(document).ready(function() {
         }
 
         // start the game
-
         global_game.newGame(global_game.game_options);
 
         // hide all divs
@@ -128,10 +122,7 @@ $(document).ready(function() {
 
     // game time limit selector
     $( "[type=range]" ).change(function() {
-        console.log(this.value);
-        $( "#time" ).text( this.value  + " minutes");
+        $( this ).siblings( "#time" ).text( this.value  + " minutes");
     });
-
-
 
 });

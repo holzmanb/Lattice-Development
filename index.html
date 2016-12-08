@@ -35,7 +35,7 @@
   </script>
 </head>
 <body>
-  <div class="loader" hidden>
+  <div class="loader">
     <svg id="loader-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
     <div id="play-button">Play</div>
   </div>
@@ -146,13 +146,13 @@
                 <input id="ai5" type="radio" name="ai_level" value="5" disabled>
                 <label for="ai5"> 5 </label>
               </div>
-              <!-- Timer: -->
+              <!-- Start Timer: -->
               <div class="table-row">
                 <i class="fa fa-hourglass-half fa-2x box_checked" id="timer" value="Yes"></i>
-                <label for"time-for-game" id="time">5 minutes</label>
+                <label for"time-for-game" id="time">Set time</label>
                 <input type="range" min="1" max="30" step="1" value="5" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
               </div>
-
+              <!-- End Timer: -->
             </form>
               <div class="table-row">
                 <div class="button back" data-navigate="main-menu"><i class="fa fa-backward fa-2x"></i></div>
@@ -166,13 +166,13 @@
             <div class="about-info">
 
             <form id="multi-player-starting-options">
-            <!--<h4>Timed:</h4>-->
+              <!-- Start Timer: -->
               <div class="table-row">
-                <i class="fa fa-hourglass-half fa-2x box_checked" id="timer" data="Yes"></i>
-                <div id="time-limit">
-                  <input type="text" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
-                </div>
+                <i class="fa fa-hourglass-half fa-2x box_checked" id="timer" value="Yes"></i>
+                <label for"time-for-game" id="time">Set time</label>
+                <input type="range" min="1" max="30" step="1" value="5" name="time-for-game" id="time-limit" placeholder="Time Limit (min)">
               </div>
+              <!-- End Timer: -->
             </form>
               <div class="table-row">
                 <div class="button back" data-navigate="main-menu"><i class="fa fa-backward fa-2x"></i></div>
